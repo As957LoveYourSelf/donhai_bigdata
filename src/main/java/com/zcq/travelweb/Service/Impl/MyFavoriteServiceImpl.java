@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zcq.travelweb.Data.Favorite;
 import com.zcq.travelweb.Data.TravelRoute;
 import com.zcq.travelweb.Mapper.MyFavoriteMapper;
-import com.zcq.travelweb.Mapper.RouteMapper;
 import com.zcq.travelweb.Service.MyFavoriteService;
 import com.zcq.travelweb.Service.RouteListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,13 @@ public class MyFavoriteServiceImpl extends ServiceImpl<MyFavoriteMapper, Favorit
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         String d = dateFormat.format(date);
         favorite.setDate(strToDateLong(d));
-        return saveOrUpdate(favorite);
+        System.out.println(favorite);
+        try{
+            saveOrUpdate(favorite);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     private Date strToDateLong(String strDate) {

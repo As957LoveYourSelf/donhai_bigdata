@@ -34,7 +34,7 @@
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="row">
                             <div class="col-md-3" th:each="favorite:${favorites}">
-                                <a th:href="'/toroutedetail?routeid='+${favorite.getRid()}">
+                                <a th:href="'/route_detail/toroutedetail?routeid='+${favorite.getRid()}">
                                     <img th:src="${favorite.getRimage()}" th:alt="${favorite.getRouteIntroduce()}">
                                     <div class="has_border">
                                         <h3 th:text="${favorite.getRname()}"></h3>

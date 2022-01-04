@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class RouteDetailController {
 
@@ -16,7 +19,6 @@ public class RouteDetailController {
 
     @RequestMapping("/toroutedetail")
     public String toRouteDetail(Integer routeid,
-                                @RequestParam(defaultValue = "watch") String status,
                                 Model model){
 
         TravelRoute routeDetail = routeDetailService.getRouteDetail(routeid);
