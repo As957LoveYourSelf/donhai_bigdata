@@ -1,0 +1,12 @@
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Data/Favorite.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Utils/JedisUtil.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Utils/JdbcUtils.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Utils/UuidUtil.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/TravelWebApplication.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Data/Seller.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Data/User.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Data/TravelRouteCategory.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Data/TravelRoute.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Data/TravelImg.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Utils/Md5Util.java
+/home/aszcq/IdeaProjects/TravelWeb/src/main/java/com/zcq/travelweb/Utils/MailUtils.java
