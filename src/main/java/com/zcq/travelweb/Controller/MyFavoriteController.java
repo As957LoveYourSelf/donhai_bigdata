@@ -46,10 +46,15 @@ public class MyFavoriteController {
             pageNum = 1;
         }
         PageHelper.startPage(pageNum, 12);
-        List<TravelRoute> favorites = myFavoriteService.getMyFavorite(userid, routeList);
-        PageInfo<TravelRoute> pageInfo = new PageInfo<>(favorites);
-        model.addAttribute("pageInfo", pageInfo);
-        model.addAttribute("favorites",favorites);
+        List<TravelRoute> favorites = null;
+        try{
+            favorites = myFavoriteService.getMyFavorite(userid, routeList);
+            PageInfo<TravelRoute> pageInfo = new PageInfo<>(favorites);
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("favorites",favorites);
+        }catch (NullPointerException e){
+            model.addAttribute("favorites",null);
+        }
         return "myfavorite";
     }
 
