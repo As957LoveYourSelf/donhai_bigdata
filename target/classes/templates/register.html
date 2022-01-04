@@ -39,7 +39,7 @@
     								<label for="password">密码</label>
     							</td>
     							<td class="td_right">
-    								<input type="password" id="password" name="password" th:placeholder="请输入密码">
+    								<input type="text" id="password" name="password" th:placeholder="请输入密码">
     							</td>
     						</tr>
     						<tr>
@@ -47,7 +47,7 @@
     								<label for="email">Email</label>
     							</td>
     							<td class="td_right">
-    								<input type="email" id="email" name="email" th:placeholder="请输入Email">
+    								<input type="text" id="email" name="email" th:placeholder="请输入Email">
     							</td>
     						</tr>
     						<tr>
@@ -93,7 +93,7 @@
 									<script type="text/javascript">
 										//图片点击事件
 										function changeCheckCode() {
-											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
+											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
 										}
 										function timestamp(url) {
 											const getTimestamp = new Date().getTime();

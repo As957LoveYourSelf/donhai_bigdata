@@ -46,29 +46,35 @@
 						<input id="password" name="password" type="password" th:placeholder="请输入密码" autocomplete="off">
 					</label>
 					<div class="verify">
-						<label>
-							<input name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
-						</label>
-						<div>
-							<span>
-								<img id="codeimg" alt="看不清，换一张" th:src="@{/user/getcode}" onclick="changeCheckCode()">
-							</span>
-						</div>
-						<script type="text/javascript">
-							//图片点击事件
-							function changeCheckCode() {
-								document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
-							}
-							function timestamp(url) {
-								const getTimestamp = new Date().getTime();
-								if (url.indexOf("?") > -1) {
-									url = url + "&timestamp=" + getTimestamp
-								} else {
-									url = url + "?timestamp=" + getTimestamp
-								}
-								return url;
-							}
-						</script>
+						<tr>
+							<td class="td_left">
+								<label>
+									<input name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
+								</label>
+							</td>
+							<td class="td_right">
+								<div>
+									<span>
+										<img id="codeimg" alt="看不清，换一张" th:src="@{/user/getcode}" onclick="changeCheckCode()">
+									</span>
+								</div>
+								<script type="text/javascript">
+									//图片点击事件
+									function changeCheckCode() {
+										document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
+									}
+									function timestamp(url) {
+										const getTimestamp = new Date().getTime();
+										if (url.indexOf("?") > -1) {
+											url = url + "&timestamp=" + getTimestamp
+										} else {
+											url = url + "?timestamp=" + getTimestamp
+										}
+										return url;
+									}
+								</script>
+							</td>
+						</tr>
 					</div>
 					<div class="submit_btn">
         				<button type="submit">登录</button>
