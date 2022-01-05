@@ -36,7 +36,7 @@ public class RouteListServiceImpl extends ServiceImpl<RouteMapper, TravelRoute> 
         return routeMapper.selectList(queryWrapper);
     }
 
-    //通过
+    //通过关键字查找
     @Override
     public List<TravelRoute> getRoutesByKeyValue(String value) {
         QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();

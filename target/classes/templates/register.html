@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
-        <title>注册</title>
+        <title>东海宁大恋爱旅游网-注册页面</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
         <link rel="stylesheet" type="text/css" th:href="@{/css/register.css}">
 		<!--导入jquery-->
@@ -120,7 +120,7 @@
     			<div class="rg_form_right">
     				<p>
     					已有账号？
-    					<a th:href="@{/toLogin}">立即登录</a>
+    					<a th:href="@{/user/toLogin}">立即登录</a>
     				</p>
     			</div>
     		</div>
@@ -136,7 +136,7 @@
 				* */
 				function checkusername() {
 				var username = $("#username").val();
-				var flag = (username.length >0) ? true:false;
+				var flag = (username.length > 0);
 				if (flag) {
 				//用户名合法
 				$("#username").css("border", "");
