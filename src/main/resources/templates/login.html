@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>卓越旅游网-</title>
+    <title>卓越旅游网-登录</title>  
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
@@ -57,7 +57,7 @@
 						<script type="text/javascript">
 							//图片点击事件
 							function changeCheckCode() {
-								document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
+								document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
 							}
 							function timestamp(url) {
 								const getTimestamp = new Date().getTime();
