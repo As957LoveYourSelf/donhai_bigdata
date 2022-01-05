@@ -20,44 +20,40 @@ public class IndexController {
     RouteListService routeListService;
 
     @RequestMapping("/toIndex")
-    public String firsttoIndex(HttpServletRequest request,String selectType,
-                               @RequestParam(defaultValue = "") String cid,
-                               Model model){
+    public String toIndex(HttpServletRequest request,
+                          Model model) {
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null){
+        if (session.getAttribute("user") == null) {
             session.setAttribute("user", null);
         }
         try {
-            if (selectType.equals("selectHot") && !cid.equals("4")){
-                PageHelper.startPage(1,6);
-                List<TravelRoute> routeList = routeListService.getHotRoutesBy(Integer.parseInt(cid));
-                model.addAttribute("jw_routes",routeList);
-            }
-            if (selectType.equals("selectHot") && !cid.equals("5")){
-                PageHelper.startPage(1,6);
-                List<TravelRoute> routeList = routeListService.getHotRoutesBy(Integer.parseInt(cid));
-                model.addAttribute("gn_routes",routeList);
-            }
-            if(selectType.equals("selectTheme")){
-                PageHelper.startPage(1,4);
-                List<TravelRoute> routeList = routeListService.getThemeRoutes();
-                model.addAttribute("themeroutes",routeList);
-            }
-            if(selectType.equals("selectNewest")){
-                PageHelper.startPage(1,4);
-                List<TravelRoute> routeList = routeListService.getNewestRoutes();
-                model.addAttribute("newestroutes",routeList);
-            }
-            if (selectType.equals("selectHot")){
-                PageHelper.startPage(1,4);
-                List<TravelRoute> routeList = routeListService.getHotRoutes();
-                model.addAttribute("proproutes",routeList);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        finally {
+            PageHelper.startPage(1, 6);
+            List<TravelRoute> jw_routes = routeListService.getHotRoutesBy(4);
+            model.addAttribute("jw_routes", jw_routes);
             PageHelper.clearPage();
+
+            PageHelper.startPage(1, 6);
+            List<TravelRoute> gn_routes = routeListService.getHotRoutesBy(5);
+            model.addAttribute("gn_routes", gn_routes);
+            PageHelper.clearPage();
+
+            PageHelper.startPage(1, 4);
+            List<TravelRoute> themeroutes = routeListService.getThemeRoutes();
+            model.addAttribute("themeroutes", themeroutes);
+            PageHelper.clearPage();
+
+            PageHelper.startPage(1, 4);
+            List<TravelRoute> newestroutes = routeListService.getNewestRoutes();
+            model.addAttribute("newestroutes", newestroutes);
+            PageHelper.clearPage();
+
+            PageHelper.startPage(1, 4);
+            List<TravelRoute> proproutes = routeListService.getHotRoutes();
+            model.addAttribute("proproutes", proproutes);
+            PageHelper.clearPage();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return "index";
     }
