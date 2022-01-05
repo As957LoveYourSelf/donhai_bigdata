@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+import javax.sql.RowSet;
 import java.util.Date;
 
 @Data
@@ -34,4 +35,5 @@ public class User {
     private String email;
     private char status;
     private String code;
+
 }

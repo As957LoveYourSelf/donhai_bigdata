@@ -27,6 +27,7 @@ public class LoginController {
         return "login";
     }
 
+
     @GetMapping("/getcode")
     public void getcode(HttpServletResponse response, HttpServletRequest request){
         CodeUtils.getvalidateCode(request, response);
