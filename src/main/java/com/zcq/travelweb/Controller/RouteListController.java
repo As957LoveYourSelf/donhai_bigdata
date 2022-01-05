@@ -48,7 +48,7 @@ public class RouteListController {
                 PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);
                 model.addAttribute("pageInfo", pageInfo);
                 model.addAttribute("routes",routeList);
-                model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"pageNum=");
+                model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"&pageNum=");
                 return "route_list";
             }
             if (selectType.equals("selectbyValue")){
@@ -64,7 +64,7 @@ public class RouteListController {
                 PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);
                 model.addAttribute("pageInfo", pageInfo);
                 model.addAttribute("routes",routeList);
-                model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"pageNum=");
+                model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"&pageNum=");
                 return "route_list";
             }
 
