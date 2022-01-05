@@ -6,5 +6,8 @@ import com.zcq.travelweb.Data.TravelRoute;
 import java.util.List;
 
 public interface RouteListService extends IService<TravelRoute> {
-    public List<TravelRoute> getRouteList();
+    List<TravelRoute> getRouteList();
+    List<TravelRoute> getRoutesByCategoryId(Integer cid);
+    List<TravelRoute> getRoutesByKeyValue(String value);
+    List<TravelRoute> getHotRoutes();
 }

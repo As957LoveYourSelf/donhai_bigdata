@@ -9,6 +9,7 @@ public class myWebMvcConfigures implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/tologin").excludePathPatterns("/user/checkcode")
-                .excludePathPatterns("/user/getcode");
+                .excludePathPatterns("/user/getcode").excludePathPatterns("/favorite/**")
+                .excludePathPatterns("classpath:/static/**");
     }
 }
