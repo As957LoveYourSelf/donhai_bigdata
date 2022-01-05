@@ -84,7 +84,7 @@
                         <!-- 4 -->
                         <div class="row">
                             <div class="col-md-3"  th:if="${proproutes != null}" th:each="route:${proproutes}">
-                                <a th:href="'/toroutedetail?rid='+${route.getRid()}">
+                                <a th:href="'/toroutedetail?routeid='+${route.getRid()}">
                                     <img th:src="${route.getRimage()}" alt="">
                                     <div class="has_border">
                                         <h3 th:utext="${route.getRname()}"></h3>
@@ -101,7 +101,7 @@
                         <!-- 4 -->
                         <div class="row">
                             <div class="col-md-3"  th:if="${newestroutes != null}" th:each="route:${newestroutes}">
-                                <a th:href="'/toroutedetail?rid='+${route.getRid()}">
+                                <a th:href="'/toroutedetail?routeid='+${route.getRid()}">
                                     <img th:src="${route.getRimage()}" alt="">
                                     <div class="has_border">
                                         <h3 th:utext="${route.getRname()}"></h3>
@@ -118,7 +118,7 @@
                         <!-- 4 -->
                         <div class="row">
                             <div class="col-md-3"  th:if="${themeroutes != null}" th:each="route:${themeroutes}">
-                                <a th:href="'/toroutedetail?rid='+${route.getRid()}">
+                                <a th:href="'/toroutedetail?routeid='+${route.getRid()}">
                                     <img th:src="${route.getRimage()}" alt="">
                                     <div class="has_border">
                                         <h3 th:utext="${route.getRname()}"></h3>
@@ -150,7 +150,7 @@
                 <div class="guone_r">
                     <div class="row">
                         <div class="col-md-4"  th:if="${gn_routes != null}" th:each="route:${gn_routes}">
-                            <a th:href="'/toroutedetail?rid='+${route.getRid()}">
+                            <a th:href="'/toroutedetail?routeid='+${route.getRid()}">
 								<img th:src="${route.getRimage()}" alt="">
 								<div class="has_border">
 									<h3 th:utext="${route.getRname()}"></h3>
@@ -181,7 +181,7 @@
                 <div class="guone_r">
                     <div class="row">
                         <div class="col-md-4" th:if="${jw_routes != null}" th:each="route:${jw_routes}">
-                            <a th:href="'/toroutedetail?rid='+${route.getRid()}">
+                            <a th:href="'/toroutedetail?routeid='+${route.getRid()}">
 								<img th:src="${route.getRimage()}" alt="">
 								<div class="has_border">
 									<h3 th:utext="${route.getRname()}"></h3>

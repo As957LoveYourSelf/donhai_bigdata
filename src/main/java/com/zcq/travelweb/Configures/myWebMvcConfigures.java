@@ -10,6 +10,6 @@ public class myWebMvcConfigures implements WebMvcConfigurer {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/user/toLogin").excludePathPatterns("/user/checkcode")
                 .excludePathPatterns("/user/getcode").excludePathPatterns("/favorite/**")
-                .excludePathPatterns("classpath:/static/**");
+                .excludePathPatterns("classpath:/static/**").excludePathPatterns("/");
     }
 }
