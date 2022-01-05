@@ -20,18 +20,13 @@ public class IndexController {
     RouteListService routeListService;
 
     @RequestMapping("/toIndex")
-    public String firsttoIndex(HttpServletRequest request){
+    public String firsttoIndex(HttpServletRequest request,String selectType,
+                               @RequestParam(defaultValue = "") String cid,
+                               Model model){
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null){
             session.setAttribute("user", null);
         }
-        return "index";
-    }
-
-    @RequestMapping("/showRoutes")
-    public String showRoutes(String selectType,
-                             @RequestParam(defaultValue = "") String cid,
-                             Model model){
         try {
             if (selectType.equals("selectHot") && !cid.equals("4")){
                 PageHelper.startPage(1,6);

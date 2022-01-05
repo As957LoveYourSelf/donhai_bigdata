@@ -82,7 +82,7 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="popularity">
                         <!-- 4 -->
-                        <div class="row" th:src="'/showRoutes?selectType='+'selectHot'">
+                        <div class="row" th:src="'/toIndex?selectType='+'selectHot'">
                             <div class="col-md-3"  th:if="${proproutes != null}" th:each="route:${proproutes}">
                                 <a th:href="'/toroutedetail?rid='+${route.getRid()}">
                                     <img th:src="${route.getRimage()}" alt="">
@@ -99,7 +99,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="newest">
                         <!-- 4 -->
-                        <div class="row" th:src="'/showRoutes?selectType='+'selectNewest'">
+                        <div class="row" th:src="'/toIndex?selectType='+'selectNewest'">
                             <div class="col-md-3"  th:if="${newestroutes != null}" th:each="route:${newestroutes}">
                                 <a th:href="'/toroutedetail?rid='+${route.getRid()}">
                                     <img th:src="${route.getRimage()}" alt="">
@@ -116,7 +116,7 @@
                     </div>
                     <div role="tabpanel" class="tab-pane" id="theme">
                         <!-- 4 -->
-                        <div class="row" th:src="'/showRoutes?selectType='+'selectTheme'">
+                        <div class="row" th:src="'/toIndex?selectType='+'selectTheme'">
                             <div class="col-md-3"  th:if="${themeroutes != null}" th:each="route:${themeroutes}">
                                 <a th:href="'/toroutedetail?rid='+${route.getRid()}">
                                     <img th:src="${route.getRimage()}" alt="">
@@ -148,7 +148,7 @@
                     <img th:src="@{/images/guonei_1.jpg}" alt="">
                 </div>
                 <div class="guone_r">
-                    <div class="row" th:src="'/showRoutes?selectType='+'selectHot'+'&cid='+'5'">
+                    <div class="row" th:src="'/toIndex?selectType='+'selectHot'+'&cid='+'5'">
                         <div class="col-md-4"  th:if="${gn_routes != null}" th:each="route:${gn_routes}">
                             <a th:href="'/toroutedetail?rid='+${route.getRid()}">
 								<img th:src="${route.getRimage()}" alt="">
@@ -179,7 +179,7 @@
                     <img th:src="@{/images/jiangwai_1.jpg}" alt="">
                 </div>
                 <div class="guone_r">
-                    <div class="row" th:src="'/showRoutes?selectType='+'selectHot'+'&cid='+'4'">
+                    <div class="row" th:src="'/toIndex?selectType='+'selectHot'+'&cid='+'4'">
                         <div class="col-md-4" th:if="${jw_routes != null}" th:each="route:${jw_routes}">
                             <a th:href="'/toroutedetail?rid='+${route.getRid()}">
 								<img th:src="${route.getRimage()}" alt="">
