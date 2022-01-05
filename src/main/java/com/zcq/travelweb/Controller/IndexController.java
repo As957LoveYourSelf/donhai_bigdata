@@ -10,9 +10,15 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 
     @RequestMapping("/toIndex")
-    public String toIndex(HttpServletRequest request){
+    public String firsttoIndex(HttpServletRequest request){
         HttpSession session = request.getSession();
         session.setAttribute("user", null);
         return "index";
     }
+
+    @RequestMapping("/everIndex")
+    public String toIndex(){
+        return "index";
+    }
+
 }
