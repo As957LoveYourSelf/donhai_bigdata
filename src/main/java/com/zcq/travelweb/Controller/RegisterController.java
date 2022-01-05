@@ -1,22 +1,18 @@
 package com.zcq.travelweb.Controller;
 
 import com.zcq.travelweb.Data.User;
-import com.zcq.travelweb.Mapper.UserMapper;
 import com.zcq.travelweb.Service.RegisterService;
-import com.zcq.travelweb.Utils.CodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 @Controller
+@RequestMapping("user")
 public class RegisterController {
 
     @Autowired(required = false)
