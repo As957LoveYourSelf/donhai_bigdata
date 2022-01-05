@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
+
+<head>
         <meta charset="utf-8">
         <title>注册</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
@@ -39,7 +40,7 @@
     								<label for="password">密码</label>
     							</td>
     							<td class="td_right">
-    								<input type="text" id="password" name="password" th:placeholder="请输入密码">
+    								<input type="password" id="password" name="password" th:placeholder="请输入密码">
     							</td>
     						</tr>
     						<tr>
@@ -121,7 +122,7 @@
     			<div class="rg_form_right">
     				<p>
     					已有账号？
-    					<a th:href="@{/toLogin}">立即登录</a>
+    					<a th:href="@{/user/toLogin}">立即登录</a>
     				</p>
     			</div>
     		</div>

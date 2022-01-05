@@ -47,33 +47,23 @@
 					</label>
 					<div class="verify">
 						<tr>
-							<td class="td_left">
-								<label>
-									<input name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
-								</label>
-							</td>
-							<td class="td_right">
-								<div>
-									<span>
-										<img id="codeimg" alt="看不清，换一张" th:src="@{/user/getcode}" onclick="changeCheckCode()">
-									</span>
-								</div>
+								<input   name="" type="text" th:placeholder="请输入验证码" autocomplete="off">
+								<img height="32px" id="codeimg" th:src="@{/user/getcode}" alt="" onclick="changeCheckCode()">
 								<script type="text/javascript">
-									//图片点击事件
-									function changeCheckCode() {
-										document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
-									}
-									function timestamp(url) {
-										const getTimestamp = new Date().getTime();
-										if (url.indexOf("?") > -1) {
-											url = url + "&timestamp=" + getTimestamp
-										} else {
-											url = url + "?timestamp=" + getTimestamp
-										}
-										return url;
-									}
+                                    //图片点击事件
+                                    function changeCheckCode() {
+                                        document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
+                                    }
+                                    function timestamp(url) {
+                                        const getTimestamp = new Date().getTime();
+                                        if (url.indexOf("?") > -1) {
+                                            url = url + "&timestamp=" + getTimestamp
+                                        } else {
+                                            url = url + "?timestamp=" + getTimestamp
+                                        }
+                                        return url;
+                                    }
 								</script>
-							</td>
 						</tr>
 					</div>
 					<div class="submit_btn">
@@ -81,8 +71,9 @@
         				<div class="auto_login">
 							<label>
 								<input type="checkbox" name="" class="checkbox">
+								<span class="auto_login1">自动登录</span>
 							</label>
-							<span>自动登录</span>
+
         				</div>        				
         			</div>        			       		
         		</form>
