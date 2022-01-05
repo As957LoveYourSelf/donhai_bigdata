@@ -9,4 +9,5 @@ import java.util.Date;
 public interface RegisterService extends IService<User> {
     String UserRegister(User user);
     Date strToDateLong(String strDate);
+    String checkcode(String code, String Rcode);
 }

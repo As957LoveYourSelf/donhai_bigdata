@@ -8,7 +8,8 @@ public class myWebMvcConfigures implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/tologin").excludePathPatterns("/user/checkcode")
-                .excludePathPatterns("/user/getcode");
+                .excludePathPatterns("/user/toLogin").excludePathPatterns("/user/checkcode")
+                .excludePathPatterns("/user/getcode").excludePathPatterns("/favorite/**")
+                .excludePathPatterns("classpath:/static/**");
     }
 }
