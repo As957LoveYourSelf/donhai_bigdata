@@ -53,4 +53,12 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, User> imple
         ParsePosition pos = new ParsePosition(0);
         return formatter.parse(strDate, pos);
     }
+
+    @Override
+    public String checkcode(String code, String Rcode) {
+        if (code.toUpperCase().equals(Rcode)){
+            return "check_ok";
+        }
+        return "check_error";
+    }
 }

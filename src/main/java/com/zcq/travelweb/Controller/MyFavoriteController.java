@@ -11,25 +11,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
+@RequestMapping("/favorite")
 public class MyFavoriteController {
 
     @Autowired(required = false)
     MyFavoriteService myFavoriteService;
     @Autowired(required = false)
     List<TravelRoute> routeList;
+    @Autowired(required = false)
+    RouteDetailController routeDetailController;
 
     @RequestMapping("/addFavorite")
     public String addFavorite(Integer rid,
-                              Integer uid,
+                              String uid,
                               Model model){
-        if (null == uid){
+        if (null == uid || uid.equals("nouser")){
             model.addAttribute("msg", "请先登录！");
-            return "route_detail";
+            return routeDetailController.toRouteDetail(rid,model);
         }
-        myFavoriteService.addFavorite(uid, rid);
+        myFavoriteService.addFavorite(Integer.parseInt(uid), rid);
+        System.out.println("Add_OK");
         model.addAttribute("add_ok", "收藏成功！");
         return "route_detail";
     }
@@ -46,10 +51,15 @@ public class MyFavoriteController {
             pageNum = 1;
         }
         PageHelper.startPage(pageNum, 12);
-        List<TravelRoute> favorites = myFavoriteService.getMyFavorite(userid, routeList);
-        PageInfo<TravelRoute> pageInfo = new PageInfo<>(favorites);
-        model.addAttribute("pageInfo", pageInfo);
-        model.addAttribute("favorites",favorites);
+        List<TravelRoute> favorites = null;
+        try{
+            favorites = myFavoriteService.getMyFavorite(userid, routeList);
+            PageInfo<TravelRoute> pageInfo = new PageInfo<>(favorites);
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("favorites",favorites);
+        }catch (NullPointerException e){
+            model.addAttribute("favorites",null);
+        }
         return "myfavorite";
     }
 

@@ -31,14 +31,12 @@
 }
 
 .alert {
-    margin: 0 auto;
     padding: 6px 10px;
-    border: 1px solid transparent;   
     text-align: left;
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
-    margin-bottom: 17px;
+    margin: 0 auto 17px;
     font-size: 12px;
 }
 .login_inner form{
@@ -50,7 +48,7 @@
 .login_inner input {
     display: inline-block;
     width: 246px;
-    height: 26px;
+    height: 32px;
     border: 1px solid #d8d8d8;   
     font-size: 14px;
     color: #666;
@@ -63,7 +61,7 @@
     margin-bottom: 17px;
 }
 .verify input {
-    width: 95px;
+    width: 148px;
     margin-right: 20px;
     float: left;
     margin-bottom: 0;
@@ -83,7 +81,7 @@
     float: left;
 }
 .auto_login {
-   margin-top: 15px;
+   margin-top: 20px;
 }
 .submit_btn .checkbox {
     float: left;
@@ -91,7 +89,7 @@
     margin: 7px 5px 0 54px;
 }
 .submit_btn  span {
-    line-height: 35px;
+    line-height: 45px;
 }
 
 .reg {
@@ -106,4 +104,8 @@
 }
 .reg a {
     color: #fc7f7f;
+}
+
+.auto_login1{
+    margin-top: 14px;
 }
