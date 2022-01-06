@@ -16,7 +16,11 @@
 	line-height: 35px;
 	margin: 0 auto;
 }
-
+div#carousel-example-generic {
+	align-content: center;
+	/*margin-left: 1050px;*/
+	width: 100%;
+}
 .jx_top {
 	margin-top: 35px;
 	border-bottom: 2px solid #ffc900;
