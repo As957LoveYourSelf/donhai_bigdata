@@ -1,8 +1,8 @@
 package com.zcq.travelweb.Data;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.jeffreyning.mybatisplus.anno.MppMultiId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +19,10 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("tab_favorite")
 public class Favorite {
+    @MppMultiId
     private int rid;
     @DateTimeFormat(pattern = "yyyy-MM-dd :hh:mm:ss")
-    @TableId
     private Date date;
-    private int uid;
+    @MppMultiId
+    private String  uid;
 }

@@ -17,6 +17,7 @@ public class RouteDetailController {
     @Autowired(required = false)
     RouteDetailService routeDetailService;
 
+    //TODO:添加判断登录用户是否已收藏该旅游线路的功能
     @RequestMapping("/toroutedetail")
     public String toRouteDetail(Integer routeid,
                                 Model model){
