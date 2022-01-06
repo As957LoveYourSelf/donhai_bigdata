@@ -31,14 +31,12 @@
 }
 
 .alert {
-    margin: 0 auto;
     padding: 6px 10px;
-    border: 1px solid transparent;   
     text-align: left;
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
-    margin-bottom: 17px;
+    margin: 0 auto 17px;
     font-size: 12px;
 }
 .login_inner form{
@@ -91,7 +89,7 @@
     margin: 7px 5px 0 54px;
 }
 .submit_btn  span {
-    line-height: 40px;
+    line-height: 45px;
 }
 
 .reg {
