@@ -36,7 +36,7 @@ public class RouteListServiceImpl extends ServiceImpl<RouteMapper, TravelRoute> 
         return routeMapper.selectList(queryWrapper);
     }
 
-    //通过
+    //通过关键字查找
     @Override
     public List<TravelRoute> getRoutesByKeyValue(String value) {
         QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
@@ -48,6 +48,27 @@ public class RouteListServiceImpl extends ServiceImpl<RouteMapper, TravelRoute> 
     public List<TravelRoute> getHotRoutes() {
         QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("count");
+        return routeMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<TravelRoute> getHotRoutesBy(Integer cid) {
+        QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("cid", cid).orderByDesc("count");
+        return routeMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<TravelRoute> getThemeRoutes() {
+        QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("isThemeTour",'1').orderByDesc("count");
+        return routeMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<TravelRoute> getNewestRoutes() {
+        QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("rdate");
         return routeMapper.selectList(queryWrapper);
     }
 
