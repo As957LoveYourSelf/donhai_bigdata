@@ -19,7 +19,7 @@ public class IndexController {
     @Autowired(required = false)
     RouteListService routeListService;
 
-    @RequestMapping({"/toIndex","/"})
+    @RequestMapping("/toIndex")
     public String toIndex(HttpServletRequest request,
                           Model model) {
         HttpSession session = request.getSession();
