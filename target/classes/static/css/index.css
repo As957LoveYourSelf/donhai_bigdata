@@ -1,7 +1,7 @@
 .search_input {
 	height: 40px;
 }
-/*黑马精选*/
+
 #content {
 	margin-bottom: 60px;
 }
@@ -101,7 +101,6 @@ div#carousel-example-generic {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    overflow: hidden;
 }
 .jx_content img, .guone_r .row img {
 	display: block;

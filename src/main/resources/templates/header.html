@@ -14,7 +14,7 @@
             <div class="login" th:if="${session.user!= null}">
                 <span th:text="'Welcome, '+${session.user.getUsername()}"></span>
                 <a th:href="'/favorite/GetMyFavorite?uid='+${session.user.uid}" class="collection">我的收藏</a>
-                <a href="#">退出</a>
+                <a th:href="@{/user/logout}">退出</a>
             </div>
         </div>
         <div class="header_wrap">
