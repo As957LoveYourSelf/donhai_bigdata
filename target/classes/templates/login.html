@@ -1,97 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>卓越旅游网-登录</title>
+    <title>东海宁大恋爱旅游网-登录</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-      <!--导入angularJS文件-->
-    <script th:src="@{/js/angular.min.js}"></script>
-	<!--导入jquery-->
-	<script th:src="@{/js/jquery-3.3.1.js}"></script>
+    <!--导入angularJS文件-->
+    <script th:src="@{/js/angular.js}"></script>
+    <!--导入jquery-->
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
 </head>
 
 <body>
 <!--引入头部-->
 <div th:include="header::header"></div>
-    <!-- 头部 end -->
-    <section id="login_wrap">
-        <div class="fullscreen-bg" th:style="'background:url('+'/images/login_bg.png'+');'+' height:'+'532px'">
-        	
-        </div>
-        <div class="login-box">
-        	<div class="title">
-        		<img th:src="@{/images/login_logo.png}" alt="">
-        		<span>欢迎登录卓越旅游账户</span>
-        	</div>
-        	<div class="login_inner">
-				<!--登录错误提示消息-->
-				<form id="loginForm" th:action="@{/user/checkAccount}" method="post" accept-charset="utf-8">
-        			<h1 class="h3 mb-3 font">登录</h1>
-					<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
-					<label>
-						<input id="username" name="username" type="text" th:placeholder="请输入用户名" autocomplete="off">
-					</label>
-					<label>
-						<input id="password" name="password" type="password" th:placeholder="请输入密码" autocomplete="off">
-					</label>
-					<div class="verify">
-						<label>
-							<input name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
-						</label>
-						<div>
-							<span>
-								<img id="codeimg" alt="看不清，换一张" th:src="@{/user/getcode}" onclick="changeCheckCode()">
-							</span>
-						</div>
-						<script type="text/javascript">
-							//图片点击事件
-							function changeCheckCode() {
-								document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
-							}
-							function timestamp(url) {
-								const getTimestamp = new Date().getTime();
-								if (url.indexOf("?") > -1) {
-									url = url + "&timestamp=" + getTimestamp
-								} else {
-									url = url + "?timestamp=" + getTimestamp
-								}
-								return url;
-							}
-						</script>
-					</div>
-					<div class="submit_btn">
-        				<button type="submit">登录</button>
-        				<div class="auto_login">
-							<label>
-								<input type="checkbox" name="" class="checkbox">
-							</label>
-							<span>自动登录</span>
-        				</div>        				
-        			</div>        			       		
-        		</form>
-        		<div class="reg">没有账户？<a th:href="@{/user/toRegister}">立即注册</a></div>
-        	</div>
-        </div>
-    </section>
-    <!--引入尾部-->
-    <div th:include="footer::footer"></div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <!--导入布局js，共享header和footer-->
-    <script type="text/javascript" th:src="@{/js/include.js}"></script>
-</body>
+<!-- 头部 end -->
+<section id="login_wrap">
+    <div class="fullscreen-bg" th:style="'background:url('+'/images/login_bg.png'+');'+' height:'+'532px'">
 
+    </div>
+    <div class="login-box">
+        <div class="title">
+            <img th:src="@{/images/login_logo.png}" alt="">
+            <span>欢迎登录东海宁大旅游</span>
+        </div>
+        <div class="login_inner">
+            <!--登录错误提示消息-->
+            <form id="loginForm" th:action="@{/user/checkAccount}" method="post" accept-charset="utf-8">
+                <h1 class="h3 mb-3 font">登录</h1>
+                <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+                <label>
+                    <input id="username" name="username" type="text" th:placeholder="请输入用户名" autocomplete="off">
+                </label>
+                <label>
+                    <input id="password" name="password" type="password" th:placeholder="请输入密码" autocomplete="off">
+                </label>
+                <div class="verify">
+                    <tr>
+						<input name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
+						<img height="32px" id="codeimg" th:src="@{/user/getcode}" alt="" onclick="changeCheckCode()">
+                        <script>
+                            //图片点击事件
+                            function changeCheckCode() {
+                                document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
+                            }
+
+                            function timestamp(url) {
+                                const getTimestamp = new Date().getTime();
+                                if (url.indexOf("?") > -1) {
+                                    url = url + "&timestamp=" + getTimestamp
+                                } else {
+                                    url = url + "?timestamp=" + getTimestamp
+                                }
+                                return url;
+                            }
+                        </script>
+                    </tr>
+                </div>
+                <div class="submit_btn">
+                    <button type="submit">登录</button>
+                    <div class="auto_login">
+                        <label>
+                            <input type="checkbox" name="" class="checkbox">
+                            <span class="auto_login1">自动登录</span>
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <div class="reg">没有账户？<a th:href="@{/user/toRegister}">立即注册</a></div>
+        </div>
+    </div>
+</section>
+<!--引入尾部-->
+<div th:include="footer::footer"></div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!--导入布局js，共享header和footer-->
+<script th:src="@{/js/include.js}"></script>
+</body>
 </html>
