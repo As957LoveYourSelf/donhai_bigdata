@@ -25,6 +25,12 @@ div#carousel-example-generic {
 	margin-top: 35px;
 	border-bottom: 2px solid #ffc900;
 }
+
+div#carousel-example-generic{
+	align-content: center;
+	width: 100%;
+}
+
 .jx_tit, .jx_tabs {
 	float: left;
 	
