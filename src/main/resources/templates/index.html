@@ -21,7 +21,7 @@
     <div th:include="header::header"></div>
     <!-- banner start-->
     <section id="banner">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000" th:align="center" th:width="1500" th:height="399">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="2000" th:align="center" th:width:60% th:height=399px>
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -64,16 +64,22 @@
                 <!-- Nav tabs -->
                 <ul class="jx_tabs" role="tablist">
                     <li role="presentation" class="active">
-                        <span></span>
-                        <a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">人气旅游</a>
+                        <span>
+                            <a href="#popularity" aria-controls="popularity" role="tab" data-toggle="tab">人气旅游</a>
+                        </span>
+
                     </li>
                     <li role="presentation">
-                        <span></span>
-                        <a href="#newest" aria-controls="newest" role="tab" data-toggle="tab">最新旅游</a>
+                        <span>
+                            <a href="#newest" aria-controls="newest" role="tab" data-toggle="tab">最新旅游</a>
+                        </span>
+
                     </li>
                     <li role="presentation">
-                        <span></span>
-                        <a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题旅游</a>
+                        <span>
+                            <a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">主题旅游</a>
+                        </span>
+
                     </li>
                 </ul>
             </div>
