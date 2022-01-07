@@ -2,6 +2,7 @@ package com.zcq.travelweb.Data;
 
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,6 @@ public class TravelRoute {
     private String rdate;
     private char isThemeTour;
     private int count;
-
     private int cid;
     private String rimage;
     private int sid;

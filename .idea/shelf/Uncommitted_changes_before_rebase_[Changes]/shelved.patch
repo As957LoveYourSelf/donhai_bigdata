@@ -1,0 +1,864 @@
+Index: src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.zcq.travelweb.Controller;\r\n\r\n\r\nimport com.github.pagehelper.PageHelper;\r\nimport com.github.pagehelper.PageInfo;\r\nimport com.zcq.travelweb.Data.TravelRoute;\r\nimport com.zcq.travelweb.Service.MyFavoriteService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RequestParam;\r\n\r\nimport java.util.List;\r\n\r\n@Controller\r\n@RequestMapping(\"/favorite\")\r\npublic class MyFavoriteController {\r\n\r\n    @Autowired(required = false)\r\n    MyFavoriteService myFavoriteService;\r\n\r\n    @Autowired(required = false)\r\n    RouteDetailController routeDetailController;\r\n\r\n    @RequestMapping(\"/addFavorite\")\r\n    public String addFavorite(Integer rid,\r\n                              String uid,\r\n                              Model model){\r\n        if (null == uid || uid.equals(\"nouser\")){\r\n            model.addAttribute(\"msg\", \"请先登录！\");\r\n            return \"redirect:/toroutedetail?routeid=\"+rid;\r\n        }\r\n        myFavoriteService.addFavorite(uid, rid);\r\n        System.out.println(\"Add_OK\");\r\n        model.addAttribute(\"add_ok\", \"收藏成功！\");\r\n        return \"redirect:/toroutedetail?routeid=\"+rid;\r\n    }\r\n\r\n    //TODO:完善取消收藏功能，并在前端页面提供响应式按钮显示\r\n    @RequestMapping(\"/cancelFavorite\")\r\n    public String cancelFavorite(Integer rid,\r\n                                 String uid,\r\n                                 Model model){\r\n        if (null == uid || uid.equals(\"nouser\")){\r\n            model.addAttribute(\"msg\", \"请先登录！\");\r\n            return \"redirect:/toroutedetail?routeid=\"+rid;\r\n        }\r\n        return \"redirect:/toroutedetail?routeid=\"+rid;\r\n    }\r\n\r\n    @RequestMapping(\"/GetMyFavorite\")\r\n    public String getMyFavorite(String uid,\r\n                                @RequestParam(defaultValue = \"1\") Integer pageNum,\r\n                                Model model){\r\n        System.out.println(uid);\r\n        if (pageNum == null){\r\n            pageNum = 1;\r\n        }\r\n        if (pageNum <= 0){\r\n            pageNum = 1;\r\n        }\r\n        try{\r\n            PageHelper.startPage(pageNum, 12);\r\n            List<TravelRoute> favorites = myFavoriteService.getMyFavorite(uid);\r\n            PageInfo<TravelRoute> pageInfo = new PageInfo<>(favorites);\r\n            model.addAttribute(\"pageInfo\", pageInfo);\r\n            model.addAttribute(\"favorites\",favorites);\r\n            model.addAttribute(\"pageurl\", \"/favorite/GetMyFavorite?pageNum=\");\r\n            return \"myfavorite\";\r\n        }catch (NullPointerException e){\r\n            e.printStackTrace();\r\n            model.addAttribute(\"favorites\",null);\r\n            return \"myfavorite\";\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java b/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java
+--- a/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java	(date 1641518108863)
+@@ -29,12 +29,12 @@
+                               Model model){
+         if (null == uid || uid.equals("nouser")){
+             model.addAttribute("msg", "请先登录！");
+-            return "redirect:/toroutedetail?routeid="+rid;
++            return routeDetailController.toRouteDetail(rid,model);
+         }
+         myFavoriteService.addFavorite(uid, rid);
+         System.out.println("Add_OK");
+         model.addAttribute("add_ok", "收藏成功！");
+-        return "redirect:/toroutedetail?routeid="+rid;
++        return routeDetailController.toRouteDetail(rid,model);
+     }
+ 
+     //TODO:完善取消收藏功能，并在前端页面提供响应式按钮显示
+@@ -44,9 +44,9 @@
+                                  Model model){
+         if (null == uid || uid.equals("nouser")){
+             model.addAttribute("msg", "请先登录！");
+-            return "redirect:/toroutedetail?routeid="+rid;
++            return routeDetailController.toRouteDetail(rid,model);
+         }
+-        return "redirect:/toroutedetail?routeid="+rid;
++        return routeDetailController.toRouteDetail(rid,model);
+     }
+ 
+     @RequestMapping("/GetMyFavorite")
+Index: src/main/resources/templates/login.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n    <title>东海宁大恋爱旅游网-登录</title>\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/login.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/bootstrap.min.css}\">\r\n    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->\r\n    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->\r\n    <!--[if lt IE 9]>\r\n    <script src=\"https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js\"></script>\r\n    <script src=\"https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\"></script>\r\n    <![endif]-->\r\n    <!--导入angularJS文件-->\r\n    <script th:src=\"@{/js/angular.js}\"></script>\r\n    <!--导入jquery-->\r\n    <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n</head>\r\n\r\n<body>\r\n<!--引入头部-->\r\n<div th:include=\"header::header\"></div>\r\n<!-- 头部 end -->\r\n<section id=\"login_wrap\">\r\n    <div class=\"fullscreen-bg\" th:style=\"'background:url('+'/images/login_bg.png'+');'+' height:'+'532px'\">\r\n\r\n    </div>\r\n    <div class=\"login-box\">\r\n        <div class=\"title\">\r\n            <img th:src=\"@{/images/login_logo.png}\" alt=\"\">\r\n            <span>欢迎登录东海宁大旅游</span>\r\n        </div>\r\n        <div class=\"login_inner\">\r\n            <!--登录错误提示消息-->\r\n            <form id=\"loginForm\" th:action=\"@{/user/checkAccount}\" method=\"post\" accept-charset=\"utf-8\">\r\n                <h1 class=\"h3 mb-3 font\">登录</h1>\r\n                <p style=\"color: red\" th:text=\"${msg}\" th:if=\"${not #strings.isEmpty(msg)}\"></p>\r\n                <label>\r\n                    <input id=\"username\" name=\"username\" type=\"text\" th:placeholder=\"请输入用户名\" autocomplete=\"off\">\r\n                </label>\r\n                <label>\r\n                    <input id=\"password\" name=\"password\" type=\"password\" th:placeholder=\"请输入密码\" autocomplete=\"off\">\r\n                </label>\r\n                <div class=\"verify\">\r\n                    <tr>\r\n\t\t\t\t\t\t<input name=\"check\" type=\"text\" th:placeholder=\"请输入验证码\" autocomplete=\"off\">\r\n\t\t\t\t\t\t<img height=\"32px\" id=\"codeimg\" th:src=\"@{/user/getcode}\" alt=\"\" onclick=\"changeCheckCode()\">\r\n                        <script>\r\n                            //图片点击事件\r\n                            function changeCheckCode() {\r\n                                document.getElementById(\"codeimg\").src = timestamp(\"http://127.0.0.1:8080/user/getcode\");\r\n                            }\r\n\r\n                            function timestamp(url) {\r\n                                const getTimestamp = new Date().getTime();\r\n                                if (url.indexOf(\"?\") > -1) {\r\n                                    url = url + \"&timestamp=\" + getTimestamp\r\n                                } else {\r\n                                    url = url + \"?timestamp=\" + getTimestamp\r\n                                }\r\n                                return url;\r\n                            }\r\n                        </script>\r\n                    </tr>\r\n                </div>\r\n                <div class=\"submit_btn\">\r\n                    <button type=\"submit\">登录</button>\r\n                    <div class=\"auto_login\">\r\n                        <label>\r\n                            <input type=\"checkbox\" name=\"\" class=\"checkbox\">\r\n                            <span class=\"auto_login1\">自动登录</span>\r\n                        </label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n            <div class=\"reg\">没有账户？<a th:href=\"@{/user/toRegister}\">立即注册</a></div>\r\n        </div>\r\n    </div>\r\n</section>\r\n<!--引入尾部-->\r\n<div th:include=\"footer::footer\"></div>\r\n<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n<script th:src=\"@{/js/jquery-1.11.0.min.js}\"></script>\r\n<!-- Include all compiled plugins (below), or include individual files as needed -->\r\n<script th:src=\"@{/js/bootstrap.min.js}\"></script>\r\n<!--导入布局js，共享header和footer-->\r\n<script th:src=\"@{/js/include.js}\"></script>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/login.html b/src/main/resources/templates/login.html
+--- a/src/main/resources/templates/login.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/templates/login.html	(date 1641515866642)
+@@ -17,7 +17,12 @@
+     <!--导入angularJS文件-->
+     <script th:src="@{/js/angular.js}"></script>
+     <!--导入jquery-->
++    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+     <script th:src="@{/js/jquery-3.3.1.js}"></script>
++    <!--导入搜狐接口获取访问IP-->
++    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
++    <!--导入获取日志信息的js文件-->
++    <script th:src="@{/js/Info.js}"></script>
+ </head>
+ 
+ <body>
+Index: src/main/resources/templates/route_list.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <title>卓越旅游-搜索</title>\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/search.css}\">\r\n    <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n</head>\r\n<body>\r\n<!--引入头部-->\r\n<div th:include=\"header::header\"></div>\r\n    <div class=\"page_one\">\r\n        <div class=\"contant\">\r\n            <div class=\"crumbs\">\r\n                <img th:src=\"@{/images/search.png}\" alt=\"\">\r\n                <p>卓越旅行><span>搜索结果</span></p>\r\n            </div>\r\n            <div class=\"xinxi clearfix\">\r\n                <div class=\"left\" th:if=\"${routes == null}\">\r\n                    <h1>对不起，您的搜索没有返回任何结果@_@||</h1>\r\n                </div>\r\n                <div class=\"left\" th:if=\"${routes != null && pageInfo != null}\">\r\n                    <div class=\"header\">\r\n                        <span>商品信息</span>\r\n                        <span class=\"jg\">价格</span>\r\n                    </div>\r\n                    <ul th:each=\"route:${routes}\">\r\n                        <li>\r\n                            <div class=\"img\"><img th:src=\"${route.getRimage()}\"></div>\r\n                            <div class=\"text1\">\r\n                                <p th:utext=\"${route.getRname()}\"></p>\r\n                                <br/>\r\n                                <p th:utext=\"${route.getRouteIntroduce()}\"></p>\r\n                            </div>\r\n                            <div class=\"price\">\r\n                                <p class=\"price_num\">\r\n                                    <span>&yen;</span>\r\n                                    <span th:utext=\"${route.getPrice()}\"></span>\r\n                                    <span>起</span>\r\n                                </p>\r\n                                <p><a th:href=\"'/toroutedetail?routeid='+${route.getRid()}\">查看详情</a></p>\r\n                            </div>\r\n                        </li>\r\n                    </ul>\r\n                    <div class=\"page_num_inf\">\r\n                        <i th:utext=\"${pageInfo.pageNum}\"></i> 共\r\n                        <span th:utext=\"${pageInfo.pages}\"></span>页\r\n                        <span th:utext=\"${pageInfo.total}\"></span>条\r\n                    </div>\r\n                    <div class=\"pageNum\">\r\n                        <ul class=\"\">\r\n                            <li th:if=\"${pageInfo.hasPreviousPage}\">\r\n                                <a th:href=\"${pageurl}+'1'\">首页</a>\r\n                            </li>\r\n                            <li class=\"prev\" th:if=\"${pageInfo.hasPreviousPage}\">\r\n                                <a th:href=\"${pageurl}+${pageInfo.prePage}\">\r\n                                    <span aria-hidden=\"true\">&laquo;</span>\r\n                                </a>\r\n                            </li>\r\n                            <li th:each=\"page:${pageInfo.navigatepageNums}\">\r\n                                <a th:href=\"${pageurl}+${page}\" th:text=\"${page}\" th:if=\"${page!=pageInfo.pageNum}\"></a>\r\n                                <span th:utext=\"${page}\" th:if=\"${page==pageInfo.pageNum}\"></span>\r\n                            </li>\r\n                            <li th:if=\"${pageInfo.hasNextPage}\">\r\n                                <a th:href=\"${pageurl}+${pageInfo.nextPage}\">\r\n                                    <span aria-hidden=\"true\">&raquo;</span>\r\n                                </a>\r\n                            </li>\r\n                            <li th:if=\"${pageInfo.hasNextPage}\">\r\n                                <a th:href=\"${pageurl}+${pageInfo.pages}\">末页</a>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n                <div class=\"right\">\r\n                    <div class=\"top\">\r\n                        <div class=\"hot\">HOT</div>\r\n                        <span>热门推荐</span>\r\n                    </div>\r\n                    <ul>\r\n                        <li>\r\n                            <div class=\"left\"><img th:src=\"@{/images/04-search_09.jpg}\" alt=\"\"></div>\r\n                            <div class=\"right\">\r\n                                <p>desc</p>\r\n                                <p>网付价<span>&yen;<span>price</span>起</span>\r\n                                </p>\r\n                            </div>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--引入头部-->\r\n    <div th:include=\"footer::footer\"></div>\r\n    <!--导入布局js，共享header和footer-->\r\n    <script type=\"text/javascript\" th:src=\"@{/js/include.js}\"></script>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/route_list.html b/src/main/resources/templates/route_list.html
+--- a/src/main/resources/templates/route_list.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/templates/route_list.html	(date 1641518108995)
+@@ -8,6 +8,7 @@
+     <title>卓越旅游-搜索</title>
+     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/css/search.css}">
++    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+     <script th:src="@{/js/jquery-3.3.1.js}"></script>
+ </head>
+ <body>
+Index: src/main/resources/templates/favoriterank.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n    <head>\r\n        <meta charset=\"utf-8\">\r\n        <title>收藏排行榜</title>\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/ranking-list.css}\">\r\n        <!--导入angularJS文件-->\r\n        <script th:src=\"@{/js/angular.js}\"></script>\r\n        <!--导入jquery-->\r\n        <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n    </head>\r\n    <body>\r\n    <!--引入头部-->\r\n    <div th:include=\"header::header\"></div>\r\n        <div class=\"contant\">\r\n            <div class=\"shaixuan\">\r\n                <span>线路名称</span>\r\n                <label>\r\n                    <input type=\"text\">\r\n                </label>\r\n                <span>金额</span>\r\n                <label>\r\n                    <input type=\"text\">\r\n                </label>\r\n                ~\r\n                <label>\r\n                    <input type=\"text\">\r\n                </label>\r\n                <button>搜索</button>\r\n            </div>\r\n            <div class=\"list clearfix\">\r\n                <ul>\r\n                    <li>\r\n                        <span class=\"num one\">1</span>\r\n                        <a th:href=\"@{/toroutedetail}\"><img src=\"../static/images/jiangxuan_4.jpg\" alt=\"\"></a>\r\n                        <h4><a href=\"route_detail.html\">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>\r\n                        <p>\r\n                            <b class=\"price\">&yen;<span>899</span>起</b>\r\n                            <span class=\"shouchang\">已收藏450次</span>\r\n                        </p>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n            <div class=\"pageNum\">\r\n                <ul>\r\n                    <li><a href=\"\">首页</a></li>\r\n                    <li class=\"threeword\"><a href=\"#\">上一页</a></li>\r\n                    <li><a href=\"#\">1</a></li>\r\n                    <li><a href=\"#\">2</a></li>\r\n                    <li><a href=\"#\">3</a></li>\r\n                    <li><a href=\"#\">4</a></li>\r\n                    <li><a href=\"#\">5</a></li>\r\n                    <li><a href=\"#\">6</a></li>\r\n                    <li><a href=\"#\">7</a></li>\r\n                    <li><a href=\"#\">8</a></li>\r\n                    <li><a href=\"#\">9</a></li>\r\n                    <li><a href=\"#\">10</a></li>\r\n                    <li class=\"threeword\"><a href=\"javascript:;\">下一页</a></li>\r\n                    <li class=\"threeword\"><a href=\"javascript:;\">末页</a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n         <!--导入底部-->\r\n   \t\t <div id=\"footer\"></div>\r\n    <!--导入布局js，共享header和footer-->\r\n    <script type=\"text/javascript\" src=\"../static/js/include.js\"></script>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/favoriterank.html b/src/main/resources/templates/favoriterank.html
+--- a/src/main/resources/templates/favoriterank.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/templates/favoriterank.html	(date 1641518697363)
+@@ -1,69 +1,83 @@
+ <!DOCTYPE html>
+ <html lang="en" xmlns:th="http://www.thymeleaf.org">
+-    <head>
+-        <meta charset="utf-8">
+-        <title>收藏排行榜</title>
+-        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+-        <link rel="stylesheet" type="text/css" th:href="@{/css/ranking-list.css}">
+-        <!--导入angularJS文件-->
+-        <script th:src="@{/js/angular.js}"></script>
+-        <!--导入jquery-->
+-        <script th:src="@{/js/jquery-3.3.1.js}"></script>
+-    </head>
+-    <body>
+-    <!--引入头部-->
+-    <div th:include="header::header"></div>
+-        <div class="contant">
+-            <div class="shaixuan">
+-                <span>线路名称</span>
+-                <label>
+-                    <input type="text">
+-                </label>
+-                <span>金额</span>
+-                <label>
+-                    <input type="text">
+-                </label>
+-                ~
+-                <label>
+-                    <input type="text">
+-                </label>
+-                <button>搜索</button>
+-            </div>
+-            <div class="list clearfix">
+-                <ul>
+-                    <li>
+-                        <span class="num one">1</span>
+-                        <a th:href="@{/toroutedetail}"><img src="../static/images/jiangxuan_4.jpg" alt=""></a>
+-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
+-                        <p>
+-                            <b class="price">&yen;<span>899</span>起</b>
+-                            <span class="shouchang">已收藏450次</span>
+-                        </p>
+-                    </li>
+-                </ul>
+-            </div>
+-            <div class="pageNum">
+-                <ul>
+-                    <li><a href="">首页</a></li>
+-                    <li class="threeword"><a href="#">上一页</a></li>
+-                    <li><a href="#">1</a></li>
+-                    <li><a href="#">2</a></li>
+-                    <li><a href="#">3</a></li>
+-                    <li><a href="#">4</a></li>
+-                    <li><a href="#">5</a></li>
+-                    <li><a href="#">6</a></li>
+-                    <li><a href="#">7</a></li>
+-                    <li><a href="#">8</a></li>
+-                    <li><a href="#">9</a></li>
+-                    <li><a href="#">10</a></li>
+-                    <li class="threeword"><a href="javascript:;">下一页</a></li>
+-                    <li class="threeword"><a href="javascript:;">末页</a></li>
+-                </ul>
+-            </div>
+-        </div>
+-         <!--导入底部-->
+-   		 <div id="footer"></div>
+-    <!--导入布局js，共享header和footer-->
+-    <script type="text/javascript" src="../static/js/include.js"></script>
+-    </body>
++<head>
++    <meta charset="utf-8">
++    <title>收藏排行榜</title>
++    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
++    <link rel="stylesheet" type="text/css" th:href="@{/css/ranking-list.css}">
++    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
++    <!--导入angularJS文件-->
++    <script th:src="@{/js/angular.js}"></script>
++    <!--导入jquery-->
++    <script th:src="@{/js/jquery-3.3.1.js}"></script>
++</head>
++<body>
++<!--引入头部-->
++<div th:include="header::header"></div>
++<div class="contant">
++    <div class="shaixuan">
++        <span>线路名称</span>
++        <label>
++            <input type="text">
++        </label>
++        <span>金额</span>
++        <label>
++            <input type="text">
++        </label>
++        ~
++        <label>
++            <input type="text">
++        </label>
++        <button>搜索</button>
++    </div>
++    <div class="list clearfix">
++        <ul>
++            <li>
++                <span class="num one" th:utext=""></span>
++                <a th:href="@{/toroutedetail}">
++                    <img th:src="" alt="">
++                </a>
++                <h4><a th:href=""></a></h4>
++                <p>
++                    <b class="price">&yen;<span th:utext=""></span>起</b>
++                    <span class="shouchang">已收藏450次</span>
++                </p>
++            </li>
++        </ul>
++    </div>
++    <div class="page_num_inf">
++        <i th:utext="${pageInfo.pageNum}"></i> 共
++        <span th:utext="${pageInfo.pages}"></span>页
++        <span th:utext="${pageInfo.total}"></span>条
++    </div>
++    <div class="pageNum">
++        <ul class="">
++            <li th:if="${pageInfo.hasPreviousPage}">
++                <a th:href="${pageurl}+'1'">首页</a>
++            </li>
++            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
++                <a th:href="${pageurl}+${pageInfo.prePage}">
++                    <span aria-hidden="true">&laquo;</span>
++                </a>
++            </li>
++            <li th:each="page:${pageInfo.navigatepageNums}">
++                <a th:href="${pageurl}+${page}" th:text="${page}" th:if="${page!=pageInfo.pageNum}"></a>
++                <span th:utext="${page}" th:if="${page==pageInfo.pageNum}"></span>
++            </li>
++            <li th:if="${pageInfo.hasNextPage}">
++                <a th:href="${pageurl}+${pageInfo.nextPage}">
++                    <span aria-hidden="true">&raquo;</span>
++                </a>
++            </li>
++            <li th:if="${pageInfo.hasNextPage}">
++                <a th:href="${pageurl}+${pageInfo.pages}">末页</a>
++            </li>
++        </ul>
++    </div>
++</div>
++<!--导入底部-->
++<div th:include="footer::footer"></div>
++<!--导入布局js，共享header和footer-->
++<script type="text/javascript" th:src="@{/js/include.js}"></script>
++</body>
+ </html>
+\ No newline at end of file
+Index: src/main/java/com/zcq/travelweb/Controller/LoginController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.zcq.travelweb.Controller;\r\n\r\nimport com.zcq.travelweb.Service.LoginService;\r\nimport com.zcq.travelweb.Utils.CodeUtils;\r\nimport com.zcq.travelweb.Utils.Md5Util;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RequestParam;\r\n\r\nimport javax.servlet.http.HttpServletRequest;\r\nimport javax.servlet.http.HttpServletResponse;\r\nimport javax.servlet.http.HttpSession;\r\n\r\n@Controller\r\n@RequestMapping(\"/user\")\r\npublic class LoginController {\r\n\r\n    @Autowired(required = false)\r\n    LoginService loginService;\r\n    private String Rcode = null;\r\n\r\n    @RequestMapping(\"/toLogin\")\r\n    public String toLogin(){\r\n        return \"login\";\r\n    }\r\n\r\n    @RequestMapping(\"/logout\")\r\n    public String logout(HttpSession session) {\r\n        session.invalidate();\r\n        return \"redirect:/toIndex\";\r\n    }\r\n\r\n\r\n    @GetMapping(\"/getcode\")\r\n    public void getcode(HttpServletResponse response, HttpServletRequest request){\r\n        CodeUtils.getvalidateCode(request, response);\r\n        HttpSession session = request.getSession();\r\n        this.Rcode = (String) session.getAttribute(\"loginCode\");\r\n        System.out.println(this.Rcode);\r\n    }\r\n\r\n    @RequestMapping(\"/checkAccount\")\r\n    public String Login(String username, String password,\r\n                        @RequestParam(value = \"check\") String code,\r\n                        HttpServletRequest request, Model model) throws Exception {\r\n        System.out.println(username+\" \"+password+\" \"+code);\r\n        String pd = Md5Util.encodeByMd5(password);\r\n        String status = loginService.Login(username,pd,request);\r\n        String code_status = loginService.checkcode(code,this.Rcode);\r\n        System.out.println(status+\" \"+code_status);\r\n        if (status.equals(\"login_ok\") && code_status.equals(\"check_ok\")){\r\n            return \"redirect:/toIndex\";\r\n        }\r\n        if (status.equals(\"login_ok\") && code_status.equals(\"check_error\")){\r\n            model.addAttribute(\"msg\",\"验证码错误！请重新输入验证码\");\r\n            return \"login\";\r\n        }\r\n        if (status.equals(\"no_user\")){\r\n            model.addAttribute(\"msg\",\"没有该用户！请确认用户名正确\");\r\n            return \"login\";\r\n        }\r\n        if (status.equals(\"password_error\")){\r\n            model.addAttribute(\"msg\", \"密码错误，请重新输入密码！\");\r\n            return \"login\";\r\n        }\r\n        if (status.equals(\"no_register\")){\r\n            model.addAttribute(\"msg\",\"您的用户已注册，但尚未激活，请前往邮箱验证激活\");\r\n            return \"login\";\r\n        }\r\n        return \"../public/error/500\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/zcq/travelweb/Controller/LoginController.java b/src/main/java/com/zcq/travelweb/Controller/LoginController.java
+--- a/src/main/java/com/zcq/travelweb/Controller/LoginController.java	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/java/com/zcq/travelweb/Controller/LoginController.java	(date 1641519756527)
+@@ -6,13 +6,15 @@
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.stereotype.Controller;
+ import org.springframework.ui.Model;
+-import org.springframework.web.bind.annotation.GetMapping;
+-import org.springframework.web.bind.annotation.RequestMapping;
+-import org.springframework.web.bind.annotation.RequestParam;
++import org.springframework.web.bind.annotation.*;
+ 
+ import javax.servlet.http.HttpServletRequest;
+ import javax.servlet.http.HttpServletResponse;
+ import javax.servlet.http.HttpSession;
++import java.io.BufferedWriter;
++import java.io.FileWriter;
++import java.io.IOException;
++import java.time.LocalDate;
+ 
+ @Controller
+ @RequestMapping("/user")
+@@ -21,6 +23,7 @@
+     @Autowired(required = false)
+     LoginService loginService;
+     private String Rcode = null;
++    private String info = null;
+ 
+     @RequestMapping("/toLogin")
+     public String toLogin(){
+@@ -39,7 +42,13 @@
+         CodeUtils.getvalidateCode(request, response);
+         HttpSession session = request.getSession();
+         this.Rcode = (String) session.getAttribute("loginCode");
+-        System.out.println(this.Rcode);
++    }
++
++    //获取日志信息
++    @RequestMapping(value = "/getLogInfo", method = RequestMethod.GET)
++    @ResponseBody
++    public void Info(String IP,String address,String accessTime,String browser) {
++        this.info = IP + "\t" + address + "\t" + accessTime + "\t" + browser;
+     }
+ 
+     @RequestMapping("/checkAccount")
+@@ -52,6 +61,7 @@
+         String code_status = loginService.checkcode(code,this.Rcode);
+         System.out.println(status+" "+code_status);
+         if (status.equals("login_ok") && code_status.equals("check_ok")){
++            WriteInfo(username);
+             return "redirect:/toIndex";
+         }
+         if (status.equals("login_ok") && code_status.equals("check_error")){
+@@ -72,4 +82,26 @@
+         }
+         return "../public/error/500";
+     }
++
++    //将日志信息写入文件
++    public void WriteInfo(String username) throws IOException {
++        //创建单日日志
++        this.info = this.info + "\t" +username + "\n";
++        String date = LocalDate.now().toString();
++        String filePath = "D:\\JavaProjects\\donhai_bigdata\\src\\main\\InfoTXT\\" + date + ".txt";
++        FileWriter fileWriter = null;
++        BufferedWriter bufferedWriter = null;
++        try {
++            fileWriter = new FileWriter(filePath, true);
++            bufferedWriter = new BufferedWriter(fileWriter);
++            bufferedWriter.append(this.info);
++        } catch (Exception e) {
++            e.printStackTrace();
++        } finally {
++            if (bufferedWriter != null){
++                bufferedWriter.close();
++                fileWriter.close();
++            }
++        }
++    }
+ }
+Index: src/main/java/com/zcq/travelweb/Controller/RouteListController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.zcq.travelweb.Controller;\r\n\r\nimport com.github.pagehelper.PageHelper;\r\nimport com.github.pagehelper.PageInfo;\r\nimport com.zcq.travelweb.Data.TravelRoute;\r\nimport com.zcq.travelweb.Service.RouteListService;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.ui.Model;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RequestParam;\r\n\r\nimport java.util.List;\r\n\r\n@Controller\r\npublic class RouteListController {\r\n\r\n    @Autowired(required = false)\r\n    RouteListService routeListService;\r\n\r\n    @RequestMapping({\"/toroutelist\"})\r\n    public String toRouteList(Model model,\r\n                              @RequestParam(defaultValue = \"\") String value,\r\n                              @RequestParam(defaultValue = \"selectbyValue\") String selectType,\r\n                              @RequestParam(defaultValue = \"\") String cid,\r\n                              @RequestParam(required = false,defaultValue = \"1\",value = \"pageNum\") Integer pageNum){\r\n\r\n        System.out.println(pageNum);\r\n        if (pageNum == null){\r\n            pageNum = 1;\r\n        }\r\n        if (pageNum <= 0){\r\n            pageNum = 1;\r\n        }\r\n\r\n        try{\r\n            PageHelper.startPage(pageNum,9);\r\n            if (selectType.equals(\"selectbyValue\") && value.equals(\"\")){\r\n                List<TravelRoute> routeList = routeListService.getRouteList();\r\n                PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);\r\n                model.addAttribute(\"pageInfo\", pageInfo);\r\n                model.addAttribute(\"routes\",routeList);\r\n                model.addAttribute(\"pageurl\", \"/toroutelist?pageNum=\");\r\n                return \"route_list\";\r\n            }\r\n            if (selectType.equals(\"selectbyCid\") && !cid.equals(\"\")){\r\n                List<TravelRoute> routeList = routeListService.getRoutesByCategoryId(Integer.parseInt(cid));\r\n                PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);\r\n                model.addAttribute(\"pageInfo\", pageInfo);\r\n                model.addAttribute(\"routes\",routeList);\r\n                model.addAttribute(\"pageurl\", \"/toroutelist?selectType=\"+selectType+\"&cid=\"+cid+\"&pageNum=\");\r\n                return \"route_list\";\r\n            }\r\n            if (selectType.equals(\"selectbyValue\")){\r\n                List<TravelRoute> routeList = routeListService.getRoutesByKeyValue(value);\r\n                PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);\r\n                model.addAttribute(\"pageInfo\", pageInfo);\r\n                model.addAttribute(\"routes\",routeList);\r\n                model.addAttribute(\"pageurl\", \"/toroutelist?value=\"+value+\"&pageNum=\");\r\n                return \"route_list\";\r\n            }\r\n            if (selectType.equals(\"selecthot\")){\r\n                List<TravelRoute> routeList = routeListService.getHotRoutes();\r\n                PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);\r\n                model.addAttribute(\"pageInfo\", pageInfo);\r\n                model.addAttribute(\"routes\",routeList);\r\n                model.addAttribute(\"pageurl\", \"/toroutelist?selectType=\"+selectType+\"&pageNum=\");\r\n                return \"route_list\";\r\n            }\r\n\r\n        }catch (NullPointerException e){\r\n            model.addAttribute(\"pageInfo\", null);\r\n            model.addAttribute(\"routes\",null);\r\n        }\r\n        finally {\r\n            PageHelper.clearPage();\r\n        }\r\n        return \"route_list\";\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/zcq/travelweb/Controller/RouteListController.java b/src/main/java/com/zcq/travelweb/Controller/RouteListController.java
+--- a/src/main/java/com/zcq/travelweb/Controller/RouteListController.java	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/java/com/zcq/travelweb/Controller/RouteListController.java	(date 1641518108960)
+@@ -65,7 +65,7 @@
+                 model.addAttribute("pageInfo", pageInfo);
+                 model.addAttribute("routes",routeList);
+                 model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"&pageNum=");
+-                return "route_list";
++                return "favoriterank";
+             }
+ 
+         }catch (NullPointerException e){
+Index: src/main/resources/public/error/500.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>友好页面</title>\r\n</head>\r\n<body>\r\n    <h3>对不起，服务器繁忙，请明天再试！</h3>\r\n    <a th:href=\"@{/toIndex}\">返回首页</a>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/public/error/500.html b/src/main/resources/public/error/500.html
+--- a/src/main/resources/public/error/500.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/public/error/500.html	(date 1641518248641)
+@@ -6,6 +6,6 @@
+ </head>
+ <body>
+     <h3>对不起，服务器繁忙，请明天再试！</h3>
+-    <a th:href="@{/toIndex}">返回首页</a>
++    <a th:href="@{/}">返回首页</a>
+ </body>
+ </html>
+\ No newline at end of file
+Index: src/main/resources/public/error/404.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>友好页面</title>\r\n</head>\r\n<body>\r\n<div>\r\n    <h3>对不起，您访问的资源不存在！</h3>\r\n    <a th:href=\"@{/toIndex}\">返回首页</a>\r\n</div>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/public/error/404.html b/src/main/resources/public/error/404.html
+--- a/src/main/resources/public/error/404.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/public/error/404.html	(date 1641518248684)
+@@ -7,7 +7,7 @@
+ <body>
+ <div>
+     <h3>对不起，您访问的资源不存在！</h3>
+-    <a th:href="@{/toIndex}">返回首页</a>
++    <a th:href="@{/}">返回首页</a>
+ </div>
+ 
+ </body>
+Index: src/main/resources/templates/myfavorite.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n    <head>\r\n        <meta charset=\"utf-8\">\r\n        <title>东海宁大恋爱旅游网-我的收藏</title>\r\n        <link th:href=\"@{/css/bootstrap.min.css}\" rel=\"stylesheet\">\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n        <link rel=\"stylesheet\" th:href=\"@{/css/index.css}\">\r\n       <style>\r\n           .tab-content .row>div {\r\n            margin-top: 16px;\r\n           } \r\n           .tab-content {\r\n            margin-bottom: 36px;\r\n           }\r\n       </style>\r\n       <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n    </head>\r\n    <body>\r\n    <!--引入头部-->\r\n    <div th:include=\"header::header\"></div>\r\n         <!-- 排行榜 start-->\r\n    <section id=\"content\" th:if=\"${favorites} != null\">\r\n        <section class=\"hemai_jx\">\r\n            <div class=\"jx_top\">\r\n                <div class=\"jx_tit\">\r\n                    <img th:src=\"@{/images/icon_5.jpg}\" alt=\"\">\r\n                    <span>我的收藏</span>\r\n                </div>\r\n            </div>\r\n            <div class=\"jx_content\">\r\n                <!-- Tab panes -->\r\n                <div class=\"tab-content\">\r\n                    <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-3\" th:each=\"favorite:${favorites}\">\r\n                                <a th:href=\"'/toroutedetail?routeid='+${favorite.getRid()}\">\r\n                                    <img th:src=\"'/'+${favorite.getRimage()}\" th:alt=\"${favorite.getRouteIntroduce()}\">\r\n                                    <div class=\"has_border\">\r\n                                        <h3 th:utext=\"${favorite.getRname()}\"></h3>\r\n                                        <div class=\"price\">网付价<em>￥</em><strong th:utext=\"${favorite.getPrice()}\"></strong><em>起</em></div>\r\n                                    </div>\r\n                                </a>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"page_num_inf\">\r\n                <i th:text=\"${pageInfo.pageNum}\"></i> 共\r\n                <span th:text=\"${pageInfo.pages}\"></span>页\r\n                <span th:text=\"${pageInfo.total}\"></span>条\r\n            </div>\r\n            <div class=\"pageNum\">\r\n                <ul class=\"\">\r\n                    <li th:if=\"${pageInfo.hasPreviousPage}\">\r\n                        <a th:href=\"${pageurl}+'1'\">首页</a>\r\n                    </li>\r\n                    <li class=\"prev\" th:if=\"${pageInfo.hasPreviousPage}\">\r\n                        <a th:href=\"${pageurl}+${pageInfo.prePage}\">\r\n                            <span aria-hidden=\"true\">&laquo;</span>\r\n                        </a>\r\n                    </li>\r\n                    <li th:each=\"page:${pageInfo.navigatepageNums}\">\r\n                        <a th:href=\"${pageurl}+${page}\" th:utext=\"${page}\" th:if=\"${page!=pageInfo.pageNum}\"></a>\r\n                        <span th:utext=\"${page}\" th:if=\"${page==pageInfo.pageNum}\"></span>\r\n                    </li>\r\n                    <li th:if=\"${pageInfo.hasNextPage}\">\r\n                        <a th:href=\"${pageurl}+${pageInfo.nextPage}\">\r\n                            <span aria-hidden=\"true\">&raquo;</span>\r\n                        </a>\r\n                    </li>\r\n                    <li th:if=\"${pageInfo.hasNextPage}\">\r\n                        <a th:href=\"${pageurl}+${pageInfo.pages}\">末页</a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n    </section>\r\n    <!-- 排行榜 end-->\r\n    <div th:if=\"${favorites == null}\">\r\n        <h3> 对不起，您还没有任何收藏@_@</h3>\r\n    </div>\r\n    <!--引入尾部-->\r\n    <div th:include=\"footer::footer\"></div>\r\n    <!--导入布局js，共享header和footer-->\r\n    <script type=\"text/javascript\" th:src=\"@{/js/include.js}\"></script>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/myfavorite.html b/src/main/resources/templates/myfavorite.html
+--- a/src/main/resources/templates/myfavorite.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/templates/myfavorite.html	(date 1641518109041)
+@@ -3,9 +3,10 @@
+     <head>
+         <meta charset="utf-8">
+         <title>东海宁大恋爱旅游网-我的收藏</title>
+-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+         <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+-        <link rel="stylesheet" th:href="@{/css/index.css}">
++        <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
++        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
++        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <style>
+            .tab-content .row>div {
+             margin-top: 16px;
+Index: src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>server:\r\n  port: 8080\r\n  servlet:\r\n    context-path: /\r\nspring:\r\n  datasource:\r\n    #引入druid数据源\r\n    type: com.alibaba.druid.pool.DruidDataSource\r\n    driver-class-name: com.mysql.jdbc.Driver\r\n    url: jdbc:mysql://127.0.0.1:3306/travel?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true\r\n    username: root\r\n    password: 520521\r\n  thymeleaf:\r\n    cache: true\r\n\r\nmybatis-plus:\r\n  type-aliases-package: com.zcq.travelweb.Mapper\r\n  mapper-locations: classpath:mappers/*.xml\r\n  #开启驼峰映射\r\n  configuration:\r\n    map-underscore-to-camel-case: false\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/application.yml b/src/main/resources/application.yml
+--- a/src/main/resources/application.yml	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/application.yml	(date 1641518816655)
+@@ -6,7 +6,7 @@
+   datasource:
+     #引入druid数据源
+     type: com.alibaba.druid.pool.DruidDataSource
+-    driver-class-name: com.mysql.jdbc.Driver
++    driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://127.0.0.1:3306/travel?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true
+     username: root
+     password: 520521
+Index: src/main/resources/static/js/info.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/static/js/info.js b/src/main/resources/static/js/info.js
+new file mode 100644
+--- /dev/null	(date 1641515866562)
++++ b/src/main/resources/static/js/info.js	(date 1641515866562)
+@@ -0,0 +1,45 @@
++//输出访问的时间点
++var nowDate;
++var nowTime;
++//输出用户使用的浏览器
++var explorer = window.navigator.userAgent;
++var browser = "";
++//IE
++if (explorer.indexOf("MSIE") >= 0) {
++    browser = "IE";
++}
++//Edge
++else if (explorer.indexOf("Edg") >= 0) {
++    browser = "Edge";
++}
++//Firefox
++else if (explorer.indexOf("Firefox") >= 0) {
++    browser = "Firefox";
++}
++//Chrome
++else if(explorer.indexOf("Chrome") >= 0){
++    browser = "Chrome";
++}
++//Opera
++else if(explorer.indexOf("Opera") >= 0){
++    browser = "Opera";
++}
++//Safari
++else if(explorer.indexOf("Safari") >= 0){
++    browser = "Safari";
++}
++window.onload=function() {
++    //获取新的时间点
++    nowDate = new Date();
++    nowTime=nowDate.toLocaleString('chinese',{hour12:false});
++    $.ajax({
++            type:"GET",
++            url:"http://localhost:8080/user/getLogInfo",
++            data:{"IP":returnCitySN["cip"],
++                "address":returnCitySN["cname"],
++                "accessTime":nowTime,
++                "browser":browser},
++            dataType:"json"
++        }
++    );
++}
+\ No newline at end of file
+Index: target/classes/templates/route_detail.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <title>路线详情</title>\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/route-detail.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/bootstrap.min.css}\">\r\n    <script src=\"https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js\"></script>\r\n    <script src=\"https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\"></script>\r\n    <!--导入angularJS文件-->\r\n    <script th:src=\"@{/js/angular.js}\"></script>\r\n    <!--导入jquery-->\r\n    <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n</head>\r\n\r\n<body>\r\n<!--引入头部-->\r\n<div th:include=\"header::header\"></div>\r\n<!-- 详情 start -->\r\n<div class=\"header_wrap\">\r\n    <div class=\"bread_box\">\r\n        <a th:href=\"@{/toIndex}\">首页</a>\r\n        <span> &gt;</span>\r\n        <a href=\"#\" th:text=\"${category} == null?'@_@':${category.getTcname()}\"></a><span> &gt;</span>\r\n        <a href=\"#\"></a>\r\n    </div>\r\n    <div class=\"prosum_box\">\r\n        <dl class=\"prosum_left\">\r\n            <div>\r\n                <dt>\r\n                    <img alt=\"\" class=\"big_img\" th:src=\"${routeImgs[0].getBigPic()}\">\r\n                </dt>\r\n            </div>\r\n            <div>\r\n                <dd>\r\n                    <a class=\"up_img up_img_disable\"></a>\r\n                </dd>\r\n                <dd th:each=\"img:${routeImgs}\">\r\n                    <a title=\"\" class=\"little_img\" th:data-bigpic=\"${img.getBigPic()}\">\r\n                        <img th:src=\"${img.getSmallPic()}\">\r\n                    </a>\r\n                </dd>\r\n                <dd>\r\n                    <a class=\"down_img down_img_disable\" style=\"margin-bottom: 0;\"></a>\r\n                </dd>\r\n            </div>\r\n        </dl>\r\n        <div class=\"prosum_right\">\r\n            <p class=\"pros_title\" th:text=\"${routeInfo.getRname()}\"></p>\r\n            <p class=\"hot\" th:text=\"${routeInfo.getRouteIntroduce()}\"></p>\r\n            <div class=\"pros_other\">\r\n                <p th:utext=\"'经营商家 : '+${seller.getSname()}\"></p>\r\n                <p th:utext=\"'咨询电话 : '+${seller.getSellerphone()}\"></p>\r\n                <p th:utext=\"'地址 : ' +${seller.getSelleraddress()}\"></p>\r\n            </div>\r\n            <div class=\"pros_price\">\r\n                <p class=\"price\"><strong th:text=\"'¥'+${routeInfo.getPrice()}\">\r\n                </strong><span>起</span>\r\n                </p>\r\n                <p class=\"collect\">\r\n                <p style=\"color: red\" th:text=\"${msg}\" th:if=\"${not #strings.isEmpty(msg)}\"></p>\r\n                <p style=\"color: palevioletred\" th:text=\"${add_ok}\" th:if=\"${not #strings.isEmpty(add_ok)}\"></p>\r\n                <a class=\"btn\" th:if=\"${session.user}==null\"\r\n                   th:href=\"'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'\"><i\r\n                        class=\"glyphicon glyphicon-heart-empty\"></i>点击收藏</a>\r\n                <a class=\"btn\" th:if=\"${session.user}!=null\"\r\n                   th:href=\"'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}\"><i\r\n                        class=\"glyphicon glyphicon-heart-empty\"></i>点击收藏</a>\r\n                <a class=\"btn already\" disabled=\"disabled\">\r\n                    <i class=\"glyphicon glyphicon-heart-empty\"></i>取消收藏</a>\r\n                <span th:utext=\"'已收藏'+${routeInfo.getCount()}+'次'\"></span>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"you_need_konw\">\r\n        <span>旅游须知</span>\r\n        <div class=\"notice\">\r\n            <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>\r\n\r\n            <p>\r\n                2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>\r\n\r\n            <p>\r\n                3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>\r\n\r\n            <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>\r\n\r\n            <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>\r\n            <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>\r\n\r\n            <p>\r\n                2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>\r\n\r\n            <p>\r\n                3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>\r\n\r\n            <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>\r\n\r\n            <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- 详情 end -->\r\n\r\n<!--引入头部-->\r\n<div th:include=\"footer::footer\"></div>\r\n<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n<script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n<!-- Include all compiled plugins (below), or include individual files as needed -->\r\n<script th:src=\"@{/js/bootstrap.min.js}\"></script>\r\n<!--导入布局js，共享header和footer-->\r\n<script th:src=\"@{/js/include.js}\"></script>\r\n<script>\r\n    $(document).ready(function () {\r\n        //焦点图效果\r\n        //点击图片切换图片\r\n        $('.little_img').on('mousemove', function () {\r\n            $('.little_img').removeClass('cur_img');\r\n            var big_pic = $(this).data('bigpic');\r\n            $('.big_img').attr('src', big_pic);\r\n            $(this).addClass('cur_img');\r\n        });\r\n        //上下切换\r\n        var picindex = 0;\r\n        var nextindex = 4;\r\n        $('.down_img').on('click', function () {\r\n            var num = $('.little_img').length;\r\n            if ((nextindex + 1) <= num) {\r\n                $('.little_img:eq(' + picindex + ')').hide();\r\n                $('.little_img:eq(' + nextindex + ')').show();\r\n                picindex = picindex + 1;\r\n                nextindex = nextindex + 1;\r\n            }\r\n        });\r\n        $('.up_img').on('click', function () {\r\n            var num = $('.little_img').length;\r\n            if (picindex > 0) {\r\n                $('.little_img:eq(' + (nextindex - 1) + ')').hide();\r\n                $('.little_img:eq(' + (picindex - 1) + ')').show();\r\n                picindex = picindex - 1;\r\n                nextindex = nextindex - 1;\r\n            }\r\n        });\r\n        //自动播放\r\n        // var timer = setInterval(\"auto_play()\", 5000);\r\n    });\r\n\r\n    //自动轮播方法\r\n    function auto_play() {\r\n        var cur_index = $('.prosum_left dd').find('a.cur_img').index();\r\n        cur_index = cur_index - 1;\r\n        var num = $('.little_img').length;\r\n        var max_index = 3;\r\n        if ((num - 1) < 3) {\r\n            max_index = num - 1;\r\n        }\r\n        if (cur_index < max_index) {\r\n            var next_index = cur_index + 1;\r\n            var big_pic = $('.little_img:eq(' + next_index + ')').data('bigpic');\r\n            $('.little_img').removeClass('cur_img');\r\n            $('.little_img:eq(' + next_index + ')').addClass('cur_img');\r\n            $('.big_img').attr('src', big_pic);\r\n        } else {\r\n            var big_pic = $('.little_img:eq(0)').data('bigpic');\r\n            $('.little_img').removeClass('cur_img');\r\n            $('.little_img:eq(0)').addClass('cur_img');\r\n            $('.big_img').attr('src', big_pic);\r\n        }\r\n    }\r\n</script>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/templates/route_detail.html b/target/classes/templates/route_detail.html
+--- a/target/classes/templates/route_detail.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/templates/route_detail.html	(date 1641518109019)
+@@ -30,7 +30,7 @@
+         <dl class="prosum_left">
+             <div>
+                 <dt>
+-                    <img alt="" class="big_img" th:src="${routeImgs[0].getBigPic()}">
++                    <img alt="" class="big_img" th:src="'/'+${routeImgs[0].getBigPic()}">
+                 </dt>
+             </div>
+             <div>
+@@ -38,8 +38,8 @@
+                     <a class="up_img up_img_disable"></a>
+                 </dd>
+                 <dd th:each="img:${routeImgs}">
+-                    <a title="" class="little_img" th:data-bigpic="${img.getBigPic()}">
+-                        <img th:src="${img.getSmallPic()}">
++                    <a title="" class="little_img" th:data-bigpic="'/'+${img.getBigPic()}">
++                        <img th:src="'/'+${img.getSmallPic()}">
+                     </a>
+                 </dd>
+                 <dd>
+@@ -60,8 +60,8 @@
+                 </strong><span>起</span>
+                 </p>
+                 <p class="collect">
+-                <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+-                <p style="color: palevioletred" th:text="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></p>
++                <p style="color: red" th:utext="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
++                <p style="color: palevioletred" th:utext="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></p>
+                 <a class="btn" th:if="${session.user}==null"
+                    th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
+                         class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+Index: target/classes/public/error/500.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>友好页面</title>\r\n</head>\r\n<body>\r\n    <h3>对不起，服务器繁忙，请明天再试！</h3>\r\n    <a th:href=\"@{/toIndex}\">返回首页</a>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/public/error/500.html b/target/classes/public/error/500.html
+--- a/target/classes/public/error/500.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/public/error/500.html	(date 1641518248641)
+@@ -6,6 +6,6 @@
+ </head>
+ <body>
+     <h3>对不起，服务器繁忙，请明天再试！</h3>
+-    <a th:href="@{/toIndex}">返回首页</a>
++    <a th:href="@{/}">返回首页</a>
+ </body>
+ </html>
+\ No newline at end of file
+Index: target/classes/templates/route_list.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <title>卓越旅游-搜索</title>\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/search.css}\">\r\n    <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n</head>\r\n<body>\r\n<!--引入头部-->\r\n<div th:include=\"header::header\"></div>\r\n    <div class=\"page_one\">\r\n        <div class=\"contant\">\r\n            <div class=\"crumbs\">\r\n                <img th:src=\"@{/images/search.png}\" alt=\"\">\r\n                <p>卓越旅行><span>搜索结果</span></p>\r\n            </div>\r\n            <div class=\"xinxi clearfix\">\r\n                <div class=\"left\" th:if=\"${routes == null}\">\r\n                    <h1>对不起，您的搜索没有返回任何结果@_@||</h1>\r\n                </div>\r\n                <div class=\"left\" th:if=\"${routes != null && pageInfo != null}\">\r\n                    <div class=\"header\">\r\n                        <span>商品信息</span>\r\n                        <span class=\"jg\">价格</span>\r\n                    </div>\r\n                    <ul th:each=\"route:${routes}\">\r\n                        <li>\r\n                            <div class=\"img\"><img th:src=\"${route.getRimage()}\"></div>\r\n                            <div class=\"text1\">\r\n                                <p th:utext=\"${route.getRname()}\"></p>\r\n                                <br/>\r\n                                <p th:utext=\"${route.getRouteIntroduce()}\"></p>\r\n                            </div>\r\n                            <div class=\"price\">\r\n                                <p class=\"price_num\">\r\n                                    <span>&yen;</span>\r\n                                    <span th:utext=\"${route.getPrice()}\"></span>\r\n                                    <span>起</span>\r\n                                </p>\r\n                                <p><a th:href=\"'/toroutedetail?routeid='+${route.getRid()}\">查看详情</a></p>\r\n                            </div>\r\n                        </li>\r\n                    </ul>\r\n                    <div class=\"page_num_inf\">\r\n                        <i th:utext=\"${pageInfo.pageNum}\"></i> 共\r\n                        <span th:utext=\"${pageInfo.pages}\"></span>页\r\n                        <span th:utext=\"${pageInfo.total}\"></span>条\r\n                    </div>\r\n                    <div class=\"pageNum\">\r\n                        <ul class=\"\">\r\n                            <li th:if=\"${pageInfo.hasPreviousPage}\">\r\n                                <a th:href=\"${pageurl}+'1'\">首页</a>\r\n                            </li>\r\n                            <li class=\"prev\" th:if=\"${pageInfo.hasPreviousPage}\">\r\n                                <a th:href=\"${pageurl}+${pageInfo.prePage}\">\r\n                                    <span aria-hidden=\"true\">&laquo;</span>\r\n                                </a>\r\n                            </li>\r\n                            <li th:each=\"page:${pageInfo.navigatepageNums}\">\r\n                                <a th:href=\"${pageurl}+${page}\" th:text=\"${page}\" th:if=\"${page!=pageInfo.pageNum}\"></a>\r\n                                <span th:utext=\"${page}\" th:if=\"${page==pageInfo.pageNum}\"></span>\r\n                            </li>\r\n                            <li th:if=\"${pageInfo.hasNextPage}\">\r\n                                <a th:href=\"${pageurl}+${pageInfo.nextPage}\">\r\n                                    <span aria-hidden=\"true\">&raquo;</span>\r\n                                </a>\r\n                            </li>\r\n                            <li th:if=\"${pageInfo.hasNextPage}\">\r\n                                <a th:href=\"${pageurl}+${pageInfo.pages}\">末页</a>\r\n                            </li>\r\n                        </ul>\r\n                    </div>\r\n                </div>\r\n                <div class=\"right\">\r\n                    <div class=\"top\">\r\n                        <div class=\"hot\">HOT</div>\r\n                        <span>热门推荐</span>\r\n                    </div>\r\n                    <ul>\r\n                        <li>\r\n                            <div class=\"left\"><img th:src=\"@{/images/04-search_09.jpg}\" alt=\"\"></div>\r\n                            <div class=\"right\">\r\n                                <p>desc</p>\r\n                                <p>网付价<span>&yen;<span>price</span>起</span>\r\n                                </p>\r\n                            </div>\r\n                        </li>\r\n                    </ul>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--引入头部-->\r\n    <div th:include=\"footer::footer\"></div>\r\n    <!--导入布局js，共享header和footer-->\r\n    <script type=\"text/javascript\" th:src=\"@{/js/include.js}\"></script>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/templates/route_list.html b/target/classes/templates/route_list.html
+--- a/target/classes/templates/route_list.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/templates/route_list.html	(date 1641518108995)
+@@ -8,6 +8,7 @@
+     <title>卓越旅游-搜索</title>
+     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+     <link rel="stylesheet" type="text/css" th:href="@{/css/search.css}">
++    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+     <script th:src="@{/js/jquery-3.3.1.js}"></script>
+ </head>
+ <body>
+Index: src/main/resources/templates/route_detail.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <title>路线详情</title>\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/route-detail.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/bootstrap.min.css}\">\r\n    <script src=\"https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js\"></script>\r\n    <script src=\"https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\"></script>\r\n    <!--导入angularJS文件-->\r\n    <script th:src=\"@{/js/angular.js}\"></script>\r\n    <!--导入jquery-->\r\n    <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n</head>\r\n\r\n<body>\r\n<!--引入头部-->\r\n<div th:include=\"header::header\"></div>\r\n<!-- 详情 start -->\r\n<div class=\"header_wrap\">\r\n    <div class=\"bread_box\">\r\n        <a th:href=\"@{/toIndex}\">首页</a>\r\n        <span> &gt;</span>\r\n        <a href=\"#\" th:text=\"${category} == null?'@_@':${category.getTcname()}\"></a><span> &gt;</span>\r\n        <a href=\"#\"></a>\r\n    </div>\r\n    <div class=\"prosum_box\">\r\n        <dl class=\"prosum_left\">\r\n            <div>\r\n                <dt>\r\n                    <img alt=\"\" class=\"big_img\" th:src=\"${routeImgs[0].getBigPic()}\">\r\n                </dt>\r\n            </div>\r\n            <div>\r\n                <dd>\r\n                    <a class=\"up_img up_img_disable\"></a>\r\n                </dd>\r\n                <dd th:each=\"img:${routeImgs}\">\r\n                    <a title=\"\" class=\"little_img\" th:data-bigpic=\"${img.getBigPic()}\">\r\n                        <img th:src=\"${img.getSmallPic()}\">\r\n                    </a>\r\n                </dd>\r\n                <dd>\r\n                    <a class=\"down_img down_img_disable\" style=\"margin-bottom: 0;\"></a>\r\n                </dd>\r\n            </div>\r\n        </dl>\r\n        <div class=\"prosum_right\">\r\n            <p class=\"pros_title\" th:text=\"${routeInfo.getRname()}\"></p>\r\n            <p class=\"hot\" th:text=\"${routeInfo.getRouteIntroduce()}\"></p>\r\n            <div class=\"pros_other\">\r\n                <p th:utext=\"'经营商家 : '+${seller.getSname()}\"></p>\r\n                <p th:utext=\"'咨询电话 : '+${seller.getSellerphone()}\"></p>\r\n                <p th:utext=\"'地址 : ' +${seller.getSelleraddress()}\"></p>\r\n            </div>\r\n            <div class=\"pros_price\">\r\n                <p class=\"price\"><strong th:text=\"'¥'+${routeInfo.getPrice()}\">\r\n                </strong><span>起</span>\r\n                </p>\r\n                <p class=\"collect\">\r\n                <p style=\"color: red\" th:text=\"${msg}\" th:if=\"${not #strings.isEmpty(msg)}\"></p>\r\n                <p style=\"color: palevioletred\" th:text=\"${add_ok}\" th:if=\"${not #strings.isEmpty(add_ok)}\"></p>\r\n                <a class=\"btn\" th:if=\"${session.user}==null\"\r\n                   th:href=\"'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'\"><i\r\n                        class=\"glyphicon glyphicon-heart-empty\"></i>点击收藏</a>\r\n                <a class=\"btn\" th:if=\"${session.user}!=null\"\r\n                   th:href=\"'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}\"><i\r\n                        class=\"glyphicon glyphicon-heart-empty\"></i>点击收藏</a>\r\n                <a class=\"btn already\" disabled=\"disabled\">\r\n                    <i class=\"glyphicon glyphicon-heart-empty\"></i>取消收藏</a>\r\n                <span th:utext=\"'已收藏'+${routeInfo.getCount()}+'次'\"></span>\r\n                </p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"you_need_konw\">\r\n        <span>旅游须知</span>\r\n        <div class=\"notice\">\r\n            <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>\r\n\r\n            <p>\r\n                2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>\r\n\r\n            <p>\r\n                3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>\r\n\r\n            <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>\r\n\r\n            <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>\r\n            <p>1、旅行社已投保旅行社责任险。建议游客购买旅游意外保险 <br>\r\n\r\n            <p>\r\n                2、旅游者参加打猎、潜水、海边游泳、漂流、滑水、滑雪、滑草、蹦极、跳伞、滑翔、乘热气球、骑马、赛车、攀岩、水疗、水上飞机等属于高风险性游乐项目的，敬请旅游者务必在参加前充分了解项目的安全须知并确保身体状况能适应此类活动；如旅游者不具备较好的身体条件及技能，可能会造成身体伤害。</p>\r\n\r\n            <p>\r\n                3、参加出海活动时，请务必穿着救生设备。参加水上活动应注意自己的身体状况，有心脏病、冠心病、高血压、感冒、发烧和饮酒及餐后不可以参加水上活动及潜水。在海里活动时，严禁触摸海洋中各种鱼类，水母，海胆，珊瑚等海洋生物，避免被其蛰伤。老人和小孩必须有成年人陪同才能参加合适的水上活动。在海边游玩时，注意保管好随身携带的贵重物品。</p>\r\n\r\n            <p>4、根据中国海关总署的规定，旅客在境外购买的物品，在进入中国海关时可能需要征收关税。详细内容见《中华人民共和国海关总署公告2010年第54号文件》。</p>\r\n\r\n            <p>5、建议出发时行李托运，贵重物品、常用物品、常用药品、御寒衣物等请随身携带，尽量不要托运。行李延误属于不可抗力因素，我司将全力协助客人跟进后续工作，但我司对此不承担任何责任。</p>\r\n        </div>\r\n    </div>\r\n</div>\r\n<!-- 详情 end -->\r\n\r\n<!--引入头部-->\r\n<div th:include=\"footer::footer\"></div>\r\n<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n<script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n<!-- Include all compiled plugins (below), or include individual files as needed -->\r\n<script th:src=\"@{/js/bootstrap.min.js}\"></script>\r\n<!--导入布局js，共享header和footer-->\r\n<script th:src=\"@{/js/include.js}\"></script>\r\n<script>\r\n    $(document).ready(function () {\r\n        //焦点图效果\r\n        //点击图片切换图片\r\n        $('.little_img').on('mousemove', function () {\r\n            $('.little_img').removeClass('cur_img');\r\n            var big_pic = $(this).data('bigpic');\r\n            $('.big_img').attr('src', big_pic);\r\n            $(this).addClass('cur_img');\r\n        });\r\n        //上下切换\r\n        var picindex = 0;\r\n        var nextindex = 4;\r\n        $('.down_img').on('click', function () {\r\n            var num = $('.little_img').length;\r\n            if ((nextindex + 1) <= num) {\r\n                $('.little_img:eq(' + picindex + ')').hide();\r\n                $('.little_img:eq(' + nextindex + ')').show();\r\n                picindex = picindex + 1;\r\n                nextindex = nextindex + 1;\r\n            }\r\n        });\r\n        $('.up_img').on('click', function () {\r\n            var num = $('.little_img').length;\r\n            if (picindex > 0) {\r\n                $('.little_img:eq(' + (nextindex - 1) + ')').hide();\r\n                $('.little_img:eq(' + (picindex - 1) + ')').show();\r\n                picindex = picindex - 1;\r\n                nextindex = nextindex - 1;\r\n            }\r\n        });\r\n        //自动播放\r\n        // var timer = setInterval(\"auto_play()\", 5000);\r\n    });\r\n\r\n    //自动轮播方法\r\n    function auto_play() {\r\n        var cur_index = $('.prosum_left dd').find('a.cur_img').index();\r\n        cur_index = cur_index - 1;\r\n        var num = $('.little_img').length;\r\n        var max_index = 3;\r\n        if ((num - 1) < 3) {\r\n            max_index = num - 1;\r\n        }\r\n        if (cur_index < max_index) {\r\n            var next_index = cur_index + 1;\r\n            var big_pic = $('.little_img:eq(' + next_index + ')').data('bigpic');\r\n            $('.little_img').removeClass('cur_img');\r\n            $('.little_img:eq(' + next_index + ')').addClass('cur_img');\r\n            $('.big_img').attr('src', big_pic);\r\n        } else {\r\n            var big_pic = $('.little_img:eq(0)').data('bigpic');\r\n            $('.little_img').removeClass('cur_img');\r\n            $('.little_img:eq(0)').addClass('cur_img');\r\n            $('.big_img').attr('src', big_pic);\r\n        }\r\n    }\r\n</script>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/templates/route_detail.html b/src/main/resources/templates/route_detail.html
+--- a/src/main/resources/templates/route_detail.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/src/main/resources/templates/route_detail.html	(date 1641518109019)
+@@ -30,7 +30,7 @@
+         <dl class="prosum_left">
+             <div>
+                 <dt>
+-                    <img alt="" class="big_img" th:src="${routeImgs[0].getBigPic()}">
++                    <img alt="" class="big_img" th:src="'/'+${routeImgs[0].getBigPic()}">
+                 </dt>
+             </div>
+             <div>
+@@ -38,8 +38,8 @@
+                     <a class="up_img up_img_disable"></a>
+                 </dd>
+                 <dd th:each="img:${routeImgs}">
+-                    <a title="" class="little_img" th:data-bigpic="${img.getBigPic()}">
+-                        <img th:src="${img.getSmallPic()}">
++                    <a title="" class="little_img" th:data-bigpic="'/'+${img.getBigPic()}">
++                        <img th:src="'/'+${img.getSmallPic()}">
+                     </a>
+                 </dd>
+                 <dd>
+@@ -60,8 +60,8 @@
+                 </strong><span>起</span>
+                 </p>
+                 <p class="collect">
+-                <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+-                <p style="color: palevioletred" th:text="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></p>
++                <p style="color: red" th:utext="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
++                <p style="color: palevioletred" th:utext="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></p>
+                 <a class="btn" th:if="${session.user}==null"
+                    th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
+                         class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+Index: target/classes/templates/favoriterank.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n    <head>\r\n        <meta charset=\"utf-8\">\r\n        <title>收藏排行榜</title>\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/ranking-list.css}\">\r\n        <!--导入angularJS文件-->\r\n        <script th:src=\"@{/js/angular.js}\"></script>\r\n        <!--导入jquery-->\r\n        <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n    </head>\r\n    <body>\r\n    <!--引入头部-->\r\n    <div th:include=\"header::header\"></div>\r\n        <div class=\"contant\">\r\n            <div class=\"shaixuan\">\r\n                <span>线路名称</span>\r\n                <label>\r\n                    <input type=\"text\">\r\n                </label>\r\n                <span>金额</span>\r\n                <label>\r\n                    <input type=\"text\">\r\n                </label>\r\n                ~\r\n                <label>\r\n                    <input type=\"text\">\r\n                </label>\r\n                <button>搜索</button>\r\n            </div>\r\n            <div class=\"list clearfix\">\r\n                <ul>\r\n                    <li>\r\n                        <span class=\"num one\">1</span>\r\n                        <a th:href=\"@{/toroutedetail}\"><img src=\"../static/images/jiangxuan_4.jpg\" alt=\"\"></a>\r\n                        <h4><a href=\"route_detail.html\">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>\r\n                        <p>\r\n                            <b class=\"price\">&yen;<span>899</span>起</b>\r\n                            <span class=\"shouchang\">已收藏450次</span>\r\n                        </p>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n            <div class=\"pageNum\">\r\n                <ul>\r\n                    <li><a href=\"\">首页</a></li>\r\n                    <li class=\"threeword\"><a href=\"#\">上一页</a></li>\r\n                    <li><a href=\"#\">1</a></li>\r\n                    <li><a href=\"#\">2</a></li>\r\n                    <li><a href=\"#\">3</a></li>\r\n                    <li><a href=\"#\">4</a></li>\r\n                    <li><a href=\"#\">5</a></li>\r\n                    <li><a href=\"#\">6</a></li>\r\n                    <li><a href=\"#\">7</a></li>\r\n                    <li><a href=\"#\">8</a></li>\r\n                    <li><a href=\"#\">9</a></li>\r\n                    <li><a href=\"#\">10</a></li>\r\n                    <li class=\"threeword\"><a href=\"javascript:;\">下一页</a></li>\r\n                    <li class=\"threeword\"><a href=\"javascript:;\">末页</a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n         <!--导入底部-->\r\n   \t\t <div id=\"footer\"></div>\r\n    <!--导入布局js，共享header和footer-->\r\n    <script type=\"text/javascript\" src=\"../static/js/include.js\"></script>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/templates/favoriterank.html b/target/classes/templates/favoriterank.html
+--- a/target/classes/templates/favoriterank.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/templates/favoriterank.html	(date 1641518697363)
+@@ -1,69 +1,83 @@
+ <!DOCTYPE html>
+ <html lang="en" xmlns:th="http://www.thymeleaf.org">
+-    <head>
+-        <meta charset="utf-8">
+-        <title>收藏排行榜</title>
+-        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+-        <link rel="stylesheet" type="text/css" th:href="@{/css/ranking-list.css}">
+-        <!--导入angularJS文件-->
+-        <script th:src="@{/js/angular.js}"></script>
+-        <!--导入jquery-->
+-        <script th:src="@{/js/jquery-3.3.1.js}"></script>
+-    </head>
+-    <body>
+-    <!--引入头部-->
+-    <div th:include="header::header"></div>
+-        <div class="contant">
+-            <div class="shaixuan">
+-                <span>线路名称</span>
+-                <label>
+-                    <input type="text">
+-                </label>
+-                <span>金额</span>
+-                <label>
+-                    <input type="text">
+-                </label>
+-                ~
+-                <label>
+-                    <input type="text">
+-                </label>
+-                <button>搜索</button>
+-            </div>
+-            <div class="list clearfix">
+-                <ul>
+-                    <li>
+-                        <span class="num one">1</span>
+-                        <a th:href="@{/toroutedetail}"><img src="../static/images/jiangxuan_4.jpg" alt=""></a>
+-                        <h4><a href="route_detail.html">【尾单特卖】全国-曼谷6-7天自由行 泰国出境旅游 特价往6-7天自由行 泰国出境旅游 特价往..</a></h4>
+-                        <p>
+-                            <b class="price">&yen;<span>899</span>起</b>
+-                            <span class="shouchang">已收藏450次</span>
+-                        </p>
+-                    </li>
+-                </ul>
+-            </div>
+-            <div class="pageNum">
+-                <ul>
+-                    <li><a href="">首页</a></li>
+-                    <li class="threeword"><a href="#">上一页</a></li>
+-                    <li><a href="#">1</a></li>
+-                    <li><a href="#">2</a></li>
+-                    <li><a href="#">3</a></li>
+-                    <li><a href="#">4</a></li>
+-                    <li><a href="#">5</a></li>
+-                    <li><a href="#">6</a></li>
+-                    <li><a href="#">7</a></li>
+-                    <li><a href="#">8</a></li>
+-                    <li><a href="#">9</a></li>
+-                    <li><a href="#">10</a></li>
+-                    <li class="threeword"><a href="javascript:;">下一页</a></li>
+-                    <li class="threeword"><a href="javascript:;">末页</a></li>
+-                </ul>
+-            </div>
+-        </div>
+-         <!--导入底部-->
+-   		 <div id="footer"></div>
+-    <!--导入布局js，共享header和footer-->
+-    <script type="text/javascript" src="../static/js/include.js"></script>
+-    </body>
++<head>
++    <meta charset="utf-8">
++    <title>收藏排行榜</title>
++    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
++    <link rel="stylesheet" type="text/css" th:href="@{/css/ranking-list.css}">
++    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
++    <!--导入angularJS文件-->
++    <script th:src="@{/js/angular.js}"></script>
++    <!--导入jquery-->
++    <script th:src="@{/js/jquery-3.3.1.js}"></script>
++</head>
++<body>
++<!--引入头部-->
++<div th:include="header::header"></div>
++<div class="contant">
++    <div class="shaixuan">
++        <span>线路名称</span>
++        <label>
++            <input type="text">
++        </label>
++        <span>金额</span>
++        <label>
++            <input type="text">
++        </label>
++        ~
++        <label>
++            <input type="text">
++        </label>
++        <button>搜索</button>
++    </div>
++    <div class="list clearfix">
++        <ul>
++            <li>
++                <span class="num one" th:utext=""></span>
++                <a th:href="@{/toroutedetail}">
++                    <img th:src="" alt="">
++                </a>
++                <h4><a th:href=""></a></h4>
++                <p>
++                    <b class="price">&yen;<span th:utext=""></span>起</b>
++                    <span class="shouchang">已收藏450次</span>
++                </p>
++            </li>
++        </ul>
++    </div>
++    <div class="page_num_inf">
++        <i th:utext="${pageInfo.pageNum}"></i> 共
++        <span th:utext="${pageInfo.pages}"></span>页
++        <span th:utext="${pageInfo.total}"></span>条
++    </div>
++    <div class="pageNum">
++        <ul class="">
++            <li th:if="${pageInfo.hasPreviousPage}">
++                <a th:href="${pageurl}+'1'">首页</a>
++            </li>
++            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
++                <a th:href="${pageurl}+${pageInfo.prePage}">
++                    <span aria-hidden="true">&laquo;</span>
++                </a>
++            </li>
++            <li th:each="page:${pageInfo.navigatepageNums}">
++                <a th:href="${pageurl}+${page}" th:text="${page}" th:if="${page!=pageInfo.pageNum}"></a>
++                <span th:utext="${page}" th:if="${page==pageInfo.pageNum}"></span>
++            </li>
++            <li th:if="${pageInfo.hasNextPage}">
++                <a th:href="${pageurl}+${pageInfo.nextPage}">
++                    <span aria-hidden="true">&raquo;</span>
++                </a>
++            </li>
++            <li th:if="${pageInfo.hasNextPage}">
++                <a th:href="${pageurl}+${pageInfo.pages}">末页</a>
++            </li>
++        </ul>
++    </div>
++</div>
++<!--导入底部-->
++<div th:include="footer::footer"></div>
++<!--导入布局js，共享header和footer-->
++<script type="text/javascript" th:src="@{/js/include.js}"></script>
++</body>
+ </html>
+\ No newline at end of file
+Index: target/classes/templates/register.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n    <head>\r\n        <meta charset=\"utf-8\">\r\n        <title>东海宁大恋爱旅游网-注册页面</title>\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/register.css}\">\r\n\t\t<link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/bootstrap.min.css}\">\r\n\t\t<!--导入jquery-->\r\n\t\t<script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n    </head>\r\n\t<body>\r\n\t<!--引入头部-->\r\n\t<div th:include=\"header::header\"></div>\r\n        <!-- 头部 end -->\r\n    \t<div class=\"rg_layout\">\r\n    \t\t<div class=\"rg_form clearfix\">\r\n    \t\t\t<div class=\"rg_form_left\">\r\n    \t\t\t\t<p>新用户注册</p>\r\n    \t\t\t\t<p>USER REGISTER</p>\r\n    \t\t\t</div>\r\n    \t\t\t<div class=\"rg_form_center\">\r\n\t\t\t\t\t<!--注册表单-->\r\n    \t\t\t\t<form id=\"registerForm\" th:action=\"@{/user/UserRegister}\" method=\"post\" accept-charset=\"UTF-8\">\r\n\t\t\t\t\t\t<!--提交处理请求的标识符-->\r\n\t\t\t\t\t\t<input type=\"hidden\" name=\"action\" value=\"register\">\r\n\t\t\t\t\t\t<p style=\"color: red\" th:text=\"${msg}\" th:if=\"${not #strings.isEmpty(msg)}\"></p>\r\n\t\t\t\t\t\t<table style=\"margin-top: 25px;\">\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"username\">用户名</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right\">\r\n    \t\t\t\t\t\t\t\t<input type=\"text\" id=\"username\" name=\"username\" th:placeholder=\"请输入账号\">\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"password\">密码</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right\">\r\n    \t\t\t\t\t\t\t\t<input type=\"password\" id=\"password\" name=\"password\" th:placeholder=\"请输入密码\">\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"email\">Email</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right\">\r\n    \t\t\t\t\t\t\t\t<input type=\"text\" id=\"email\" name=\"email\" th:placeholder=\"请输入Email\">\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"name\">姓名</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right\">\r\n    \t\t\t\t\t\t\t\t<input type=\"text\" id=\"name\" name=\"name\" th:placeholder=\"您的姓名\">\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"telephone\">手机号</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right\">\r\n    \t\t\t\t\t\t\t\t<input type=\"text\" id=\"telephone\" name=\"telephone\" th:placeholder=\"您的电话\">\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"sex\">性别</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right gender\">\r\n    \t\t\t\t\t\t\t\t<input type=\"radio\" id=\"sex\" name=\"sex\" value=\"男\" checked > 男\r\n    \t\t\t\t\t\t\t\t<input type=\"radio\" name=\"sex\" value=\"女\"> 女\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"birthday\">出生日期</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right\">\r\n    \t\t\t\t\t\t\t\t<input type=\"date\" id=\"birthday\" name=\"birthday\">\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\">\r\n    \t\t\t\t\t\t\t\t<label for=\"check\">验证码</label>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right check\">\r\n    \t\t\t\t\t\t\t\t<input type=\"text\" id=\"check\" name=\"check\" class=\"check\">\r\n    \t\t\t\t\t\t\t\t<img height=\"32px\" id=\"codeimg\" th:src=\"@{/user/getcode}\" alt=\"\" onclick=\"changeCheckCode()\">\r\n\t\t\t\t\t\t\t\t\t<script>\r\n\t\t\t\t\t\t\t\t\t\t//图片点击事件\r\n\t\t\t\t\t\t\t\t\t\tfunction changeCheckCode() {\r\n\t\t\t\t\t\t\t\t\t\t\tdocument.getElementById(\"codeimg\").src = timestamp(\"http://127.0.0.1:8080/user/getcode\");\r\n\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t\t\t\tfunction timestamp(url) {\r\n\t\t\t\t\t\t\t\t\t\t\tconst getTimestamp = new Date().getTime();\r\n\t\t\t\t\t\t\t\t\t\t\tif (url.indexOf(\"?\") > -1) {\r\n\t\t\t\t\t\t\t\t\t\t\t\turl = url + \"&timestamp=\" + getTimestamp\r\n\t\t\t\t\t\t\t\t\t\t\t} else {\r\n\t\t\t\t\t\t\t\t\t\t\t\turl = url + \"?timestamp=\" + getTimestamp\r\n\t\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t\t\t\t\treturn url;\r\n\t\t\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t\t\t</script>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t\t<tr>\r\n    \t\t\t\t\t\t\t<td class=\"td_left\"> \r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t\t<td class=\"td_right check\"> \r\n    \t\t\t\t\t\t\t\t<button type=\"submit\" class=\"submit\">注册</button>\r\n\t\t\t\t\t\t\t\t\t<span id=\"msg\" style=\"color: red;\"></span>\r\n    \t\t\t\t\t\t\t</td>\r\n    \t\t\t\t\t\t</tr>\r\n    \t\t\t\t\t</table>\r\n    \t\t\t\t</form>\r\n    \t\t\t</div>\r\n    \t\t\t<div class=\"rg_form_right\">\r\n    \t\t\t\t<p>\r\n    \t\t\t\t\t已有账号？\r\n    \t\t\t\t\t<a th:href=\"@{/user/toLogin}\">立即登录</a>\r\n    \t\t\t\t</p>\r\n    \t\t\t</div>\r\n    \t\t</div>\r\n    \t</div>\r\n        <!--引入尾部-->\r\n    \t<div th:include=\"footer::footer\"></div>\r\n\t\t<!--导入布局js，共享header和footer-->\r\n\t\t<script type=\"text/javascript\" th:src=\"@{/js/include.js}\"></script>\r\n\t\t<script>\r\n\t\t\t\t/*\r\n\t\t\t\t* 验证用户名\r\n\t\t\t\t* 非空\r\n\t\t\t\t* */\r\n\t\t\t\tfunction checkusername() {\r\n\t\t\t\tvar username = $(\"#username\").val();\r\n\t\t\t\tvar flag = (username.length > 0);\r\n\t\t\t\tif (flag) {\r\n\t\t\t\t//用户名合法\r\n\t\t\t\t$(\"#username\").css(\"border\", \"\");\r\n\t\t\t}else{\r\n\t\t\t\t//用户名非法\r\n\t\t\t\t$(\"#username\").css(\"border\", \"1px solid red\");\r\n\t\t\t}\r\n\t\t\t\treturn flag;\r\n\t\t\t}\r\n\t\t\t\t/*\r\n\t\t\t\t* 验证密码\r\n\t\t\t\t* 单词字符\r\n\t\t\t\t* 长度在6到12位之间\r\n\t\t\t\t*/\r\n\t\t\t\tfunction checkPassword() {\r\n\t\t\t\t//1、获取值\r\n\t\t\t\tvar password =  $(\"#password\").val();\r\n\t\t\t\t//2、定义正则\r\n\t\t\t\tvar reg_password = /^\\w{6,12}$/;\r\n\t\t\t\t//3、判断并给出提示\r\n\t\t\t\tvar flag = reg_password.test(password);\r\n\t\t\t\tif (flag) {\r\n\t\t\t\t//用户名合法\r\n\t\t\t\t$(\"#password\").css(\"border\", \"\");\r\n\t\t\t}else{\r\n\t\t\t\t//用户名非法\r\n\t\t\t\t$(\"#password\").css(\"border\", \"1px solid red\");\r\n\t\t\t}\r\n\t\t\t\treturn flag;\r\n\t\t\t}\r\n\t\t\t\t/*\r\n\t\t\t\t* 验证邮箱\r\n\t\t\t\t*/\r\n\t\t\t\tfunction checkemail() {\r\n\t\t\t\t//1、获取值\r\n\t\t\t\tvar email =  $(\"#email\").val();\r\n\t\t\t\t//2、定义正则\r\n\t\t\t\tvar reg_email = /^\\w+@\\w+\\.\\w+$/;\r\n\t\t\t\t//3、判断并给出提示\r\n\t\t\t\tvar flag = reg_email.test(email);\r\n\t\t\t\tif (flag) {\r\n\t\t\t\t//用户名合法\r\n\t\t\t\t$(\"#email\").css(\"border\", \"\");\r\n\t\t\t}else{\r\n\t\t\t\t//用户名非法\r\n\t\t\t\t$(\"#email\").css(\"border\", \"1px solid red\");\r\n\t\t\t}\r\n\t\t\t\treturn flag;\r\n\t\t\t}\r\n\t\t\t\t/*\r\n\t\t\t\t* 验证姓名\r\n\t\t\t\t* 非空\r\n\t\t\t\t* */\r\n\t\t\t\tfunction checkName(){\r\n\t\t\t\t// 1、获取值\r\n\t\t\t\tvar name = $(\"#name\").val();\r\n\t\t\t\tvar flag = (name.length >0) ? true:false;\r\n\t\t\t\tif (flag) {\r\n\t\t\t\t//用户名合法\r\n\t\t\t\t$(\"#name\").css(\"border\", \"\");\r\n\t\t\t}else{\r\n\t\t\t\t//用户名非法\r\n\t\t\t\t$(\"#name\").css(\"border\", \"1px solid red\");\r\n\t\t\t}\r\n\t\t\t\treturn flag;\r\n\t\t\t}\r\n\t\t\t\t/**\r\n\t\t\t\t* 验证手机号码\r\n\t\t\t\t* /^1(3|4|5|6|7|8|9)\\d{9}$/\r\n\t\t\t\t* */\r\n\t\t\t\tfunction checkTelephone(){\r\n\t\t\t\t//    1、获取值\r\n\t\t\t\tvar telephone = $(\"#telephone\").val();\r\n\t\t\t\tvar reg_telephone = /^1(3|4|5|6|7|8|9)\\d{9}$/;\r\n\t\t\t\tvar flag = reg_telephone.test(telephone);\r\n\r\n\t\t\t\tif (flag) {\r\n\t\t\t\t//手机号合法\r\n\t\t\t\t$(\"#telephone\").css(\"border\", \"\");\r\n\t\t\t}else{\r\n\t\t\t\t//手机号非法\r\n\t\t\t\t$(\"#telephone\").css(\"border\", \"1px solid red\");\r\n\t\t\t}\r\n\t\t\t\treturn flag;\r\n\t\t\t}\r\n\t\t\t\t/**\r\n\t\t\t\t* 验证验证码\r\n\t\t\t\t* 非空\r\n\t\t\t\t* @returns {boolean}\r\n\t\t\t\t*/\r\n\t\t\t\tfunction checkCheck(){\r\n\t\t\t\tvar check = $(\"#check\").val();\r\n\t\t\t\tvar flag = (check.length >0) ? true:false;\r\n\t\t\t\tif (flag) {\r\n\t\t\t\t//验证码合法\r\n\t\t\t\t$(\"#check\").css(\"border\", \"\");\r\n\t\t\t}else{\r\n\t\t\t\t//验证码非法\r\n\t\t\t\t$(\"#check\").css(\"border\", \"1px solid red\");\r\n\t\t\t}\r\n\t\t\t\treturn flag;\r\n\t\t\t}\r\n\t\t\t\t$(function () {\r\n\r\n\t\t\t\t$(\"#registerForm\").submit(function () {\r\n\r\n\t\t\t\t\tif (checkusername() && checkPassword() && checkemail() && checkName() && checkTelephone() && checkBirthday() && checkCheck()){\r\n\t\t\t\t\t\t//    校验通过，发送Ajax请求，提交表单的数据\r\n\t\t\t\t\t\t$.post(\"registUserServlet\",$(this).serialize(),function (data) {\r\n\r\n\t\t\t\t\t\t});\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn false;\r\n\t\t\t\t});\r\n\t\t\t\t$(\"#username\").blur(checkusername);\r\n\t\t\t\t$(\"#password\").blur(checkPassword);\r\n\t\t\t\t$(\"#email\").blur(checkemail);\r\n\t\t\t\t$(\"#name\").blur(checkName);\r\n\t\t\t\t$(\"#telephone\").blur(checkTelephone);\r\n\t\t\t\t$(\"#birthday\").blur(checkBirthday);\r\n\t\t\t\t$(\"#check\").blur(checkCheck);\r\n\t\t\t});\r\n\t\t</script>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/templates/register.html b/target/classes/templates/register.html
+--- a/target/classes/templates/register.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/templates/register.html	(date 1641520234776)
+@@ -93,7 +93,7 @@
+ 									<script>
+ 										//图片点击事件
+ 										function changeCheckCode() {
+-											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
++											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getRcode");
+ 										}
+ 										function timestamp(url) {
+ 											const getTimestamp = new Date().getTime();
+Index: target/classes/public/error/404.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>友好页面</title>\r\n</head>\r\n<body>\r\n<div>\r\n    <h3>对不起，您访问的资源不存在！</h3>\r\n    <a th:href=\"@{/toIndex}\">返回首页</a>\r\n</div>\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/public/error/404.html b/target/classes/public/error/404.html
+--- a/target/classes/public/error/404.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/public/error/404.html	(date 1641518248684)
+@@ -7,7 +7,7 @@
+ <body>
+ <div>
+     <h3>对不起，您访问的资源不存在！</h3>
+-    <a th:href="@{/toIndex}">返回首页</a>
++    <a th:href="@{/}">返回首页</a>
+ </div>
+ 
+ </body>
+Index: target/classes/templates/login.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n<head>\r\n    <meta charset=\"utf-8\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n    <title>东海宁大恋爱旅游网-登录</title>\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/login.css}\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/bootstrap.min.css}\">\r\n    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->\r\n    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->\r\n    <!--[if lt IE 9]>\r\n    <script src=\"https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js\"></script>\r\n    <script src=\"https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js\"></script>\r\n    <![endif]-->\r\n    <!--导入angularJS文件-->\r\n    <script th:src=\"@{/js/angular.js}\"></script>\r\n    <!--导入jquery-->\r\n    <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n</head>\r\n\r\n<body>\r\n<!--引入头部-->\r\n<div th:include=\"header::header\"></div>\r\n<!-- 头部 end -->\r\n<section id=\"login_wrap\">\r\n    <div class=\"fullscreen-bg\" th:style=\"'background:url('+'/images/login_bg.png'+');'+' height:'+'532px'\">\r\n\r\n    </div>\r\n    <div class=\"login-box\">\r\n        <div class=\"title\">\r\n            <img th:src=\"@{/images/login_logo.png}\" alt=\"\">\r\n            <span>欢迎登录东海宁大旅游</span>\r\n        </div>\r\n        <div class=\"login_inner\">\r\n            <!--登录错误提示消息-->\r\n            <form id=\"loginForm\" th:action=\"@{/user/checkAccount}\" method=\"post\" accept-charset=\"utf-8\">\r\n                <h1 class=\"h3 mb-3 font\">登录</h1>\r\n                <p style=\"color: red\" th:text=\"${msg}\" th:if=\"${not #strings.isEmpty(msg)}\"></p>\r\n                <label>\r\n                    <input id=\"username\" name=\"username\" type=\"text\" th:placeholder=\"请输入用户名\" autocomplete=\"off\">\r\n                </label>\r\n                <label>\r\n                    <input id=\"password\" name=\"password\" type=\"password\" th:placeholder=\"请输入密码\" autocomplete=\"off\">\r\n                </label>\r\n                <div class=\"verify\">\r\n                    <tr>\r\n\t\t\t\t\t\t<input name=\"check\" type=\"text\" th:placeholder=\"请输入验证码\" autocomplete=\"off\">\r\n\t\t\t\t\t\t<img height=\"32px\" id=\"codeimg\" th:src=\"@{/user/getcode}\" alt=\"\" onclick=\"changeCheckCode()\">\r\n                        <script>\r\n                            //图片点击事件\r\n                            function changeCheckCode() {\r\n                                document.getElementById(\"codeimg\").src = timestamp(\"http://127.0.0.1:8080/user/getcode\");\r\n                            }\r\n\r\n                            function timestamp(url) {\r\n                                const getTimestamp = new Date().getTime();\r\n                                if (url.indexOf(\"?\") > -1) {\r\n                                    url = url + \"&timestamp=\" + getTimestamp\r\n                                } else {\r\n                                    url = url + \"?timestamp=\" + getTimestamp\r\n                                }\r\n                                return url;\r\n                            }\r\n                        </script>\r\n                    </tr>\r\n                </div>\r\n                <div class=\"submit_btn\">\r\n                    <button type=\"submit\">登录</button>\r\n                    <div class=\"auto_login\">\r\n                        <label>\r\n                            <input type=\"checkbox\" name=\"\" class=\"checkbox\">\r\n                            <span class=\"auto_login1\">自动登录</span>\r\n                        </label>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n            <div class=\"reg\">没有账户？<a th:href=\"@{/user/toRegister}\">立即注册</a></div>\r\n        </div>\r\n    </div>\r\n</section>\r\n<!--引入尾部-->\r\n<div th:include=\"footer::footer\"></div>\r\n<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->\r\n<script th:src=\"@{/js/jquery-1.11.0.min.js}\"></script>\r\n<!-- Include all compiled plugins (below), or include individual files as needed -->\r\n<script th:src=\"@{/js/bootstrap.min.js}\"></script>\r\n<!--导入布局js，共享header和footer-->\r\n<script th:src=\"@{/js/include.js}\"></script>\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/templates/login.html b/target/classes/templates/login.html
+--- a/target/classes/templates/login.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/templates/login.html	(date 1641515866642)
+@@ -17,7 +17,12 @@
+     <!--导入angularJS文件-->
+     <script th:src="@{/js/angular.js}"></script>
+     <!--导入jquery-->
++    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+     <script th:src="@{/js/jquery-3.3.1.js}"></script>
++    <!--导入搜狐接口获取访问IP-->
++    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
++    <!--导入获取日志信息的js文件-->
++    <script th:src="@{/js/Info.js}"></script>
+ </head>
+ 
+ <body>
+Index: target/classes/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>server:\r\n  port: 8080\r\n  servlet:\r\n    context-path: /\r\nspring:\r\n  datasource:\r\n    #引入druid数据源\r\n    type: com.alibaba.druid.pool.DruidDataSource\r\n    driver-class-name: com.mysql.jdbc.Driver\r\n    url: jdbc:mysql://127.0.0.1:3306/travel?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true\r\n    username: root\r\n    password: 520521\r\n  thymeleaf:\r\n    cache: true\r\n\r\nmybatis-plus:\r\n  type-aliases-package: com.zcq.travelweb.Mapper\r\n  mapper-locations: classpath:mappers/*.xml\r\n  #开启驼峰映射\r\n  configuration:\r\n    map-underscore-to-camel-case: false\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/application.yml b/target/classes/application.yml
+--- a/target/classes/application.yml	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/application.yml	(date 1641518817315)
+@@ -6,7 +6,7 @@
+   datasource:
+     #引入druid数据源
+     type: com.alibaba.druid.pool.DruidDataSource
+-    driver-class-name: com.mysql.jdbc.Driver
++    driver-class-name: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://127.0.0.1:3306/travel?serverTimezone=Asia/Shanghai&useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true
+     username: root
+     password: 520521
+Index: target/classes/templates/myfavorite.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\" xmlns:th=\"http://www.thymeleaf.org\">\r\n    <head>\r\n        <meta charset=\"utf-8\">\r\n        <title>东海宁大恋爱旅游网-我的收藏</title>\r\n        <link th:href=\"@{/css/bootstrap.min.css}\" rel=\"stylesheet\">\r\n        <link rel=\"stylesheet\" type=\"text/css\" th:href=\"@{/css/common.css}\">\r\n        <link rel=\"stylesheet\" th:href=\"@{/css/index.css}\">\r\n       <style>\r\n           .tab-content .row>div {\r\n            margin-top: 16px;\r\n           } \r\n           .tab-content {\r\n            margin-bottom: 36px;\r\n           }\r\n       </style>\r\n       <script th:src=\"@{/js/jquery-3.3.1.js}\"></script>\r\n    </head>\r\n    <body>\r\n    <!--引入头部-->\r\n    <div th:include=\"header::header\"></div>\r\n         <!-- 排行榜 start-->\r\n    <section id=\"content\" th:if=\"${favorites} != null\">\r\n        <section class=\"hemai_jx\">\r\n            <div class=\"jx_top\">\r\n                <div class=\"jx_tit\">\r\n                    <img th:src=\"@{/images/icon_5.jpg}\" alt=\"\">\r\n                    <span>我的收藏</span>\r\n                </div>\r\n            </div>\r\n            <div class=\"jx_content\">\r\n                <!-- Tab panes -->\r\n                <div class=\"tab-content\">\r\n                    <div role=\"tabpanel\" class=\"tab-pane active\" id=\"home\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-3\" th:each=\"favorite:${favorites}\">\r\n                                <a th:href=\"'/toroutedetail?routeid='+${favorite.getRid()}\">\r\n                                    <img th:src=\"'/'+${favorite.getRimage()}\" th:alt=\"${favorite.getRouteIntroduce()}\">\r\n                                    <div class=\"has_border\">\r\n                                        <h3 th:utext=\"${favorite.getRname()}\"></h3>\r\n                                        <div class=\"price\">网付价<em>￥</em><strong th:utext=\"${favorite.getPrice()}\"></strong><em>起</em></div>\r\n                                    </div>\r\n                                </a>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n            <div class=\"page_num_inf\">\r\n                <i th:text=\"${pageInfo.pageNum}\"></i> 共\r\n                <span th:text=\"${pageInfo.pages}\"></span>页\r\n                <span th:text=\"${pageInfo.total}\"></span>条\r\n            </div>\r\n            <div class=\"pageNum\">\r\n                <ul class=\"\">\r\n                    <li th:if=\"${pageInfo.hasPreviousPage}\">\r\n                        <a th:href=\"${pageurl}+'1'\">首页</a>\r\n                    </li>\r\n                    <li class=\"prev\" th:if=\"${pageInfo.hasPreviousPage}\">\r\n                        <a th:href=\"${pageurl}+${pageInfo.prePage}\">\r\n                            <span aria-hidden=\"true\">&laquo;</span>\r\n                        </a>\r\n                    </li>\r\n                    <li th:each=\"page:${pageInfo.navigatepageNums}\">\r\n                        <a th:href=\"${pageurl}+${page}\" th:utext=\"${page}\" th:if=\"${page!=pageInfo.pageNum}\"></a>\r\n                        <span th:utext=\"${page}\" th:if=\"${page==pageInfo.pageNum}\"></span>\r\n                    </li>\r\n                    <li th:if=\"${pageInfo.hasNextPage}\">\r\n                        <a th:href=\"${pageurl}+${pageInfo.nextPage}\">\r\n                            <span aria-hidden=\"true\">&raquo;</span>\r\n                        </a>\r\n                    </li>\r\n                    <li th:if=\"${pageInfo.hasNextPage}\">\r\n                        <a th:href=\"${pageurl}+${pageInfo.pages}\">末页</a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n        </section>\r\n    </section>\r\n    <!-- 排行榜 end-->\r\n    <div th:if=\"${favorites == null}\">\r\n        <h3> 对不起，您还没有任何收藏@_@</h3>\r\n    </div>\r\n    <!--引入尾部-->\r\n    <div th:include=\"footer::footer\"></div>\r\n    <!--导入布局js，共享header和footer-->\r\n    <script type=\"text/javascript\" th:src=\"@{/js/include.js}\"></script>\r\n    </body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/target/classes/templates/myfavorite.html b/target/classes/templates/myfavorite.html
+--- a/target/classes/templates/myfavorite.html	(revision 24ecbb86d794821ccbf3ee6bebee65bedf3a25f4)
++++ b/target/classes/templates/myfavorite.html	(date 1641518109041)
+@@ -3,9 +3,10 @@
+     <head>
+         <meta charset="utf-8">
+         <title>东海宁大恋爱旅游网-我的收藏</title>
+-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+         <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+-        <link rel="stylesheet" th:href="@{/css/index.css}">
++        <link type="text/css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
++        <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
++        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <style>
+            .tab-content .row>div {
+             margin-top: 16px;

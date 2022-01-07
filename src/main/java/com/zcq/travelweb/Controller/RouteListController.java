@@ -34,47 +34,52 @@ public class RouteListController {
         }
 
         try{
-            PageHelper.startPage(pageNum,9);
             if (selectType.equals("selectbyValue") && value.equals("")){
+                PageHelper.startPage(pageNum,9);
                 List<TravelRoute> routeList = routeListService.getRouteList();
                 PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);
                 model.addAttribute("pageInfo", pageInfo);
                 model.addAttribute("routes",routeList);
                 model.addAttribute("pageurl", "/toroutelist?pageNum=");
+                PageHelper.clearPage();
                 return "route_list";
             }
             if (selectType.equals("selectbyCid") && !cid.equals("")){
+                PageHelper.startPage(pageNum,9);
                 List<TravelRoute> routeList = routeListService.getRoutesByCategoryId(Integer.parseInt(cid));
                 PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);
                 model.addAttribute("pageInfo", pageInfo);
                 model.addAttribute("routes",routeList);
                 model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"&cid="+cid+"&pageNum=");
+                PageHelper.clearPage();
                 return "route_list";
             }
             if (selectType.equals("selectbyValue")){
+                PageHelper.startPage(pageNum,9);
                 List<TravelRoute> routeList = routeListService.getRoutesByKeyValue(value);
                 PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);
                 model.addAttribute("pageInfo", pageInfo);
                 model.addAttribute("routes",routeList);
                 model.addAttribute("pageurl", "/toroutelist?value="+value+"&pageNum=");
+                PageHelper.clearPage();
                 return "route_list";
             }
             if (selectType.equals("selecthot")){
+                PageHelper.startPage(pageNum,10);
                 List<TravelRoute> routeList = routeListService.getHotRoutes();
                 PageInfo<TravelRoute> pageInfo = new PageInfo<>(routeList);
                 model.addAttribute("pageInfo", pageInfo);
                 model.addAttribute("routes",routeList);
                 model.addAttribute("pageurl", "/toroutelist?selectType="+selectType+"&pageNum=");
-                return "route_list";
+                PageHelper.clearPage();
+                return "favoriterank";
             }
 
         }catch (NullPointerException e){
             model.addAttribute("pageInfo", null);
             model.addAttribute("routes",null);
         }
-        finally {
-            PageHelper.clearPage();
-        }
+
         return "route_list";
     }
 }

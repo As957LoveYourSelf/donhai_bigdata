@@ -2,14 +2,8 @@ package com.zcq.travelweb.Service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.zcq.travelweb.Data.Seller;
-import com.zcq.travelweb.Data.TravelImg;
-import com.zcq.travelweb.Data.TravelRoute;
-import com.zcq.travelweb.Data.TravelRouteCategory;
-import com.zcq.travelweb.Mapper.CategoryMapper;
-import com.zcq.travelweb.Mapper.RouteImgMapper;
-import com.zcq.travelweb.Mapper.RouteMapper;
-import com.zcq.travelweb.Mapper.SellerMapper;
+import com.zcq.travelweb.Data.*;
+import com.zcq.travelweb.Mapper.*;
 import com.zcq.travelweb.Service.RouteDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -32,6 +26,8 @@ public class RouteDetailServiceImpl extends ServiceImpl<RouteMapper, TravelRoute
     private CategoryMapper categoryMapper;
     @Autowired(required = false)
     private SellerMapper sellerMapper;
+    @Autowired(required = false)
+    private MyFavoriteMapper myFavoriteMapper;
 
     @Override
     public TravelRoute getRouteDetail(Integer routeid) {
@@ -61,5 +57,12 @@ public class RouteDetailServiceImpl extends ServiceImpl<RouteMapper, TravelRoute
         QueryWrapper<TravelRouteCategory> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("cid", cid);
         return categoryMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public boolean hadAddFavorite(Integer rid, String uid) {
+        QueryWrapper<Favorite> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("rid",rid).eq("uid",uid);
+        return myFavoriteMapper.selectOne(queryWrapper) != null;
     }
 }

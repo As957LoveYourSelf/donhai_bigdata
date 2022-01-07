@@ -4,6 +4,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+//TODO:添加用户登录拦截器
 public class myWebMvcConfigures implements WebMvcConfigurer {
 
     @Override

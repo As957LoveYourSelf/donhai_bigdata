@@ -14,4 +14,5 @@ public interface RouteDetailService extends IService<TravelRoute> {
     List<TravelImg> getImgsFromRImgTabByRid(Integer rid);
     Seller getSellerBySid(Integer sid);
     TravelRouteCategory getCategoryByCid(Integer cid);
+    boolean hadAddFavorite(Integer rid, String uid);
 }

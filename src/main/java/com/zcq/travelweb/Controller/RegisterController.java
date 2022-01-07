@@ -1,14 +1,14 @@
 package com.zcq.travelweb.Controller;
 
+import com.zcq.travelweb.Data.JSONResult;
 import com.zcq.travelweb.Data.User;
+import com.zcq.travelweb.Mapper.UserMapper;
 import com.zcq.travelweb.Service.RegisterService;
 import com.zcq.travelweb.Utils.CodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +35,7 @@ public class RegisterController {
 
     @RequestMapping("/activeEmail")
     public String activeEmail(){
-        return "login";
+        return "activeEmail";
     }
 
     @GetMapping("/getRcode")
@@ -45,6 +45,7 @@ public class RegisterController {
         this.Rcode = (String) session.getAttribute("loginCode");
     }
 
+    //TODO:除开用户名外，应规定邮箱和手机号也唯一确定一个用户
     @RequestMapping("/UserRegister")
     public String UserRegister(String username,
                                String password,
@@ -62,9 +63,17 @@ public class RegisterController {
         System.out.println(code);
         String code_status = registerService.checkcode(code,this.Rcode);
         if (code_status.equals("check_ok")) {
-            String status = registerService.UserRegister(this.user);
-            if (status.equals("register_ojbk"))
-                return "register_ok";
+            //验证码正确
+            String status = registerService.UserRegister(this.user); //插入用户
+            if (status.equals("register_ojbk")){
+                //用户插入成功，发送激活邮件
+                boolean flag = registerService.sendEmail(email); //邮件发送成功
+                if (flag) return "register_ok";
+                else {
+                    model.addAttribute("msg", "邮箱不存在");
+                    return "register";
+                }
+            }
             if (status.equals("user_exist")) {
                 //后期可优化为显示具体错误项（可通过js验证）
                 model.addAttribute("msg", "用户已存在");
@@ -76,5 +85,11 @@ public class RegisterController {
             return "register";
         }
         return "../public/error/500";
+    }
+
+    @PostMapping("/active")
+    @ResponseBody
+    public JSONResult<Void> active(String uuid){
+        return registerService.checkUuid(uuid);  //错误
     }
 }

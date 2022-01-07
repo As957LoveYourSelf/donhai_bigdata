@@ -4,30 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复了合并后的错误，当前运行正常">
+    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复了注册页面验证码切换后无法正确识别的Bug">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Data/JSONResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/css/activeEmail.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/resources/static/js/info.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RouteDetailController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RouteDetailController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RouteListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RouteListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Data/TravelRoute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Data/TravelRoute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/MyFavoriteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/MyFavoriteServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RouteDetailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RouteDetailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/MyFavoriteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/MyFavoriteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/RegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/RegisterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/RouteDetailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/RouteDetailService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/public/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/error/404.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/public/error/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/public/error/500.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/activeEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/activeEmail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/favoriterank.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/favoriterank.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/myfavorite.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/myfavorite.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/route_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/route_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/route_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/route_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RegisterController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RouteListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RouteListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Data/TravelRoute.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Data/TravelRoute.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/MyFavoriteServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/MyFavoriteServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RouteDetailServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RouteDetailServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/public/error/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/public/error/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/public/error/500.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/public/error/500.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/favoriterank.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/favoriterank.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/myfavorite.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/myfavorite.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/register.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/route_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/route_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/route_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/route_list.html" afterDir="false" />
     </list>
@@ -40,6 +61,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="FxmlFile" />
+        <option value="CSS File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -71,7 +95,9 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15625" />
     <property name="project.structure.side.proportion" value="0.24554707" />
@@ -106,7 +132,8 @@
       <option name="presentableId" value="Default" />
       <updated>1641459020495</updated>
       <workItem from="1641459023887" duration="1341000" />
-      <workItem from="1641514704741" duration="5373000" />
+      <workItem from="1641514704741" duration="21831000" />
+      <workItem from="1641566492465" duration="4302000" />
     </task>
     <task id="LOCAL-00001" summary="修复了合并后的错误，当前运行正常">
       <created>1641460324507</created>
@@ -115,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641460324507</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="修复了注册页面验证码切换后无法正确识别的Bug">
+      <created>1641520532720</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1641520532720</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +169,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修复了合并后的错误，当前运行正常" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复了合并后的错误，当前运行正常" />
+    <MESSAGE value="修复了注册页面验证码切换后无法正确识别的Bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复了注册页面验证码切换后无法正确识别的Bug" />
   </component>
 </project>

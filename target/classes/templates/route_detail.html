@@ -30,7 +30,7 @@
         <dl class="prosum_left">
             <div>
                 <dt>
-                    <img alt="" class="big_img" th:src="${routeImgs[0].getBigPic()}">
+                    <img alt="" class="big_img" th:src="'/'+${routeImgs[0].getBigPic()}">
                 </dt>
             </div>
             <div>
@@ -38,8 +38,8 @@
                     <a class="up_img up_img_disable"></a>
                 </dd>
                 <dd th:each="img:${routeImgs}">
-                    <a title="" class="little_img" th:data-bigpic="${img.getBigPic()}">
-                        <img th:src="${img.getSmallPic()}">
+                    <a title="" class="little_img" th:data-bigpic="'/'+${img.getBigPic()}">
+                        <img th:src="'/'+${img.getSmallPic()}">
                     </a>
                 </dd>
                 <dd>
@@ -60,16 +60,29 @@
                 </strong><span>起</span>
                 </p>
                 <p class="collect">
-                <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
-                <p style="color: palevioletred" th:text="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></p>
-                <a class="btn" th:if="${session.user}==null"
-                   th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
-                        class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-                <a class="btn" th:if="${session.user}!=null"
-                   th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}"><i
-                        class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-                <a class="btn already" disabled="disabled">
-                    <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
+                    <span style="color: palevioletred" th:utext="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></span>
+                    <span><a class="btn" th:if="${session.user}==null"
+                         th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
+                        class="glyphicon glyphicon-heart-empty"></i>点击收藏</a></span>
+                    <span><a class="btn" th:if="${session.user}==null"
+                         th:href="'/favorite/cancelFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
+                        class="glyphicon glyphicon-heart-empty"></i>取消收藏</a></span>
+                    <span th:if="${!hadAddFavorite}">
+                        <a class="btn" th:if="${session.user}!=null"
+                         th:disabled="${hadAddFavorite}"
+                         th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}">
+                            <i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a></span>
+                    <span th:if="${hadAddFavorite}">
+                        <a class="btn" th:if="${session.user}!=null"
+                           href="#"><i class="glyphicon glyphicon-heart-empty"></i>您已收藏</a></span>
+                    <span th:if="${hadAddFavorite}">
+                        <a class="btn already" th:if="${session.user}!=null"
+                         th:href="'/favorite/cancelFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}">
+                        <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a></span>
+                    <span th:if="${!hadAddFavorite}">
+                        <a class="btn already" th:if="${session.user}!=null"
+                           href="#">
+                        <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a></span>
                 <span th:utext="'已收藏'+${routeInfo.getCount()}+'次'"></span>
                 </p>
             </div>

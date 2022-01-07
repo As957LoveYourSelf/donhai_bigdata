@@ -1,7 +1,6 @@
 package com.zcq.travelweb.Service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.jeffreyning.mybatisplus.service.MppServiceImpl;
 import com.zcq.travelweb.Data.Favorite;
 import com.zcq.travelweb.Data.TravelRoute;
@@ -67,10 +66,38 @@ public class MyFavoriteServiceImpl extends MppServiceImpl<MyFavoriteMapper, Favo
         }
     }
 
-    //取消收藏，根据uid和rid共同确定
+    //TODO:取消收藏，根据uid和rid共同确定(Have Bug)
     @Override
     public void cancelFavorite(String uid, Integer rid) {
+        QueryWrapper<Favorite> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("uid",uid).eq("rid",rid);
+        try {
+            Favorite one = getOne(queryWrapper);
+            TravelRoute travelRoute = routeMapper.selectById(one.getRid());
+            travelRoute.setCount(travelRoute.getCount()-1);
+            routeMapper.updateById(travelRoute);
+            System.out.println("Update Success: "+travelRoute);
+            deleteByMultiId(one);
+            System.out.println("Delete Success: "+one);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public List<TravelRoute> getFavoriteRankInfo(String rname, Double priceF, Double priceL) {
+        priceF = (priceF == null)?0:priceF;
+        priceL = (priceL == null)?Double.MAX_VALUE:priceF;
+        QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
+        if (rname != null){
+            queryWrapper.like("rname", rname)
+                    .gt("price",priceF)
+                    .lt("price",priceL).orderByDesc("count");
+        }else {
+            queryWrapper.gt("price",priceF)
+                    .lt("price",priceL).orderByDesc("count");
+        }
+        return routeMapper.selectList(queryWrapper);
     }
 
 

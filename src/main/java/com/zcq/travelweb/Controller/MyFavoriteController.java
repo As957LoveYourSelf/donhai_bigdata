@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -26,27 +27,51 @@ public class MyFavoriteController {
     @RequestMapping("/addFavorite")
     public String addFavorite(Integer rid,
                               String uid,
-                              Model model){
+                              Model model,
+                              HttpServletRequest request){
         if (null == uid || uid.equals("nouser")){
             model.addAttribute("msg", "请先登录！");
-            return "redirect:/toroutedetail?routeid="+rid;
+            return routeDetailController.toRouteDetail(rid,model, request);
         }
         myFavoriteService.addFavorite(uid, rid);
         System.out.println("Add_OK");
         model.addAttribute("add_ok", "收藏成功！");
-        return "redirect:/toroutedetail?routeid="+rid;
+        return routeDetailController.toRouteDetail(rid,model,request);
     }
 
     //TODO:完善取消收藏功能，并在前端页面提供响应式按钮显示
+    //TODO:可改进的地方：利用session替代uid获取用户登录信息
     @RequestMapping("/cancelFavorite")
     public String cancelFavorite(Integer rid,
                                  String uid,
-                                 Model model){
+                                 Model model,
+                                 HttpServletRequest request){
         if (null == uid || uid.equals("nouser")){
             model.addAttribute("msg", "请先登录！");
-            return "redirect:/toroutedetail?routeid="+rid;
+            return routeDetailController.toRouteDetail(rid,model, request);
         }
-        return "redirect:/toroutedetail?routeid="+rid;
+        myFavoriteService.cancelFavorite(uid, rid);
+        System.out.println("Cancel_OK");
+        model.addAttribute("Cancel_OK", "已取消收藏！");
+        return routeDetailController.toRouteDetail(rid,model,request);
+    }
+
+    //TODO:根据线路名称和金额范围查询旅游路线
+    @RequestMapping("/getFavoriteRank")
+    public String getFavoriteRank(String rname,
+                                  Double priceF,
+                                  Double priceL,
+                                  @RequestParam(defaultValue = "1") Integer pageNum,
+                                  Model model){
+        PageHelper.startPage(pageNum,10);
+        List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF, priceL);
+        PageInfo<TravelRoute> pageInfo = new PageInfo<>();
+        model.addAttribute("routes", favoriteRankInfo);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("pageurl",
+                "/favorite/getFavoriteRank?rname="
+                        +rname+"&priceF="+priceF+"&priceL="+priceL+"&pageNum=");
+        return "/favoriterank";
     }
 
     @RequestMapping("/GetMyFavorite")
@@ -67,11 +92,11 @@ public class MyFavoriteController {
             model.addAttribute("pageInfo", pageInfo);
             model.addAttribute("favorites",favorites);
             model.addAttribute("pageurl", "/favorite/GetMyFavorite?pageNum=");
-            return "myfavorite";
+            return "/myfavorite";
         }catch (NullPointerException e){
             e.printStackTrace();
             model.addAttribute("favorites",null);
-            return "myfavorite";
+            return "/myfavorite";
         }
     }
 }
