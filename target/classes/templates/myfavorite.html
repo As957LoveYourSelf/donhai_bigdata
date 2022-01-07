@@ -40,10 +40,10 @@
                         <div class="row">
                             <div class="col-md-3" th:each="favorite:${favorites}">
                                 <a th:href="'/toroutedetail?routeid='+${favorite.getRid()}">
-                                    <img th:src="${favorite.getRimage()}" th:alt="${favorite.getRouteIntroduce()}">
+                                    <img th:src="'/'+${favorite.getRimage()}" th:alt="${favorite.getRouteIntroduce()}">
                                     <div class="has_border">
-                                        <h3 th:text="${favorite.getRname()}"></h3>
-                                        <div class="price">网付价<em>￥</em><strong th:text="${favorite.getPrice()}"></strong><em>起</em></div>
+                                        <h3 th:utext="${favorite.getRname()}"></h3>
+                                        <div class="price">网付价<em>￥</em><strong th:utext="${favorite.getPrice()}"></strong><em>起</em></div>
                                     </div>
                                 </a>
                             </div>
@@ -59,24 +59,24 @@
             <div class="pageNum">
                 <ul class="">
                     <li th:if="${pageInfo.hasPreviousPage}">
-                        <a th:href="'/toroutelist/?pageNum=1'">首页</a>
+                        <a th:href="${pageurl}+'1'">首页</a>
                     </li>
                     <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-                        <a th:href="'/toroutelist?pageNum'+${pageInfo.prePage}">
+                        <a th:href="${pageurl}+${pageInfo.prePage}">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li th:each="page:${pageInfo.navigatepageNums}">
-                        <a th:href="'/toroutelist?pageNum='+${page}" th:text="${page}" th:if="${page!=pageInfo.pageNum}"></a>
-                        <span th:text="${page}" th:if="${page==pageInfo.pageNum}"></span>
+                        <a th:href="${pageurl}+${page}" th:utext="${page}" th:if="${page!=pageInfo.pageNum}"></a>
+                        <span th:utext="${page}" th:if="${page==pageInfo.pageNum}"></span>
                     </li>
                     <li th:if="${pageInfo.hasNextPage}">
-                        <a th:href="'/toroutelist?pageNum='+${pageInfo.nextPage}">
+                        <a th:href="${pageurl}+${pageInfo.nextPage}">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                     <li th:if="${pageInfo.hasNextPage}">
-                        <a th:href="'/toroutelist?pageNum='+${pageInfo.pages}">末页</a>
+                        <a th:href="${pageurl}+${pageInfo.pages}">末页</a>
                     </li>
                 </ul>
             </div>

@@ -51,9 +51,9 @@
             <p class="pros_title" th:text="${routeInfo.getRname()}"></p>
             <p class="hot" th:text="${routeInfo.getRouteIntroduce()}"></p>
             <div class="pros_other">
-                <p th:text="'经营商家 : '+${seller.getSname()}"></p>
-                <p th:text="'咨询电话 : '+${seller.getSellerphone()}"></p>
-                <p th:text="'地址 :' +${seller.getSelleraddress()}"></p>
+                <p th:utext="'经营商家 : '+${seller.getSname()}"></p>
+                <p th:utext="'咨询电话 : '+${seller.getSellerphone()}"></p>
+                <p th:utext="'地址 : ' +${seller.getSelleraddress()}"></p>
             </div>
             <div class="pros_price">
                 <p class="price"><strong th:text="'¥'+${routeInfo.getPrice()}">
@@ -68,8 +68,9 @@
                 <a class="btn" th:if="${session.user}!=null"
                    th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}"><i
                         class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
-                <a class="btn already" disabled="disabled"><i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
-                <span th:text="'已收藏'+${routeInfo.getCount()}+'次'"></span>
+                <a class="btn already" disabled="disabled">
+                    <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
+                <span th:utext="'已收藏'+${routeInfo.getCount()}+'次'"></span>
                 </p>
             </div>
         </div>

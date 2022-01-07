@@ -1,7 +1,7 @@
 .search_input {
 	height: 40px;
 }
-/*黑马精选*/
+
 #content {
 	margin-bottom: 60px;
 }
@@ -16,7 +16,11 @@
 	line-height: 35px;
 	margin: 0 auto;
 }
-
+div#carousel-example-generic {
+	align-content: center;
+	/*margin-left: 1050px;*/
+	width: 100%;
+}
 .jx_top {
 	margin-top: 35px;
 	border-bottom: 2px solid #ffc900;
@@ -103,7 +107,6 @@ div#carousel-example-generic{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    overflow: hidden;
 }
 .jx_content img, .guone_r .row img {
 	display: block;

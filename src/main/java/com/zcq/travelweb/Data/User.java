@@ -23,8 +23,8 @@ import java.util.Date;
 @Validated
 @TableName("tab_user")
 public class User {
-    @TableId(type = IdType.AUTO)
-    private int uid;
+    @TableId(type = IdType.ASSIGN_UUID)
+    private String uid;
     private String username;
     private String password;
     private String name;

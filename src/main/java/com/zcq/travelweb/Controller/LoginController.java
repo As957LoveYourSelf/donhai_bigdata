@@ -27,6 +27,12 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/toIndex";
+    }
+
 
     @GetMapping("/getcode")
     public void getcode(HttpServletResponse response, HttpServletRequest request){
@@ -46,7 +52,7 @@ public class LoginController {
         String code_status = loginService.checkcode(code,this.Rcode);
         System.out.println(status+" "+code_status);
         if (status.equals("login_ok") && code_status.equals("check_ok")){
-            return "index";
+            return "redirect:/toIndex";
         }
         if (status.equals("login_ok") && code_status.equals("check_error")){
             model.addAttribute("msg","验证码错误！请重新输入验证码");
