@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
+    <head>
         <meta charset="utf-8">
         <title>东海宁大恋爱旅游网-注册页面</title>
         <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
@@ -90,11 +89,11 @@
     							</td>
     							<td class="td_right check">
     								<input type="text" id="check" name="check" class="check">
-    								<img height="32px" id="codeimg" th:src="@{/user/getcode}" alt="" onclick="changeCheckCode()">
-									<script type="text/javascript">
+    								<img height="32px" id="codeimg" th:src="@{/user/getRcode}" alt="" onclick="changeCheckCode()">
+									<script>
 										//图片点击事件
 										function changeCheckCode() {
-											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getcode");
+											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8081/user/getRcode");
 										}
 										function timestamp(url) {
 											const getTimestamp = new Date().getTime();
@@ -231,7 +230,7 @@
 				*/
 				function checkCheck(){
 				var check = $("#check").val();
-				var flag = (check.length > 0);
+				var flag = (check.length >0) ? true:false;
 				if (flag) {
 				//验证码合法
 				$("#check").css("border", "");

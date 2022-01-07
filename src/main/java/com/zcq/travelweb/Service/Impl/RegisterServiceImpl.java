@@ -56,6 +56,8 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, User> imple
 
     @Override
     public String checkcode(String code, String Rcode) {
+        System.out.println("CheckCode: "+code.toUpperCase());
+        System.out.println("ResourceCode: "+Rcode);
         if (code.toUpperCase().equals(Rcode)){
             return "check_ok";
         }
