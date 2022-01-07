@@ -2,17 +2,21 @@ package com.zcq.travelweb.Controller;
 
 import com.zcq.travelweb.Data.User;
 import com.zcq.travelweb.Service.RegisterService;
+import com.zcq.travelweb.Utils.CodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class RegisterController {
 
     @Autowired(required = false)
@@ -20,6 +24,8 @@ public class RegisterController {
 
     @Autowired(required = false)
     private User user;
+
+    private String Rcode = null;
 
     @RequestMapping("/toRegister")
     public String toRegister() {
@@ -32,6 +38,13 @@ public class RegisterController {
         return "login";
     }
 
+    @GetMapping("/getRcode")
+    public void getcode(HttpServletResponse response, HttpServletRequest request){
+        CodeUtils.getvalidateCode(request, response);
+        HttpSession session = request.getSession();
+        this.Rcode = (String) session.getAttribute("loginCode");
+    }
+
     @RequestMapping("/UserRegister")
     public String UserRegister(String username,
                                String password,
@@ -41,15 +54,13 @@ public class RegisterController {
                                String birthday,
                                String sex,
                                Model model,
-                               @RequestParam(value = "check") String code,
-                               HttpSession session) {
+                               @RequestParam(value = "check") String code) {
        user.setName(name).setPassword(password).setUsername(username).
                 setBirthday(
                         registerService.strToDateLong(birthday)).
                 setEmail(email).setSex(sex).setTelephone(telephone);
-        String Code = (String) session.getAttribute("loginCode");
-        System.out.println(Code);
-        String code_status = registerService.checkcode(code,Code);
+        System.out.println(code);
+        String code_status = registerService.checkcode(code,this.Rcode);
         if (code_status.equals("check_ok")) {
             String status = registerService.UserRegister(this.user);
             if (status.equals("register_ojbk"))

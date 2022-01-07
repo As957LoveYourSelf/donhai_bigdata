@@ -89,11 +89,11 @@
     							</td>
     							<td class="td_right check">
     								<input type="text" id="check" name="check" class="check">
-    								<img height="32px" id="codeimg" th:src="@{/user/getcode}" alt="" onclick="changeCheckCode()">
+    								<img height="32px" id="codeimg" th:src="@{/user/getRcode}" alt="" onclick="changeCheckCode()">
 									<script>
 										//图片点击事件
 										function changeCheckCode() {
-											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
+											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getRcode");
 										}
 										function timestamp(url) {
 											const getTimestamp = new Date().getTime();
