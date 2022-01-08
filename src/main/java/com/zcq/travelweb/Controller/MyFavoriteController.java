@@ -63,14 +63,23 @@ public class MyFavoriteController {
                                   Double priceL,
                                   @RequestParam(defaultValue = "1") Integer pageNum,
                                   Model model){
-        PageHelper.startPage(pageNum,10);
-        List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF, priceL);
-        PageInfo<TravelRoute> pageInfo = new PageInfo<>();
-        model.addAttribute("routes", favoriteRankInfo);
-        model.addAttribute("pageInfo", pageInfo);
-        model.addAttribute("pageurl",
-                "/favorite/getFavoriteRank?rname="
-                        +rname+"&priceF="+priceF+"&priceL="+priceL+"&pageNum=");
+        try {
+            PageHelper.startPage(pageNum,10);
+            List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF, priceL);
+            PageInfo<TravelRoute> pageInfo = new PageInfo<>(favoriteRankInfo);
+            model.addAttribute("routes", favoriteRankInfo);
+            model.addAttribute("pageInfo", pageInfo);
+            model.addAttribute("pageurl",
+                    "/favorite/getFavoriteRank?rname="
+                            +rname+"&priceF="+priceF+"&priceL="+priceL+"&pageNum=");
+            return "/favoriterank";
+        }catch (Exception e){
+            model.addAttribute("routes", null);
+            e.printStackTrace();
+        }
+        finally {
+            PageHelper.clearPage();
+        }
         return "/favoriterank";
     }
 
@@ -97,6 +106,8 @@ public class MyFavoriteController {
             e.printStackTrace();
             model.addAttribute("favorites",null);
             return "/myfavorite";
+        }finally {
+            PageHelper.clearPage();
         }
     }
 }

@@ -19,73 +19,87 @@
         <div class="shaixuan">
             <span>线路名称</span>
             <label>
-                <input type="text" name="rname" th:placeholder="请输入路线名称">
+                <input id="rname" type="text" name="rname" th:placeholder="请输入路线名称">
             </label>
             <span>金额</span>
             <label>
-                <input type="text" name="priceF" th:placeholder="最小金额">
+                <input id="priceF" type="text" name="priceF" th:placeholder="最小金额">
             </label>
             <span>~</span>
             <label>
-                <input type="text" name="priceL" th:placeholder="最大金额">
+                <input id="priceL" type="text" name="priceL" th:placeholder="最大金额">
             </label>
             <button type="reset">取消</button>
-            <button type="submit">搜索</button>
+            <button type="submit" >搜索</button>
         </div>
     </form>
-    <div class="list clearfix">
-        <ul th:if="${routes != null}">
-            <li th:each="route,loopstatus:${routes}">
-                <span class="num one" th:utext="${loopstatus.count}"></span>
-                <a th:href="'/toroutedetail'+${route.rid}">
-                    <img th:src="'/'+${route.rimage}" th:alt="${route.routeIntroduce}">
-                </a>
-                <h4 th:utext="${route.rname}">
-                    <a th:href="'/toroutedetail'+${route.rid}"></a>
-                </h4>
-                <p>
-                    <b class="price">&yen;<span th:utext="${route.price}"></span>起</b>
-                    <span class="shouchang" th:utext="'已收藏'+${route.count}+'次'"></span>
-                </p>
-            </li>
-        </ul>
-        <ul th:if="${routes == null}">
-            <h3 th:utext="获取页面失败"></h3>
-        </ul>
+    <div th:if="${routes != null}">
+        <div class="list clearfix">
+            <ul th:if="${routes != null}">
+                <li th:each="route,loopstatus:${routes}">
+                    <span class="num one" th:utext="${loopstatus.count}"></span>
+                    <a th:href="'/toroutedetail?routeid='+${route.rid}">
+                        <img th:src="'/'+${route.rimage}" th:alt="${route.routeIntroduce}">
+                    </a>
+                    <h4 th:utext="${route.rname}">
+                        <a th:href="'/toroutedetail?routeid='+${route.rid}"></a>
+                    </h4>
+                    <p>
+                        <b class="price">&yen;<span th:utext="${route.price}"></span>起</b>
+                        <span class="shouchang" th:utext="'已收藏'+${route.count}+'次'"></span>
+                    </p>
+                </li>
+            </ul>
+            <ul th:if="${routes == null}">
+                <h3 th:utext="获取页面失败"></h3>
+            </ul>
+        </div>
+        <div class="page_num_inf">
+            <i th:utext="${pageInfo.pageNum}"></i> 共
+            <span th:utext="${pageInfo.pages}"></span>页
+            <span th:utext="${pageInfo.total}"></span>条
+        </div>
+        <div class="pageNum">
+            <ul class="">
+                <li th:if="${pageInfo.hasPreviousPage}">
+                    <a th:href="${pageurl}+'1'">首页</a>
+                </li>
+                <li class="prev" th:if="${pageInfo.hasPreviousPage}">
+                    <a th:href="${pageurl}+${pageInfo.prePage}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li th:each="page:${pageInfo.navigatepageNums}">
+                    <a th:href="${pageurl}+${page}" th:text="${page}" th:if="${page!=pageInfo.pageNum}"></a>
+                    <span th:utext="${page}" th:if="${page==pageInfo.pageNum}"></span>
+                </li>
+                <li th:if="${pageInfo.hasNextPage}">
+                    <a th:href="${pageurl}+${pageInfo.nextPage}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li th:if="${pageInfo.hasNextPage}">
+                    <a th:href="${pageurl}+${pageInfo.pages}">末页</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="page_num_inf">
-        <i th:utext="${pageInfo.pageNum}"></i> 共
-        <span th:utext="${pageInfo.pages}"></span>页
-        <span th:utext="${pageInfo.total}"></span>条
-    </div>
-    <div class="pageNum">
-        <ul class="">
-            <li th:if="${pageInfo.hasPreviousPage}">
-                <a th:href="${pageurl}+'1'">首页</a>
-            </li>
-            <li class="prev" th:if="${pageInfo.hasPreviousPage}">
-                <a th:href="${pageurl}+${pageInfo.prePage}">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li th:each="page:${pageInfo.navigatepageNums}">
-                <a th:href="${pageurl}+${page}" th:text="${page}" th:if="${page!=pageInfo.pageNum}"></a>
-                <span th:utext="${page}" th:if="${page==pageInfo.pageNum}"></span>
-            </li>
-            <li th:if="${pageInfo.hasNextPage}">
-                <a th:href="${pageurl}+${pageInfo.nextPage}">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-            <li th:if="${pageInfo.hasNextPage}">
-                <a th:href="${pageurl}+${pageInfo.pages}">末页</a>
-            </li>
-        </ul>
+    <div th:if="${routes == null}">
+        <h3>查询失败@_@||</h3>
     </div>
 </div>
 <!--导入底部-->
 <div th:include="footer::footer"></div>
 <!--导入布局js，共享header和footer-->
 <script type="text/javascript" th:src="@{/js/include.js}"></script>
+<script>
+    $.cookie("rname", $('#rname').val());
+    $.cookie("priceF", $('#priceF').val());
+    $.cookie("priceL", $('#priceL').val());
+
+    $("#rname").val($.cookie("rname"));
+    $("#priceF").val($.cookie("priceF"));
+    $("#priceL").val($.cookie("priceL"));
+</script>
 </body>
 </html>

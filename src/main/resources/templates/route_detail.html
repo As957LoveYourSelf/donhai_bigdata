@@ -59,30 +59,34 @@
                 <p class="price"><strong th:text="'¥'+${routeInfo.getPrice()}">
                 </strong><span>起</span>
                 </p>
+                <div style="color: palevioletred"
+                     th:if="${not #strings.isEmpty(add_ok)}"
+                     th:text="${add_ok}">
+                </div>
+                <div style="color: palevioletred"
+                     th:if="${not #strings.isEmpty(msg)}"
+                     th:text="${msg}">
+                </div>
                 <p class="collect">
-                    <span style="color: palevioletred" th:utext="${add_ok}" th:if="${not #strings.isEmpty(add_ok)}"></span>
-                    <span><a class="btn" th:if="${session.user}==null"
-                         th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
-                        class="glyphicon glyphicon-heart-empty"></i>点击收藏</a></span>
-                    <span><a class="btn" th:if="${session.user}==null"
-                         th:href="'/favorite/cancelFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
-                        class="glyphicon glyphicon-heart-empty"></i>取消收藏</a></span>
-                    <span th:if="${!hadAddFavorite}">
-                        <a class="btn" th:if="${session.user}!=null"
-                         th:disabled="${hadAddFavorite}"
-                         th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}">
-                            <i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a></span>
-                    <span th:if="${hadAddFavorite}">
-                        <a class="btn" th:if="${session.user}!=null"
-                           href="#"><i class="glyphicon glyphicon-heart-empty"></i>您已收藏</a></span>
-                    <span th:if="${hadAddFavorite}">
-                        <a class="btn already" th:if="${session.user}!=null"
-                         th:href="'/favorite/cancelFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}">
-                        <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a></span>
-                    <span th:if="${!hadAddFavorite}">
-                        <a class="btn already" th:if="${session.user}!=null"
-                           href="#">
-                        <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a></span>
+                <a class="btn" th:if="${session.user==null}"
+                   th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
+                        class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                <a class="btn" th:if="${session.user==null}"
+                   th:href="'/favorite/cancelFavorite'+'?rid='+${routeInfo.getRid()}+'&uid=nouser'"><i
+                        class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
+                <a class="btn" th:if="${session.user!=null && !hadAddFavorite}"
+                   th:href="'/favorite/addFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}">
+                    <i class="glyphicon glyphicon-heart-empty"></i>点击收藏</a>
+                <a class="btn" th:if="${session.user!=null && hadAddFavorite}"
+                   disabled="disabled"
+                   href="#"><i class="glyphicon glyphicon-heart-empty"></i>您已收藏</a>
+                <a class="btn already" th:if="${session.user!=null && hadAddFavorite}"
+                   th:href="'/favorite/cancelFavorite'+'?rid='+${routeInfo.getRid()}+'&uid='+${session.user.uid}">
+                    <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
+                <a class="btn already" th:if="${session.user!=null && !hadAddFavorite}"
+                   disabled="disabled"
+                   href="#">
+                    <i class="glyphicon glyphicon-heart-empty"></i>取消收藏</a>
                 <span th:utext="'已收藏'+${routeInfo.getCount()}+'次'"></span>
                 </p>
             </div>
@@ -117,8 +121,6 @@
     </div>
 </div>
 <!-- 详情 end -->
-
-<!--引入头部-->
 <div th:include="footer::footer"></div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script th:src="@{/js/jquery-3.3.1.js}"></script>
@@ -185,5 +187,4 @@
     }
 </script>
 </body>
-
 </html>

@@ -2,9 +2,68 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Active Account</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册激活</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/activeEmail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--导入angularJS文件-->
+    <script th:src="@{/js/angular.js}"></script>
+    <!--导入jquery-->
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
+    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script>
+        function check() {
+            //获取用户输入的激活码
+            var uuid = $("#activation").val();
+            //发送Ajax请求
+            var url="/user/active";
+            var param={"uuid":uuid};
+            $.post(url,param,function (data){
+                if (data.code===201){
+                    //激活码为空
+                    $("#activation").css("border", "1px solid red");
+                }
+                else if (data.code===203){
+                    //激活码过期
+                    alert("激活码已过期");
+                }
+                else if (data.code===200) {
+                    //激活码正确
+                    alert("激活成功.请登录");
+
+                    //自动跳转到登录页面
+                    window.location.href = "http://localhost:8080/user/toLogin";
+                }
+                else {
+                        //激活码输入错误
+                        alert("激活码有误！");
+                    }
+            },"json");
+        }
+    </script>
 </head>
 <body>
-
+<!--引入头部-->
+<div th:include="header::header"></div>
+<section id="activeEmail_wrap">
+    <div class="activeEmail-box">
+        <div class="title">
+            <h1>邮箱激活</h1>
+        </div>
+        <label for="activation"></label><input type="text" id="activation" name="activation" placeholder="请输入激活码">
+        <button th:action="@{/user/active}" onclick="check()">提交</button>
+    </div>
+</section>
+<!--引入尾部-->
+<div th:include="footer::footer"></div>
+<script type="text/javascript" th:src="@{/js/include.js}"></script>
 </body>
 </html>
