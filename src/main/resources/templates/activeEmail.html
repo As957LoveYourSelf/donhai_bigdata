@@ -24,7 +24,7 @@
             //获取用户输入的激活码
             var uuid = $("#activation").val();
             //发送Ajax请求
-            var url="/user/active";
+            var url="/register/active";
             var param={"uuid":uuid};
             $.post(url,param,function (data){
                 if (data.code===201){
@@ -59,7 +59,7 @@
             <h1>邮箱激活</h1>
         </div>
         <label for="activation"></label><input type="text" id="activation" name="activation" placeholder="请输入激活码">
-        <button th:action="@{/user/active}" onclick="check()">提交</button>
+        <button th:action="@{/resgister/active}" onclick="check()">提交</button>
     </div>
 </section>
 <!--引入尾部-->

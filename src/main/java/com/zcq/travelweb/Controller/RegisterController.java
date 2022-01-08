@@ -2,7 +2,6 @@ package com.zcq.travelweb.Controller;
 
 import com.zcq.travelweb.Data.JSONResult;
 import com.zcq.travelweb.Data.User;
-import com.zcq.travelweb.Mapper.UserMapper;
 import com.zcq.travelweb.Service.RegisterService;
 import com.zcq.travelweb.Utils.CodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired(required = false)
@@ -33,6 +32,7 @@ public class RegisterController {
     }
 
 
+    //TODO:思考应加何种拦截器
     @RequestMapping("/activeEmail")
     public String activeEmail(){
         return "activeEmail";

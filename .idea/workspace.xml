@@ -4,23 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="1.修复了收藏功能，现在不可以无限刷收藏了?_?||@_@||&#10;2.添加了邮箱激活注册功能，现在不可以胡来了（除非你是数据库管理员QvQ）&#10;3.合并并整理了分支（包括埋点功能），当前项目运行正常&#10;4.添加了一些TODO注释，可以用于项目后期优化">
-      <change afterPath="$PROJECT_DIR$/src/main/InfoTXT/2022-01-08.txt" afterDir="false" />
+    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="完善了收藏排行榜功能，提供根据关键字和价格范围查询旅游路线信息">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/StopWatchHandlerInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/LoginHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/LoginHandlerInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/favoriterank.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/favoriterank.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/route_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/route_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/activeEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/activeEmail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/LoginHandlerInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/LoginHandlerInterceptor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RouteDetailController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RouteDetailController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/MyFavoriteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/MyFavoriteService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/RegisterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/RegisterService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/RouteDetailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/RouteDetailService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/css/activeEmail.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/activeEmail.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RegisterController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/activeEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/activeEmail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/favoriterank.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/favoriterank.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/route_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/route_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +107,7 @@
       <workItem from="1641459023887" duration="1341000" />
       <workItem from="1641514704741" duration="21831000" />
       <workItem from="1641566492465" duration="4721000" />
-      <workItem from="1641602578794" duration="7806000" />
+      <workItem from="1641602578794" duration="16727000" />
     </task>
     <task id="LOCAL-00001" summary="修复了合并后的错误，当前运行正常">
       <created>1641460324507</created>
@@ -127,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641571150568</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="完善了收藏排行榜功能，提供根据关键字和价格范围查询旅游路线信息">
+      <created>1641611637707</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1641611637707</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -149,6 +159,7 @@
     <MESSAGE value="修复了合并后的错误，当前运行正常" />
     <MESSAGE value="修复了注册页面验证码切换后无法正确识别的Bug" />
     <MESSAGE value="1.修复了收藏功能，现在不可以无限刷收藏了?_?||@_@||&#10;2.添加了邮箱激活注册功能，现在不可以胡来了（除非你是数据库管理员QvQ）&#10;3.合并并整理了分支（包括埋点功能），当前项目运行正常&#10;4.添加了一些TODO注释，可以用于项目后期优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.修复了收藏功能，现在不可以无限刷收藏了?_?||@_@||&#10;2.添加了邮箱激活注册功能，现在不可以胡来了（除非你是数据库管理员QvQ）&#10;3.合并并整理了分支（包括埋点功能），当前项目运行正常&#10;4.添加了一些TODO注释，可以用于项目后期优化" />
+    <MESSAGE value="完善了收藏排行榜功能，提供根据关键字和价格范围查询旅游路线信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善了收藏排行榜功能，提供根据关键字和价格范围查询旅游路线信息" />
   </component>
 </project>

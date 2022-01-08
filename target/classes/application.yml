@@ -13,6 +13,7 @@ spring:
   thymeleaf:
     cache: true
 
+
 mybatis-plus:
   type-aliases-package: com.zcq.travelweb.Mapper
   mapper-locations: classpath:mappers/*.xml

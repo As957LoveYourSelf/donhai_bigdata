@@ -8,7 +8,7 @@
             <!-- 未登录状态  -->
             <div class="login_out" th:if="${session.user == null}">
                 <a th:href="@{/user/toLogin}">登录</a>
-                <a th:href="@{/user/toRegister}">注册</a>
+                <a th:href="@{/register/toRegister}">注册</a>
             </div>
             <!-- 登录状态  -->
             <div class="login" th:if="${session.user!= null}">

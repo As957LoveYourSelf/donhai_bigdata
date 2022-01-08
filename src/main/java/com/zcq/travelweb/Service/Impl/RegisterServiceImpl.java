@@ -78,7 +78,7 @@ public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, User> imple
 
     @Override
     public boolean sendEmail(String email) {
-        String text = "<p>你好，欢迎注册网站!</p><p>请点击<a href='http://localhost:8080/user/activeEmail'>激活</a></p>"+"激活码："+Ruuid;
+        String text = "<p>你好，欢迎注册网站!</p><p>请点击<a href='http://localhost:8080/register/activeEmail'>激活</a></p>"+"激活码："+Ruuid;
         return MailUtils.sendMail(email,text,"注册激活"); //邮件发送成功
     }
 

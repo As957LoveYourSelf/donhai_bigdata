@@ -21,7 +21,7 @@
     			</div>
     			<div class="rg_form_center">
 					<!--注册表单-->
-    				<form id="registerForm" th:action="@{/user/UserRegister}" method="post" accept-charset="UTF-8">
+    				<form id="registerForm" th:action="@{/register/UserRegister}" method="post" accept-charset="UTF-8">
 						<!--提交处理请求的标识符-->
 						<input type="hidden" name="action" value="register">
 						<p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
@@ -89,11 +89,11 @@
     							</td>
     							<td class="td_right check">
     								<input type="text" id="check" name="check" class="check">
-    								<img height="32px" id="codeimg" th:src="@{/user/getRcode}" alt="" onclick="changeCheckCode()">
+    								<img height="32px" id="codeimg" th:src="@{/register/getRcode}" alt="" onclick="changeCheckCode()">
 									<script>
 										//图片点击事件
 										function changeCheckCode() {
-											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getRcode");
+											document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/register/getRcode");
 										}
 										function timestamp(url) {
 											const getTimestamp = new Date().getTime();

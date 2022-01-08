@@ -56,7 +56,6 @@ public class MyFavoriteController {
         return routeDetailController.toRouteDetail(rid,model,request);
     }
 
-    //TODO:根据线路名称和金额范围查询旅游路线
     @RequestMapping("/getFavoriteRank")
     public String getFavoriteRank(String rname,
                                   Double priceF,
