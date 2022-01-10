@@ -15,6 +15,7 @@
                 <span th:text="'Welcome, '+${session.user.getUsername()}" ></span>
                 <a th:href="'/favorite/GetMyFavorite?uid='+${session.user.uid}" class="collection">我的收藏</a>
                 <a th:href="'/user/person?uid='+${session.user.uid}" class="collection">我的</a>
+                <a class="collection" th:href="'/toecharts'" th:if="${session.user.username.toUpperCase().equals('ADIMIN')}">数据之窗</a>
                 <a th:href="@{/user/logout}">退出</a>
             </div>
         </div>

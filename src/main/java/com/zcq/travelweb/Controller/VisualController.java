@@ -46,11 +46,9 @@ public class VisualController {
         Integer[] times = timeService.showTime();
         Integer[] mouths = mouthService.showMouth();
         Integer[] provinces = provinceService.showProvince();
-        System.out.println(times.toString()+" "+mouths.toString()+" "+provinces.toString());
         map.put("times", times);
         map.put("mouths", mouths);
         map.put("provinces", provinces);
-        System.out.println(map);
         return map;
     }
 }

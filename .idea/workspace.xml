@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="添加了热门推荐侧边栏，并可直接链接至详情">
+    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复了收藏排行榜条件查询Bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/MyFavoriteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/MyFavoriteServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/VisualController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/VisualController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visual.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visual.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +59,6 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="SDKs" />
@@ -98,7 +104,8 @@
       <workItem from="1641638003936" duration="514000" />
       <workItem from="1641691776884" duration="3321000" />
       <workItem from="1641773382441" duration="19824000" />
-      <workItem from="1641808512491" duration="649000" />
+      <workItem from="1641808512491" duration="1136000" />
+      <workItem from="1641824188831" duration="1622000" />
     </task>
     <task id="LOCAL-00001" summary="修复了合并后的错误，当前运行正常">
       <created>1641460324507</created>
@@ -170,7 +177,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641806158971</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="修复了收藏排行榜条件查询Bug">
+      <created>1641809381311</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1641809381311</updated>
+    </task>
+    <task id="LOCAL-00012" summary="修复了收藏排行榜条件查询Bug">
+      <created>1641809408527</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1641809408527</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +219,7 @@
     <MESSAGE value="修复个人信息页面修改出现空指针报错的Bug" />
     <MESSAGE value="修复了未登录时不可查看收藏排行榜的Bug" />
     <MESSAGE value="添加了热门推荐侧边栏，并可直接链接至详情" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加了热门推荐侧边栏，并可直接链接至详情" />
+    <MESSAGE value="修复了收藏排行榜条件查询Bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复了收藏排行榜条件查询Bug" />
   </component>
 </project>

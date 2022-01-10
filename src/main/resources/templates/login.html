@@ -50,23 +50,23 @@
 					</label>
 					<div class="verify">
 						<tr>
-								<input   name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
-								<img height="32px" id="codeimg" th:src="@{/user/getcode}" alt="" onclick="changeCheckCode()">
-								<script type="text/javascript">
-                                    //图片点击事件
-                                    function changeCheckCode() {
-                                        document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
-                                    }
-                                    function timestamp(url) {
-                                        const getTimestamp = new Date().getTime();
-                                        if (url.indexOf("?") > -1) {
-                                            url = url + "&timestamp=" + getTimestamp
-                                        } else {
-                                            url = url + "?timestamp=" + getTimestamp
-                                        }
-                                        return url;
-                                    }
-								</script>
+							<input   name="check" type="text" th:placeholder="请输入验证码" autocomplete="off">
+							<img height="32px" id="codeimg" th:src="@{/user/getcode}" alt="" onclick="changeCheckCode()">
+							<script type="text/javascript">
+								//图片点击事件
+								function changeCheckCode() {
+									document.getElementById("codeimg").src = timestamp("http://127.0.0.1:8080/user/getcode");
+								}
+								function timestamp(url) {
+									const getTimestamp = new Date().getTime();
+									if (url.indexOf("?") > -1) {
+										url = url + "&timestamp=" + getTimestamp
+									} else {
+										url = url + "?timestamp=" + getTimestamp
+									}
+									return url;
+								}
+							</script>
 						</tr>
 					</div>
 					<div class="submit_btn">
