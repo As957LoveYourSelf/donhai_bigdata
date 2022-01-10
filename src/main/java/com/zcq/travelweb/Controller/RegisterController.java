@@ -35,7 +35,7 @@ public class RegisterController {
 
     @RequestMapping("/activeEmail")
     public String activeEmail(){
-        return "login";
+        return "activeEmail";
     }
 
     @GetMapping("/getRcode")
@@ -55,6 +55,7 @@ public class RegisterController {
                                String sex,
                                Model model,
                                @RequestParam(value = "check") String code) {
+        System.out.println(birthday);
        user.setName(name).setPassword(password).setUsername(username).
                 setBirthday(
                         registerService.strToDateLong(birthday)).

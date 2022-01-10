@@ -34,17 +34,11 @@
     <div th:include="header::header"></div>
     <section id="activeEmail_wrap">
         <div class="activeEmail-box">
-            <div class="activeEmail_inner">
-                <h1 class="h3 mb-3 font">邮箱激活</h1>
-            <div class="activeEmail-box-left">
-                <tr>
-                    <td class="td_left">
-                        <input type="text" id="activation" name="activation" placeholder="请输入激活码">
-                    </td>
-                    <td class="td_right">
-                        <button th:action="@{/active}">提交</button>
-                    </td>
-                </tr>
+            <div class="title">
+                <h1>邮箱激活</h1>
+            </div>
+            <input type="text" id="activation" name="activation" placeholder="请输入激活码">
+            <button th:action="@{/active}">提交</button>
             </div>
             </div>
         </div>

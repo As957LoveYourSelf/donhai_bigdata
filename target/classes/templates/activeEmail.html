@@ -2,9 +2,55 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Active Account</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册激活</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/activeEmail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!--导入angularJS文件-->
+    <script th:src="@{/js/angular.js}"></script>
+    <!--导入jquery-->
+    <script th:src="@{/js/jquery-3.3.1.js}"></script>
+    <script>
+    $("#activation").blur(function () {
+        //获取用户输入的激活码
+        var uuid = $("#activation").val();
+        //发送Ajax请求
+        var url="/active";
+        var param={"uuid":uuid};
+        $.post(url,param,function (data){},"json");
+    });
+</script>
 </head>
 <body>
+<!--引入头部-->
+    <div th:include="header::header"></div>
+    <section id="activeEmail_wrap">
+        <div class="activeEmail-box">
+            <div class="title">
+                <h1>邮箱激活</h1>
+            </div>
+            <input type="text" id="activation" name="activation" placeholder="请输入激活码">
+            <button th:action="@{/active}">提交</button>
+            </div>
+            </div>
+        </div>
+    </section>
+    <!--引入尾部-->
+    <div th:include="footer::footer"></div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!--导入布局js，共享header和footer-->
+    <script type="text/javascript" th:src="@{/js/include.js}"></script>
 
 </body>
 </html>
