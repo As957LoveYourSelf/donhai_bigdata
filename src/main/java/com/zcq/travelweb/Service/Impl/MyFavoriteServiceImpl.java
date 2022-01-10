@@ -86,8 +86,6 @@ public class MyFavoriteServiceImpl extends MppServiceImpl<MyFavoriteMapper, Favo
 
     @Override
     public List<TravelRoute> getFavoriteRankInfo(String rname, Double priceF, Double priceL) {
-        priceF = (priceF == null)?0:priceF;
-        priceL = (priceL == null)?Double.MAX_VALUE:priceF;
         QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
         if (rname != null){
             queryWrapper.like("rname", rname)

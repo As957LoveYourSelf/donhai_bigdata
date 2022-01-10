@@ -58,22 +58,21 @@ public class MyFavoriteController {
     //TODO:增加对不规范输入的处理
     @RequestMapping("/getFavoriteRank")
     public String getFavoriteRank(String rname,
-                                  Double priceF,
-                                  Double priceL,
+                                  @RequestParam(defaultValue = "") String priceF,
+                                  @RequestParam(defaultValue = "") String priceL,
                                   @RequestParam(defaultValue = "1") Integer pageNum,
                                   Model model){
         try {
-
+            Double pF = priceF.equals("")?0:Double.parseDouble(priceF);
+            Double pL = priceL.equals("")?Double.MAX_VALUE:Double.parseDouble(priceL);
             PageHelper.startPage(pageNum,10);
-            List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF, priceL);
+            List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, pF, pL);
             PageInfo<TravelRoute> pageInfo = new PageInfo<>(favoriteRankInfo);
-            String pf = priceF==null?"":String.valueOf(priceF);
-            String pl = priceL==null?"":String.valueOf(priceL);
             model.addAttribute("routes", favoriteRankInfo);
             model.addAttribute("pageInfo", pageInfo);
             model.addAttribute("pageurl",
                     "/favorite/getFavoriteRank?rname="
-                            +rname+"&priceF="+pf+"&priceL="+pl+"&pageNum=");
+                            +rname+"&priceF="+pF+"&priceL="+pL+"&pageNum=");
             return "/favoriterank";
         }catch (Exception e){
             model.addAttribute("routes", null);
