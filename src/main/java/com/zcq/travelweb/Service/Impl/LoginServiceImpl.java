@@ -6,11 +6,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zcq.travelweb.Data.User;
 import com.zcq.travelweb.Mapper.UserMapper;
 import com.zcq.travelweb.Utils.Md5Util;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Service

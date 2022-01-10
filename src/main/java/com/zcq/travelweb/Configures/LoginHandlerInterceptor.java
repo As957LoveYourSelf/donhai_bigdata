@@ -1,13 +1,11 @@
 package com.zcq.travelweb.Configures;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 
 public class LoginHandlerInterceptor implements HandlerInterceptor {
@@ -18,6 +16,8 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         Object user = request.getSession().getAttribute("user");
 //        System.out.println("Login PreHandle Work");
         if (user == null){
+//            HttpSession session = request.getSession();
+//            session.setAttribute("msg","No Login, Please Login First!");
             request.setAttribute("msg","No Login, Please Login First!");
             response.sendRedirect("/user/toLogin");
             return false;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@RequestMapping("/ModifyPage")
 public class ModifyController {
 
     @Autowired(required = false)
@@ -28,6 +29,7 @@ public class ModifyController {
         return "/modify";
     }
 
+    //TODO:添加修改功能
     @RequestMapping("/toModify")
     public String toModify(String username,
                            String password,
@@ -39,17 +41,12 @@ public class ModifyController {
                            HttpServletRequest request,
                            Model model){
         System.out.println(birthday);
+        //通过session获取user
         User user = (User) request.getSession().getAttribute("user");
         System.out.println(user);
         user.setUsername(username).setPassword(password).setEmail(email).setName(name).setTelephone(telephone)
                 .setBirthday(registerService.strToDateLong(birthday)).setSex(sex);
         System.out.println(user);
-//        this.user.setUid(user1.getUid()).setStatus(user1.getStatus()).setCode(user1.getCode());
-//        this.user.setName(name).setPassword(password).setUsername(username).
-//                setBirthday(registerService.strToDateLong(birthday)).
-//                setEmail(email).setSex(sex).setTelephone(telephone);
-//        System.out.println(this.user);
-//        boolean status = modifyService.UpdateUser(this.user);
         boolean status = modifyService.UpdateUser(user);
         if (status) {
                 model.addAttribute("msg", "修改成功");

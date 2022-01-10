@@ -4,18 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="添加了傻瓜式拦截器">
+    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复了验证码错误也可登录成功的Bug">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/InfoTXT/2022-01-08.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/InfoTXT/2022-01-08.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/LoginHandlerInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/LoginHandlerInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/ModifyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/ModifyController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/LoginServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/LoginServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/ModifyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/ModifyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/modify.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/modify.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/person.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/person.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/LoginHandlerInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/LoginHandlerInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/LoginServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/LoginServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RegisterServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/header.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +78,9 @@
     <property name="project.structure.side.proportion" value="0.24554707" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
@@ -102,6 +115,7 @@
       <workItem from="1641602578794" duration="18420000" />
       <workItem from="1641638003936" duration="514000" />
       <workItem from="1641691776884" duration="3321000" />
+      <workItem from="1641773382441" duration="16355000" />
     </task>
     <task id="LOCAL-00001" summary="修复了合并后的错误，当前运行正常">
       <created>1641460324507</created>
@@ -138,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641632642841</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="修复了验证码错误也可登录成功的Bug">
+      <created>1641773552714</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1641773552714</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,6 +183,14 @@
     <MESSAGE value="1.修复了收藏功能，现在不可以无限刷收藏了?_?||@_@||&#10;2.添加了邮箱激活注册功能，现在不可以胡来了（除非你是数据库管理员QvQ）&#10;3.合并并整理了分支（包括埋点功能），当前项目运行正常&#10;4.添加了一些TODO注释，可以用于项目后期优化" />
     <MESSAGE value="完善了收藏排行榜功能，提供根据关键字和价格范围查询旅游路线信息" />
     <MESSAGE value="添加了傻瓜式拦截器" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加了傻瓜式拦截器" />
+    <MESSAGE value="修复了验证码错误也可登录成功的Bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复了验证码错误也可登录成功的Bug" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="((RequestFacade)request).request" custom="org.apache.catalina.connector.RequestFacade" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

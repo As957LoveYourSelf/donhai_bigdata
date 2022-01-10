@@ -80,7 +80,7 @@
     								<label for="birthday">出生日期</label>
     							</td>
     							<td class="td_right">
-    								<input type="date" id="birthday" name="birthday">
+    								<input type="date" id="birthday" name="birthday" th:placeholder="请输入出生日期">
     							</td>
     						</tr>
     						<tr>
@@ -111,7 +111,7 @@
     							<td class="td_left"> 
     							</td>
     							<td class="td_right check"> 
-    								<button type="submit" class="submit">注册</button>
+    								<button id="registerSubmit" type="submit" class="submit">注册</button>
 									<span id="msg" style="color: red;"></span>
     							</td>
     						</tr>
@@ -194,7 +194,7 @@
 				function checkName(){
 				// 1、获取值
 				var name = $("#name").val();
-				var flag = (name.length >0) ? true:false;
+				var flag = (name.length > 0);
 				if (flag) {
 				//用户名合法
 				$("#name").css("border", "");
@@ -230,7 +230,7 @@
 				*/
 				function checkCheck(){
 				var check = $("#check").val();
-				var flag = (check.length >0) ? true:false;
+				var flag = (check.length > 0);
 				if (flag) {
 				//验证码合法
 				$("#check").css("border", "");
@@ -241,23 +241,14 @@
 				return flag;
 			}
 				$(function () {
-
 				$("#registerForm").submit(function () {
-
-					if (checkusername() && checkPassword() && checkemail() && checkName() && checkTelephone() && checkBirthday() && checkCheck()){
-						//    校验通过，发送Ajax请求，提交表单的数据
-						$.post("registUserServlet",$(this).serialize(),function (data) {
-
-						});
-					}
-					return false;
+					return checkusername() && checkPassword() && checkemail() && checkName() && checkTelephone() && checkCheck();
 				});
 				$("#username").blur(checkusername);
 				$("#password").blur(checkPassword);
 				$("#email").blur(checkemail);
 				$("#name").blur(checkName);
 				$("#telephone").blur(checkTelephone);
-				$("#birthday").blur(checkBirthday);
 				$("#check").blur(checkCheck);
 			});
 		</script>
