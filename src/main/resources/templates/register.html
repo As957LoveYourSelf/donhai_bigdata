@@ -244,11 +244,12 @@
 
 				$("#registerForm").submit(function () {
 
-					if (checkusername() && checkPassword() && checkemail() && checkName() && checkTelephone() && checkBirthday() && checkCheck()){
+					if (checkusername() && checkPassword() && checkemail() && checkName() && checkTelephone() && checkCheck()){
 						//    校验通过，发送Ajax请求，提交表单的数据
-						$.post("registUserServlet",$(this).serialize(),function (data) {
-
-						});
+						// $.post("registUserServlet",$(this).serialize(),function (data) {
+						//
+						// });
+						return true;
 					}
 					return false;
 				});
@@ -257,7 +258,7 @@
 				$("#email").blur(checkemail);
 				$("#name").blur(checkName);
 				$("#telephone").blur(checkTelephone);
-				$("#birthday").blur(checkBirthday);
+				// $("#birthday").blur(checkBirthday);
 				$("#check").blur(checkCheck);
 			});
 		</script>

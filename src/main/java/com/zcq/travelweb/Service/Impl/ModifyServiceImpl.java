@@ -5,7 +5,9 @@ import com.zcq.travelweb.Data.User;
 import com.zcq.travelweb.Mapper.UserMapper;
 import com.zcq.travelweb.Service.ModifyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ModifyServiceImpl  extends ServiceImpl<UserMapper, User> implements ModifyService {
 
 
