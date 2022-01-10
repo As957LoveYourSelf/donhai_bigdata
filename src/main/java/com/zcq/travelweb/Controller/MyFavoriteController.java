@@ -90,8 +90,8 @@ public class MyFavoriteController {
                                 @RequestParam(defaultValue = "1") Integer pageNum,
                                 Model model){
         System.out.println(uid);
-        if (pageNum == null){
-            pageNum = 1;
+        if(pageNum == null){
+            pageNum=1;
         }
         if (pageNum <= 0){
             pageNum = 1;
