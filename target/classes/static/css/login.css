@@ -3,6 +3,7 @@
     min-width: 1300px;
     overflow: hidden;
     position: relative;
+    background-size: auto 1300px;
 }
 
 .login-box {
