@@ -63,14 +63,17 @@ public class MyFavoriteController {
                                   @RequestParam(defaultValue = "1") Integer pageNum,
                                   Model model){
         try {
+
             PageHelper.startPage(pageNum,10);
             List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF, priceL);
             PageInfo<TravelRoute> pageInfo = new PageInfo<>(favoriteRankInfo);
+            String pf = priceF==null?"":String.valueOf(priceF);
+            String pl = priceL==null?"":String.valueOf(priceL);
             model.addAttribute("routes", favoriteRankInfo);
             model.addAttribute("pageInfo", pageInfo);
             model.addAttribute("pageurl",
                     "/favorite/getFavoriteRank?rname="
-                            +rname+"&priceF="+priceF+"&priceL="+priceL+"&pageNum=");
+                            +rname+"&priceF="+pf+"&priceL="+pl+"&pageNum=");
             return "/favoriterank";
         }catch (Exception e){
             model.addAttribute("routes", null);

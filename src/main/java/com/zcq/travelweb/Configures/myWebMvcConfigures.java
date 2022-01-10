@@ -25,7 +25,7 @@ public class myWebMvcConfigures implements WebMvcConfigurer {
                         "/toroutelist",
                         "/toroutedetail",
                         "/favorite/getFavoriteRank",
-                        "/favorite/getFavoriteRank?*",
+                        "/favorite/getFavoriteRank?**",
                         "/favorite/cancelFavorite",
                         "/favorite/addFavorite",
                         "/user/getcode",
