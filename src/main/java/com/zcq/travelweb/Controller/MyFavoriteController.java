@@ -39,7 +39,6 @@ public class MyFavoriteController {
         return routeDetailController.toRouteDetail(rid,model,request);
     }
 
-    //TODO:完善取消收藏功能，并在前端页面提供响应式按钮显示
     //TODO:可改进的地方：利用session替代uid获取用户登录信息
     @RequestMapping("/cancelFavorite")
     public String cancelFavorite(Integer rid,
@@ -56,15 +55,18 @@ public class MyFavoriteController {
         return routeDetailController.toRouteDetail(rid,model,request);
     }
 
+    //TODO:增加对不规范输入的处理
     @RequestMapping("/getFavoriteRank")
     public String getFavoriteRank(String rname,
-                                  Double priceF,
-                                  Double priceL,
+                                  String priceF,
+                                  String priceL,
                                   @RequestParam(defaultValue = "1") Integer pageNum,
                                   Model model){
         try {
+            Double priceF_ = priceF.equals("null")?null:Double.valueOf(priceF.trim());
+            Double priceL_ = priceL.equals("null")?null:Double.valueOf(priceL.trim());
             PageHelper.startPage(pageNum,10);
-            List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF, priceL);
+            List<TravelRoute> favoriteRankInfo = myFavoriteService.getFavoriteRankInfo(rname, priceF_, priceL_);
             PageInfo<TravelRoute> pageInfo = new PageInfo<>(favoriteRankInfo);
             model.addAttribute("routes", favoriteRankInfo);
             model.addAttribute("pageInfo", pageInfo);
@@ -72,7 +74,8 @@ public class MyFavoriteController {
                     "/favorite/getFavoriteRank?rname="
                             +rname+"&priceF="+priceF+"&priceL="+priceL+"&pageNum=");
             return "/favoriterank";
-        }catch (Exception e){
+        }
+        catch (Exception e){
             model.addAttribute("routes", null);
             e.printStackTrace();
         }

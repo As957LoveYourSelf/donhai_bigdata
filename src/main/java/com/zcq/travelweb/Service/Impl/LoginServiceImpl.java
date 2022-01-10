@@ -6,16 +6,20 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zcq.travelweb.Data.User;
 import com.zcq.travelweb.Mapper.UserMapper;
 import com.zcq.travelweb.Utils.Md5Util;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Service
 public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements LoginService {
 
+
+
     @Override
-    public String Login(String username, String password, HttpServletRequest request){
+    public Map<String, Object> Login(String username, String password, Map<String,Object> map){
         //具体业务
         //从数据库查询该用户，如果没有该用户，返回错误，报告无用户
         //查询到用户，并查询对应密码，密码正确则返回true，否则返回错误，报告密码错误
@@ -25,10 +29,12 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
 
         User user = this.selectUserByUid(username);
         if (user == null){
-            return "no_user";
+            map.put("status", "no_user");
+            return map;
         }
         if (user.getStatus() == '0'){
-            return "no_register";
+            map.put("status", "no_register");
+            return map;
         }
         String md5Password = null;
         try {
@@ -37,11 +43,12 @@ public class LoginServiceImpl extends ServiceImpl<UserMapper, User> implements L
             System.out.println("EncodeError!");
         }
         if (password.equals(md5Password)){
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            return "login_ok";
+            map.put("status", "login_ok");
+            map.put("user", user);
+            return map;
         }else {
-            return "password_error";
+            map.put("status","password_error");
+            return map;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.zcq.travelweb.Controller;
 
+import com.zcq.travelweb.Data.User;
 import com.zcq.travelweb.Service.LoginService;
 import com.zcq.travelweb.Utils.CodeUtils;
 import com.zcq.travelweb.Utils.Md5Util;
@@ -15,6 +16,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -24,6 +26,9 @@ public class LoginController {
     LoginService loginService;
     private String Rcode = null;
     private String info = null;
+
+    @Autowired
+    private Map<String, Object> map;
 
     @RequestMapping("/toLogin")
     public String toLogin(){
@@ -57,11 +62,15 @@ public class LoginController {
                         HttpServletRequest request, Model model) throws Exception {
         System.out.println(username+" "+password+" "+code);
         String pd = Md5Util.encodeByMd5(password);
-        String status = loginService.Login(username,pd,request);
+        Map<String, Object> loginInfo = loginService.Login(username, pd, map);
+        String status = (String) loginInfo.get("status");
         String code_status = loginService.checkcode(code,this.Rcode);
         System.out.println(status+" "+code_status);
         if (status.equals("login_ok") && code_status.equals("check_ok")){
             WriteInfo(username);
+            User user = (User) loginInfo.get("user");
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
             return "redirect:/toIndex";
         }
         if (status.equals("login_ok") && code_status.equals("check_error")){
