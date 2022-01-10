@@ -2,6 +2,7 @@ package com.zcq.travelweb.Service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
 import com.zcq.travelweb.Data.TravelRoute;
 import com.zcq.travelweb.Mapper.RouteMapper;
 import com.zcq.travelweb.Service.RouteListService;
@@ -49,6 +50,25 @@ public class RouteListServiceImpl extends ServiceImpl<RouteMapper, TravelRoute> 
         QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("count");
         return routeMapper.selectList(queryWrapper);
+    }
+
+    //根据num的数值查询前num名旅游路线
+    @Override
+    public List<TravelRoute> getHotRoutes(int num) {
+        List<TravelRoute> routeList = null;
+        try {
+            PageHelper.startPage(1,num);
+            QueryWrapper<TravelRoute> queryWrapper = new QueryWrapper<>();
+            queryWrapper.orderByDesc("count");
+            routeList = routeMapper.selectList(queryWrapper);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            PageHelper.clearPage();
+        }
+        return routeList;
     }
 
     @Override

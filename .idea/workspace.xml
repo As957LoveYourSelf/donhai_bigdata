@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复个人信息页面修改出现空指针报错的Bug">
+    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复了未登录时不可查看收藏排行榜的Bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Configures/myWebMvcConfigures.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/MyFavoriteController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/myfavorite.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/myfavorite.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/MyFavoriteController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/myfavorite.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/myfavorite.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RouteListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/RouteListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RouteListServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/Impl/RouteListServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/RouteListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Service/RouteListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/route_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/route_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/IndexController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/IndexController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RouteListController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/RouteListController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RouteListServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Service/Impl/RouteListServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/route_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/route_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +103,7 @@
       <workItem from="1641602578794" duration="18420000" />
       <workItem from="1641638003936" duration="514000" />
       <workItem from="1641691776884" duration="3321000" />
-      <workItem from="1641773382441" duration="17949000" />
+      <workItem from="1641773382441" duration="19364000" />
     </task>
     <task id="LOCAL-00001" summary="修复了合并后的错误，当前运行正常">
       <created>1641460324507</created>
@@ -151,7 +154,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641802973254</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="修复了未登录时不可查看收藏排行榜的Bug">
+      <created>1641804682404</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1641804682404</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,13 +187,7 @@
     <MESSAGE value="添加了傻瓜式拦截器" />
     <MESSAGE value="修复了验证码错误也可登录成功的Bug" />
     <MESSAGE value="修复个人信息页面修改出现空指针报错的Bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复个人信息页面修改出现空指针报错的Bug" />
-  </component>
-  <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="SpringBootApplicationConfigurationType">
-        <watch expression="((RequestFacade)request).request" custom="org.apache.catalina.connector.RequestFacade" />
-      </configuration>
-    </watches-manager>
+    <MESSAGE value="修复了未登录时不可查看收藏排行榜的Bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修复了未登录时不可查看收藏排行榜的Bug" />
   </component>
 </project>

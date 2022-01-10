@@ -83,11 +83,16 @@
                         <span>热门推荐</span>
                     </div>
                     <ul>
-                        <li>
-                            <div class="left"><img th:src="@{/images/04-search_09.jpg}" alt=""></div>
+                        <li th:each="hot:${hotRoutes}">
+                            <div class="left"><img th:src="${hot.rimage}" alt=""></div>
                             <div class="right">
-                                <p>desc</p>
-                                <p>网付价<span>&yen;<span>price</span>起</span>
+                                <p>
+                                    <a th:href="'/toroutedetail?routeid='+${hot.rid}"
+                                       th:utext="${hot.rname}">
+                                    </a>
+                                </p>
+                                <p>网付价
+                                    <span>&yen;<span th:utext="${hot.price}"></span>起</span>
                                 </p>
                             </div>
                         </li>

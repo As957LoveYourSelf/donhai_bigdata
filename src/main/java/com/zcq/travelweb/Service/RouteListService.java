@@ -9,6 +9,7 @@ public interface RouteListService extends IService<TravelRoute> {
     List<TravelRoute> getRoutesByCategoryId(Integer cid);
     List<TravelRoute> getRoutesByKeyValue(String value);
     List<TravelRoute> getHotRoutes();
+    List<TravelRoute> getHotRoutes(int num);
     List<TravelRoute> getHotRoutesBy(Integer cid);
     List<TravelRoute> getThemeRoutes();
     List<TravelRoute> getNewestRoutes();
