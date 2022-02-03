@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="修复了收藏排行榜条件查询Bug">
+    <list default="true" id="f1a546b0-7d29-4f82-8ae7-1c6d0e6d5504" name="Changes" comment="添加了管理员权限，现在只有管理员才能查看数据分析页面">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/VisualController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/zcq/travelweb/Controller/VisualController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/visual.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/visual.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Configures/myWebMvcConfigures.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/zcq/travelweb/Controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/register.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/modify.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/modify.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/route_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/route_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/css/register.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/css/register.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/route_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/route_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +104,8 @@
       <workItem from="1641691776884" duration="3321000" />
       <workItem from="1641773382441" duration="19824000" />
       <workItem from="1641808512491" duration="1136000" />
-      <workItem from="1641824188831" duration="1622000" />
+      <workItem from="1641824188831" duration="3176000" />
+      <workItem from="1641860028309" duration="3285000" />
     </task>
     <task id="LOCAL-00001" summary="修复了合并后的错误，当前运行正常">
       <created>1641460324507</created>
@@ -191,7 +191,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641809408527</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="添加了管理员权限，现在只有管理员才能查看数据分析页面">
+      <created>1641826129578</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1641826129578</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +227,7 @@
     <MESSAGE value="修复了未登录时不可查看收藏排行榜的Bug" />
     <MESSAGE value="添加了热门推荐侧边栏，并可直接链接至详情" />
     <MESSAGE value="修复了收藏排行榜条件查询Bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="修复了收藏排行榜条件查询Bug" />
+    <MESSAGE value="添加了管理员权限，现在只有管理员才能查看数据分析页面" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加了管理员权限，现在只有管理员才能查看数据分析页面" />
   </component>
 </project>
